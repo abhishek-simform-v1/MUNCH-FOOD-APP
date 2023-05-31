@@ -1,0 +1,31 @@
+@font-face {
+    font-family: F_bold;
+    src: url(./../shared/fonts/Poppins-Bold.ttf);
+}
+@font-face {
+    font-family: logo;
+    src: url(./../shared/fonts/Poppins-Black.ttf);
+}
+@font-face {
+    font-family: F_light;
+    src: url(./../shared/fonts/Poppins-Regular.ttf);
+}
+@font-face {
+    font-family: F_regular;
+    src: url(./../shared/fonts/Poppins-SemiBold.ttf);
+}
+
+:root{
+    --first_color:#FFFAF4;
+    --secondory_color:#FFE3B8;
+    --accent_color:#221300;
+    --text-gray-color:#3a3a3a;
+    --font-large:28px;
+    --font-medium:18px;
+    --font-small:12px;
+}
+
+
+body{
+    font-family: F_light;
+}
