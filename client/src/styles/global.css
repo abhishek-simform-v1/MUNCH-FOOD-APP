@@ -14,18 +14,33 @@
     font-family: F_regular;
     src: url(./../shared/fonts/Poppins-SemiBold.ttf);
 }
-
 :root{
     --first_color:#FFFAF4;
     --secondory_color:#FFE3B8;
-    --accent_color:#221300;
+    --accent_color:#2F4858;
     --text-gray-color:#3a3a3a;
+    --logo-color:#FE7F2D;
+    --green-light-color:#CDE4D6;
+    --green-dark-color:#32B768;
     --font-large:28px;
     --font-medium:18px;
     --font-small:12px;
+    --sm-border-radius:5px;
+    --lg-border-radius:10px;
+    --xl-border-radius:15px;
+    --xxl-border-radius:20px;
+    --xxxl-border-radius:25px;
+    --x4l-border-radius:4rem;
+    
 }
 
 
 body{
     font-family: F_light;
+    background-color: var(--first_color) !important;
+}
+.App{
+    max-width: 1400px;
+    margin: 0 auto;
+  
 }

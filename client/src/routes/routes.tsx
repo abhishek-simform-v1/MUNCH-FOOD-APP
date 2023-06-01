@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Hero from "../layouts/landingLayoutsFeature/pages/Hero";
+import Hero from "../layouts/landingLayoutsFeature/pages/Home";
 import About from "../layouts/landingLayoutsFeature/pages/About";
 import Recipe from "../layouts/landingLayoutsFeature/pages/Recipe";
 import Navbar from "../shared/navbar/Navbar";

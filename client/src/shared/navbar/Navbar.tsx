@@ -4,39 +4,55 @@ import {
   NavContainer,
   NavLinkContainer,
   NavLogo,
-  NavLink,
+  NavbarButton,
 } from "./NavabarStyle";
-import { Link, useNavigate } from "react-router-dom";
+import "./style.css";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button, Paragraph } from "../../styleComponents/utils/utils";
 const Navbar = () => {
-  const [active, setActive] = useState(false);
   const navigate = useNavigate();
+  const [isActive, setActive] = useState(true);
+
   return (
-    <NavContainer>
-      <NavLogo>
-        <img src={logo} alt="logo" className="logo" />
-        <Paragraph>munch</Paragraph>
-      </NavLogo>
-      <NavLinkContainer>
-        <NavLink
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Home
-        </NavLink>
-        <NavLink
-          onClick={() => {
-            navigate("/about");
-          }}
-        >
-          About
-        </NavLink>
-        <NavLink onClick={() => navigate("/recipe")}>Recipe</NavLink>
-        <NavLink onClick={() => navigate("/blog")}>Blog</NavLink>
-      </NavLinkContainer>
-      <Button>fdfdfn</Button>
-    </NavContainer>
+    <>
+      {isActive ? (
+        <NavContainer>
+          <NavLogo>
+            <img src={logo} alt="logo" className="logo" />
+            <Paragraph>munch</Paragraph>
+          </NavLogo>
+          <NavLinkContainer>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "inactive")}
+              to={"/"}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "inactive")}
+              to={"/about"}
+            >
+              About
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "inactive")}
+              to={"/recipe"}
+            >
+              Recipe
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "inactive")}
+              to={"/blog"}
+            >
+              Blog
+            </NavLink>
+          </NavLinkContainer>
+          <NavbarButton>Sign In</NavbarButton>
+        </NavContainer>
+      ) : (
+        <div>=</div>
+      )}
+    </>
   );
 };
 

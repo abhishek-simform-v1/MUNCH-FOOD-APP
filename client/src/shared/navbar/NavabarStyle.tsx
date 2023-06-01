@@ -1,10 +1,17 @@
 import styled from "styled-components";
 export const NavContainer = styled.div`
-  height: 100%;
   display: flex;
-  padding: 20px 50px;
+  z-index: 999;
+  width: 100%;
+  max-width: 1400px;
+  height: 80px;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  background-color: var(--first_color);
+  padding: 2rem;
+  border-radius: 2rem;
+
   @media (max-width: 568px) {
     /* flex-direction: column; */
   }
@@ -17,20 +24,24 @@ export const NavLinkContainer = styled.div`
   justify-content: space-between;
   justify-content: center;
 
-  button {
-    background-color: #ff0000 !important;
-  }
   @media (max-width: 768px) {
   }
 `;
-export const NavLink = styled.span`
+export const NavbarButton = styled.button`
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+  justify-content: center;
+  color: var(--first_color);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: ${({ activeLink }) =>
-    activeLink ? " #e6007e" : "var(--text-gray-color)"};
-  /* color: ({ active }) => active ? #e6007e : var(--text-gray-color); */
-  font-family: f_regular;
-  cursor: pointer;
+  padding: 0.8rem 1rem;
+
+  font-size: 18px;
+
+  border-radius: var(--lg-border-radius);
+  background-color: var(--logo-color);
+  @media (max-width: 768px) {
+  }
 `;
 
 export const NavLogo = styled.div`
@@ -47,9 +58,9 @@ export const NavLogo = styled.div`
   p {
     position: absolute;
     font-size: 20px;
-    color: red;
+    color: var(--logo-color);
     background-color: white;
-    bottom: 5%;
+    bottom: -100%;
   }
 
   @media (max-width: 768px) {

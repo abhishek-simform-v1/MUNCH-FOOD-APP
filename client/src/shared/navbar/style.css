@@ -1,0 +1,27 @@
+.active{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  color: var(--first_color);
+    /* color: ({ active }) => active ? #e6007e : var(--text-gray-color); */
+    font-family: f_regular;
+    cursor: pointer;
+    color: var(--logo-color);
+font-size: 14px;
+}
+.inactive{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-gray-color);
+font-size: 14px;
+  
+    /* color: ({ active }) => active ? #e6007e : var(--text-gray-color); */
+    font-family: f_regular;
+    cursor: pointer;
+    transition: 0.3s all
+}
+.inactive:hover{
+
+    color: var(--logo-color);
+  
+  
+}
