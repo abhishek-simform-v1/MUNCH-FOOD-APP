@@ -1,8 +1,7 @@
 import React from "react";
-import PopularDishes from "../../components/PopularDishesContainer";
 
 const Recipe = () => {
-  return <PopularDishes />;
+  return <h1>recipe</h1>;
 };
 
 export default Recipe;

@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import style from "./styles/dishcard.module.css";
+import { Title } from "../../styleComponents/utils/utils";
 type Props = {
   img: string;
 };
@@ -10,11 +11,10 @@ const Card = (props: Props) => {
       <img src={img} alt="" />
       <div className={style.cardContent}>
         <h2>Card Heading</h2>
+        <span className={style.backDrop}></span>
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-          exercitationem iste, voluptatum, quia explicabo laboriosam rem
-          adipisci voluptates cumque, veritatis atque nostrum corrupti ipsa
-          asperiores harum? Dicta odio aut hic.
+          exercitationem iste, voluptatum.
         </p>
         <a href="#" className={style.button}>
           Find out more

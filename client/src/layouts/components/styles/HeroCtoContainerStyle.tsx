@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import heroImg from "./../../../assets/menu.png";
+
 export const HeroContainer = styled.div`
   height: 100%;
   display: flex;
@@ -6,19 +8,21 @@ export const HeroContainer = styled.div`
   align-items: center;
   margin-top: 3.5rem;
   padding: 0rem 5rem 0rem;
-  border-radius: var(--x4l-border-radius);
   position: relative;
   justify-content: space-between;
-  background: linear-gradient(145deg, var(--accent_color), var(--logo-color));
+  /* border: 12px solid var(--secondory_color); */
+  border-radius: var(--x4l-border-radius);
+  /* background: linear-gradient(145deg, var(--accent_color), var(--logo-color)); */
   @media (max-width: 1024px) {
-    padding: 2rem 2.5rem 0rem;
-  }
-  @media (max-width: 768px) {
+    padding: 0rem 2.5rem 0rem;
     flex-direction: column;
   }
+  @media (max-width: 768px) {
+    padding: 0rem 1.5rem 0rem;
+  }
   @media (max-width: 568px) {
+    padding: 0rem 0.5rem 0rem;
     border-radius: 0;
-    width: 100vw;
   }
 `;
 export const HeroTextContainer = styled.div`
@@ -26,39 +30,18 @@ export const HeroTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 2rem;
+  width: 50%;
+
   align-items: flex-start;
-  @media (max-width: 768px) {
+  & p {
+    color: var(--accent_color);
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
     align-items: center;
   }
 `;
-export const HeroButton = styled.button`
-  background: ${(props) => props.color};
-  color: var(--first_color);
-  padding: 0.8rem 1rem;
 
-  border: 2px solid ${(props) => props.color};
-  font-size: var(--font-medium);
-  cursor: pointer;
-  moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-
-  border-radius: var(--x4l-border-radius);
-  &:hover {
-    moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-    background: var(--accent_color);
-    background: linear-gradient(145deg, var(--accent_color), var(--logo-color));
-  }
-  @media (max-width: 1024px) {
-  }
-  @media (max-width: 768px) {
-  }
-`;
 export const HeroButtons = styled.button`
   display: flex;
   align-items: center;
@@ -66,7 +49,8 @@ export const HeroButtons = styled.button`
   gap: 1rem;
 `;
 export const ImgContainer = styled.div`
-  margin-bottom: -0.2rem;
+  display: flex;
+  place-content: center;
   position: relative;
 `;
 export const HeroTitle = styled.p`
@@ -75,42 +59,24 @@ export const HeroTitle = styled.p`
   line-height: 1.2;
   font-weight: 900;
   font-family: f_bold;
-  color: var(--first_color);
+  color: var(--accent_color);
   span {
     color: var(--logo-color);
   }
-  @media (max-width: 768px) {
-    text-align: center;
-    font-size: 35px;
-  }
-  @media (max-width: 568px) {
-    text-align: center;
-  }
-`;
-export const Tagline = styled.p`
-  font-size: 18px;
-  line-height: 1.5;
-  width: 70%;
-  letter-spacing: 1.1px;
-  color: var(--first_color);
-  font-family: f_light;
-  @media (max-width: 768px) {
-    text-align: center;
-
-    font-size: 14px;
-  }
-  @media (max-width: 568px) {
-    text-align: center;
-    width: 100%;
-  }
-`;
-export const ImgContainerImg = styled.img`
-  width: 400px;
-
   @media (max-width: 1024px) {
+    text-align: center;
+  }
+  @media (max-width: 568px) {
+    text-align: center;
+  }
+`;
+
+export const ImgContainerImg = styled.img`
+  width: 100%;
+  /* @media (max-width: 1024px) {
     width: 300px;
   }
   @media (max-width: 768px) {
     width: 200px;
-  }
+  } */
 `;

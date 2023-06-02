@@ -18,13 +18,33 @@
     --first_color:#FFFAF4;
     --secondory_color:#FFE3B8;
     --accent_color:#2F4858;
-    --text-gray-color:#3a3a3a;
     --logo-color:#FE7F2D;
     --green-light-color:#CDE4D6;
     --green-dark-color:#32B768;
-    --font-large:28px;
-    --font-medium:18px;
-    --font-small:12px;
+    --title_1440:50px;
+    --title_1024:40px;
+    --title_768:36px;
+    --title_576:32px;
+    --title_400:28px;
+    --title_360:26px;
+    --subtitle_1440:40px;
+    --subtitle_1024:36px;
+    --subtitle_768:32px;
+    --subtitle_576:28px;
+    --subtitle_400:24px;
+    --subtitle_360:22px;
+    --paragraph_1440:18px;
+    --paragraph_1024:16px;
+    --paragraph_768:16px;
+    --paragraph_576:16px;
+    --paragraph_400:14px;
+    --paragraph_360:12px;
+    --tagline_1440:20px;
+    --tagline_1024:20px;
+    --tagline_768:18px;
+    --tagline_576:16px;
+    --tagline_400:14px;
+    --tagline_360:14px;
     --sm-border-radius:5px;
     --lg-border-radius:10px;
     --xl-border-radius:15px;
@@ -44,3 +64,20 @@ body{
     margin: 0 auto;
   
 }
+.herobg{
+    background: url('./../assets/menu.png');
+    background-position: end;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: right bottom
+}
+
+@media only screen and (max-width: 600px) {
+    .herobg{
+        background: none
+    }
+  }
+
+
+
+

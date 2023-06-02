@@ -3,6 +3,7 @@ import Hero from "../layouts/landingLayoutsFeature/pages/Home";
 import About from "../layouts/landingLayoutsFeature/pages/About";
 import Recipe from "../layouts/landingLayoutsFeature/pages/Recipe";
 import Navbar from "../shared/navbar/Navbar";
+import Blog from "../layouts/landingLayoutsFeature/pages/Blog";
 /** import all components */
 
 /** root routes */
@@ -11,7 +12,7 @@ export const routerOfApp = createBrowserRouter([
     path: "/",
     element: (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <Hero />
       </>
     ),
@@ -20,7 +21,7 @@ export const routerOfApp = createBrowserRouter([
     path: "/about",
     element: (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <About />
       </>
     ),
@@ -29,7 +30,7 @@ export const routerOfApp = createBrowserRouter([
     path: "/recipe",
     element: (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <Recipe />,
       </>
     ),
@@ -38,8 +39,8 @@ export const routerOfApp = createBrowserRouter([
     path: "/blog",
     element: (
       <>
-        <Navbar />
-        <h1>blog</h1>,
+        {/* <Navbar /> */}
+        <Blog />
       </>
     ),
   },

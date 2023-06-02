@@ -1,8 +1,10 @@
 import React from "react";
 import { MainContainer } from "../../../styleComponents/utils/utils";
 import HeroCtoContainer from "../../components/HeroCtoContainer";
-import PopularDishes from "../../components/PopularDishesContainer";
+
 import BlogModal from "../../components/BlogModal";
+import MenuSection from "../../components/MenuSection";
+import FoodRecipesCatogary from "../../components/FoodRecipesCatogary";
 
 const Hero = () => {
   return (
@@ -11,10 +13,13 @@ const Hero = () => {
         <HeroCtoContainer />
       </MainContainer>
       <MainContainer>
-        <PopularDishes />
+        <MenuSection />
       </MainContainer>
       <MainContainer>
         <BlogModal />
+      </MainContainer>
+      <MainContainer>
+        <FoodRecipesCatogary />
       </MainContainer>
     </>
   );
