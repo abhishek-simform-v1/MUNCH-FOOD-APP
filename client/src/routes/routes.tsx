@@ -1,64 +1,60 @@
-import { createBrowserRouter } from "react-router-dom";
-import Hero from "../layouts/landingLayoutsFeature/pages/Home";
-import About from "../layouts/landingLayoutsFeature/pages/About";
-import Recipe from "../layouts/landingLayoutsFeature/pages/Recipe";
-import Navbar from "../shared/navbar/Navbar";
-import Blog from "../layouts/landingLayoutsFeature/pages/Blog";
+import { createBrowserRouter } from 'react-router-dom';
+import Home from '../layouts/pages/Home';
+import About from '../layouts/pages/About';
+import Recipe from '../layouts/pages/Recipe';
+import Blog from '../layouts/pages/Blog';
+
 /** import all components */
 
 /** root routes */
 export const routerOfApp = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <>
-        {/* <Navbar /> */}
-        <Hero />
+        <Home />
       </>
     ),
   },
   {
-    path: "/about",
+    path: '/about',
     element: (
       <>
-        {/* <Navbar /> */}
         <About />
       </>
     ),
   },
   {
-    path: "/recipe",
+    path: '/recipe',
     element: (
       <>
-        {/* <Navbar /> */}
         <Recipe />,
       </>
     ),
   },
   {
-    path: "/blog",
+    path: '/blog',
     element: (
       <>
-        {/* <Navbar /> */}
         <Blog />
       </>
     ),
   },
   {
-    path: "/register",
+    path: '/signup',
     element: <h1>register</h1>,
   },
   {
-    path: "/singin",
+    path: '/singin',
     element: <h1>singin</h1>,
   },
   {
-    path: "/dashboard",
+    path: '/dashboard',
     element: <h1>dashboard</h1>,
   },
 
   {
-    path: "*",
+    path: '*',
     element: <h1>pagenotfound</h1>,
   },
 ]);

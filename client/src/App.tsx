@@ -1,7 +1,6 @@
-import { RouterProvider } from "react-router-dom";
-import { routerOfApp } from "./routes/routes";
-import "./styles/global.css";
-import { MainContainer } from "./styleComponents/utils/utils";
+import { RouterProvider } from 'react-router-dom';
+import { routerOfApp } from './routes/routes';
+import './styles/global.css';
 
 RouterProvider;
 function App() {
