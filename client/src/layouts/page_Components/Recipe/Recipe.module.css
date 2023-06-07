@@ -1,0 +1,11 @@
+.mainContainer{
+    display: flex;
+    justify-content: space-between;
+
+    gap: 1rem;
+}
+@media only screen and (max-width: 768px) {
+    .mainContainer {
+      flex-direction: column;
+    }
+  }

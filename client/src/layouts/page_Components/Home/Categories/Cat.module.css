@@ -1,0 +1,37 @@
+
+.catItems{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    height: 100%;
+}
+.catItem{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--secondary_transparent);
+    padding: 1rem;
+    border-radius: var(--lg_border_radius);
+    transition: all 0.4s;
+cursor: pointer;
+}
+.catItem:hover{
+    background-color: var(--secondary_color);
+}
+
+.cat{
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media only screen and (max-width: 1024px) {
+    .cat{
+    flex-direction: column;
+    }
+}

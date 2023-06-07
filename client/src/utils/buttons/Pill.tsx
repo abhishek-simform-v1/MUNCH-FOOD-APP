@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 type pillText = {
   children: ReactNode;
 };
@@ -10,12 +10,12 @@ const Pill = ({ children }: pillText) => {
     color: var(--accent_color);
     display: inline;
     border-radius: var(--xxl_border_radius);
-    padding: 7px 10px;
-    font-size: 10px;
     align-items: center;
-    gap: 1em;
+    gap: 0.5em;
     display: flex;
     cursor: pointer;
+    height: fit-content;
+    padding: 7px 10px;
     font-weight: 700;
   `;
 

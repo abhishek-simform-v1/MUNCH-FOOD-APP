@@ -48,6 +48,7 @@
   --tagline_400: 14px;
   --tagline_360: 14px;
   --span: 10px;
+  --sm_border_radius: 5px;
   --lg_border_radius: 10px;
   --xl_border_radius: 15px;
   --xxl_border_radius: 4rem;
@@ -57,17 +58,14 @@ body {
   font-family: F_light;
   background-color: var(--first_color) !important;
 }
-.App {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 120px 0px;
+
+.Title{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.herobg {
-  background: url('./../assets/menu.png');
-  background-position: end;
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position: right bottom;
+*{
+  outline: 1px solid #000 !important;
 }
 
 @media only screen and (max-width: 600px) {
