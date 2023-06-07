@@ -59,13 +59,10 @@ body {
   background-color: var(--first_color) !important;
 }
 
-.Title{
+.Title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-*{
-  outline: 1px solid #000 !important;
 }
 
 @media only screen and (max-width: 600px) {

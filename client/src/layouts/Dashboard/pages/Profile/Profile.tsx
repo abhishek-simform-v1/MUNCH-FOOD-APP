@@ -1,11 +1,7 @@
-import Sidebar from "../../../../shared/sidebar/Sidebar";
-import FormDisabledDemo from "../Form/Form";
+import Sidebar from '../../../../shared/sidebar/Sidebar';
+import FormDisabledDemo from '../../components/Form/RecipeForm';
 const Profile = () => {
-  return (
-    <Sidebar>
-      <FormDisabledDemo />
-    </Sidebar>
-  );
+  return <h1>profile</h1>;
 };
 
 export default Profile;

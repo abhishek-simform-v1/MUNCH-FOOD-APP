@@ -50,7 +50,7 @@ const Header = () => {
             to={'/'}
           >
             <svg
-              fill="var(--accent_color)"
+              fill="#213234"
               height="32px"
               width="32px"
               version="1.1"
@@ -81,7 +81,7 @@ const Header = () => {
             to={'/about'}
           >
             <svg
-              fill="var(--accent_color)"
+              fill="#213234"
               version="1.1"
               id="Layer_1"
               xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@ const Header = () => {
             to={'/about'}
           >
             <svg
-              fill="var(--accent_color)"
+              fill="#213234"
               version="1.1"
               id="Layer_1"
               xmlns="http://www.w3.org/2000/svg"
