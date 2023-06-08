@@ -1,14 +1,14 @@
-import { ReactNode, useRef, useState } from 'react';
-import styled from 'styled-components';
-import style from './style.module.css';
+import { ReactNode, useRef, useState } from "react";
+import styled from "styled-components";
+import style from "./style.module.css";
 
 type props = {
   children?: ReactNode;
 };
-import menu from './../../assets/icons/menu.svg';
-import { NavLink } from 'react-router-dom';
-import MobileSidebar from './MobileSidebar';
-import DesktopSidebar from './DesktopSidebar';
+import menu from "./../../assets/icons/menu.svg";
+import { NavLink } from "react-router-dom";
+import MobileSidebar from "./MobileSidebar";
+import DesktopSidebar from "./DesktopSidebar";
 const Sidebar = ({ children }: props) => {
   const [menuopen, setMenuopen] = useState(false);
 
@@ -17,13 +17,22 @@ const Sidebar = ({ children }: props) => {
   }
 
   return (
-    <div className={style.sidebar}>
-      <div>
-        <div className={menuopen ? style.menubtn : style.menubtn2}>
-          <img onClick={() => openMenu()} src={menu} alt="" />
+    <div>
+      {menuopen ? (
+        <div className={style.desknav}>
+          <div className={style.deskmenubtn}>
+            <img onClick={() => openMenu()} src={menu} alt="" />
+          </div>
+          <DesktopSidebar />
         </div>
-        {menuopen ? <DesktopSidebar /> : <MobileSidebar />}
-      </div>
+      ) : (
+        <div className={style.mobilenav}>
+          <div className={style.mobilemenubtn}>
+            <img onClick={() => openMenu()} src={menu} alt="" />
+          </div>
+          <MobileSidebar />
+        </div>
+      )}
     </div>
   );
 };

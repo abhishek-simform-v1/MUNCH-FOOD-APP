@@ -1,10 +1,10 @@
-import Paragraph from "../../../../utils/Typography/Paragraph";
-import TagLine from "../../../../utils/Typography/Tag";
-import Title from "../../../../utils/Typography/Title";
-import Button from "../../../../utils/buttons/Button";
-import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
-import MainContainer from "../../../../utils/containers/MainContainer";
-import heroImg from "./../../../../assets/fulldish.png";
+import Paragraph from "../../../../../utils/Typography/Paragraph";
+import TagLine from "../../../../../utils/Typography/Tag";
+import Title from "../../../../../utils/Typography/Title";
+import Button from "../../../../../utils/buttons/Button";
+import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
+import MainContainer from "../../../../../utils/containers/MainContainer";
+import heroImg from "./../../../../../assets/fulldish.png";
 import style from "./Hero.module.css";
 const Hero = () => {
   return (

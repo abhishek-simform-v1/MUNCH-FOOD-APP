@@ -5,8 +5,17 @@ type props = {
   padding?: string;
   border_radius?: string;
   children?: ReactNode;
+  onClick?: () => void;
+  type?: string;
 };
-const Button = ({ border, padding, border_radius, children }: props) => {
+const Button = ({
+  border,
+  padding,
+  border_radius,
+  children,
+  type,
+  onClick,
+}: props) => {
   const Button = styled.button`
     background: var(--accent_color);
     color: var(--first_color);
@@ -28,7 +37,11 @@ const Button = ({ border, padding, border_radius, children }: props) => {
       transition: all 0.4s ease-in-out;
     }
   `;
-  return <Button>{children}</Button>;
+  return (
+    <Button type={type} onClick={onClick}>
+      {children}
+    </Button>
+  );
 };
 
 export default Button;

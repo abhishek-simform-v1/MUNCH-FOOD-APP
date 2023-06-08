@@ -1,19 +1,19 @@
-import { NavLink } from 'react-router-dom';
-import style from './style.module.css';
-import profileImg from './../../assets/icons/profile.svg';
-import createRecipe from './../../assets/icons/create.svg';
-import createBlog from './../../assets/icons/createBlog.svg';
-import favImg from './../../assets/icons/favoriteRecipe.svg';
-import myRecipeImg from './../../assets/icons/myRecipe.svg';
-import myBlogImg from './../../assets/icons/myblog.svg';
+import { NavLink } from "react-router-dom";
+import style from "./style.module.css";
+import profileImg from "./../../assets/icons/profile.svg";
+import createRecipe from "./../../assets/icons/create.svg";
+import createBlog from "./../../assets/icons/createBlog.svg";
+import favImg from "./../../assets/icons/favoriteRecipe.svg";
+import myRecipeImg from "./../../assets/icons/myRecipe.svg";
+import myBlogImg from "./../../assets/icons/myblog.svg";
 const MobileSidebar = () => {
   return (
-    <div className={style.mobilenav}>
+    <>
       <NavLink
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
-        to={'/profile'}
+        to={"/profile"}
       >
         <div className={style.mobilenavItems}>
           <img src={profileImg} alt="profileImg" />
@@ -24,7 +24,7 @@ const MobileSidebar = () => {
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
-        to={'/createrecipe'}
+        to={"/createrecipe"}
       >
         <div className={style.mobilenavItems}>
           <img src={createRecipe} alt="profileImg" />
@@ -34,7 +34,7 @@ const MobileSidebar = () => {
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
-        to={'/createblog'}
+        to={"/createblog"}
       >
         <div className={style.mobilenavItems}>
           <img src={createBlog} alt="profileImg" />
@@ -42,7 +42,7 @@ const MobileSidebar = () => {
       </NavLink>
 
       <NavLink
-        to={'/myblogs'}
+        to={"/myblogs"}
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
@@ -52,7 +52,7 @@ const MobileSidebar = () => {
         </div>
       </NavLink>
       <NavLink
-        to={'/myrecipes'}
+        to={"/myrecipes"}
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
@@ -63,7 +63,7 @@ const MobileSidebar = () => {
       </NavLink>
 
       <NavLink
-        to={'/favorites'}
+        to={"/favorites"}
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
@@ -72,7 +72,7 @@ const MobileSidebar = () => {
           <img src={favImg} alt="profileImg" />
         </div>
       </NavLink>
-    </div>
+    </>
   );
 };
 

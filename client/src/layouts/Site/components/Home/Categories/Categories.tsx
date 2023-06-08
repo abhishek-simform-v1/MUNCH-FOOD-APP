@@ -1,20 +1,19 @@
-import Paragraph from "../../../../utils/Typography/Paragraph";
-import MainContainer from "../../../../utils/containers/MainContainer";
-
-import breakfast from "./../../../../assets/catagories_asset/breakfast.png";
-import lunch from "./../../../../assets/catagories_asset/lunch.png";
-import soup from "./../../../../assets/catagories_asset/hotsoup.png";
-import snack from "./../../../../assets/catagories_asset/snack.png";
-import dinner from "./../../../../assets/catagories_asset/dinner.png";
-import sweets from "./../../../../assets/catagories_asset/sweets.png";
-import Subtitle from "../../../../utils/Typography/SubTitle";
-import Button from "../../../../utils/buttons/Button";
+import breakfast from "./../../../../../assets/catagories_asset/breakfast.png";
+import lunch from "./../../../../../assets/catagories_asset/lunch.png";
+import soup from "./../../../../../assets/catagories_asset/hotsoup.png";
+import snack from "./../../../../../assets/catagories_asset/snack.png";
+import dinner from "./../../../../../assets/catagories_asset/dinner.png";
+import sweets from "./../../../../../assets/catagories_asset/sweets.png";
 import style from "./Cat.module.css";
+import MainContainer from "../../../../../utils/containers/MainContainer";
+import SubTitle from "../../../../../utils/Typography/SubTitle";
+import Button from "../../../../../utils/buttons/Button";
+import Paragraph from "../../../../../utils/Typography/Paragraph";
 const Categories = () => {
   return (
     <MainContainer padding="4em">
       <div className={"Title"}>
-        <Subtitle>Categories</Subtitle>
+        <SubTitle>Categories</SubTitle>
         <Button border="var(--accent_color)">More Categories</Button>
       </div>
       <div className={style.cat}>

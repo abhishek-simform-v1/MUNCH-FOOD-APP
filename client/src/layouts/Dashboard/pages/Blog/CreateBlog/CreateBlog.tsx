@@ -1,6 +1,6 @@
-import FormDisabledDemo from '../../../components/Form/RecipeForm';
+import BlogForm from "../../../components/Form/BlogForm";
 const CreateBlog = () => {
-  return <FormDisabledDemo />;
+  return <BlogForm />;
 };
 
 export default CreateBlog;

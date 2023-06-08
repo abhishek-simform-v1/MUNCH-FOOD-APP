@@ -1,125 +1,183 @@
-import { PlusOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Switch,
-  TreeSelect,
-  Upload,
-} from "antd";
-import React, { useState } from "react";
+import { CascaderProps, Space } from "antd";
+import { Form, Input, Select } from "antd";
+import React from "react";
+import Button from "../../../../utils/buttons/Button";
+import style from "./../style.module.css";
+import { useState, useRef } from "react";
+import { MinusCircleOutlined } from "@ant-design/icons";
+import type { InputRef } from "antd";
+type IngredientsUnit = "Qty" | "Wgt";
 
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { Option } = Select;
+interface IngrediantsInfo {
+  ingredientsAmount?: number;
+  ingredientsUnit?: IngredientsUnit;
+}
+const RecipeForm: React.FC = () => {
+  const [form] = Form.useForm();
 
-const normFile = (e: any) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
+  const onFinish = (values: any) => {
+    console.log("Received values of form:", values);
+  };
+  let index = 0;
 
-const FormDisabledDemo: React.FC = () => {
-  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
+  const [items, setItems] = useState(["jack", "lucy"]);
+  const [name, setName] = useState("");
+  const inputRef = useRef<InputRef>(null);
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
+  const addItem = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
+    e.preventDefault();
+    setItems([...items, name || `New item ${index++}`]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+  const checkIngredientInfo = (
+    _: any,
+    value: { ingredientsAmount: number }
+  ) => {
+    if (value.ingredientsAmount > 0) {
+      return Promise.resolve();
+    }
+    return Promise.reject(
+      new Error("IngredientAmount must be greater than zero!")
+    );
+  };
   return (
-    <>
-      <Checkbox
-        checked={componentDisabled}
-        onChange={(e) => setComponentDisabled(e.target.checked)}
+    <Form
+      form={form}
+      name="register"
+      onFinish={onFinish}
+      layout={"vertical"}
+      scrollToFirstError
+      className={style.form}
+      size={"large"}
+    >
+      <Form.Item
+        name="recipeName"
+        label="Recipe Name"
+        rules={[
+          {
+            required: true,
+            message: "Please input Name of Recipe",
+          },
+        ]}
       >
-        Form disabled
-      </Checkbox>
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        disabled={componentDisabled}
-        style={{ maxWidth: 600 }}
-      >
-        <Form.Item label="Checkbox" name="disabled" valuePropName="checked">
-          <Checkbox>Checkbox</Checkbox>
-        </Form.Item>
-        <Form.Item label="Radio">
-          <Radio.Group>
-            <Radio value="apple"> Apple </Radio>
-            <Radio value="pear"> Pear </Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item label="Input">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Select">
-          <Select>
-            <Select.Option value="demo">Demo</Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item label="TreeSelect">
-          <TreeSelect
-            treeData={[
-              {
-                title: "Light",
-                value: "light",
-                children: [{ title: "Bamboo", value: "bamboo" }],
-              },
-            ]}
-          />
-        </Form.Item>
-        <Form.Item label="Cascader">
-          <Cascader
-            options={[
-              {
-                value: "zhejiang",
-                label: "Zhejiang",
-                children: [
-                  {
-                    value: "hangzhou",
-                    label: "Hangzhou",
-                  },
-                ],
-              },
-            ]}
-          />
-        </Form.Item>
-        <Form.Item label="DatePicker">
-          <DatePicker />
-        </Form.Item>
-        <Form.Item label="RangePicker">
-          <RangePicker />
-        </Form.Item>
-        <Form.Item label="InputNumber">
-          <InputNumber />
-        </Form.Item>
-        <Form.Item label="TextArea">
-          <TextArea rows={4} />
-        </Form.Item>
-        <Form.Item label="Switch" valuePropName="checked">
-          <Switch />
-        </Form.Item>
-        <Form.Item
-          label="Upload"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-        >
-          <Upload action="/upload.do" listType="picture-card">
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </div>
-          </Upload>
-        </Form.Item>
-        <Form.Item label="Button">
-          <Button>Button</Button>
-        </Form.Item>
-      </Form>
-    </>
+        <Input className={style.inputField} />
+      </Form.Item>
+
+      <Form.List name="ingredients">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <Space key={key} className={style.ingFlex} align="baseline">
+                <Form.Item
+                  name="IngredientInfo"
+                  label="Ingredient Amount"
+                  rules={[{ validator: checkIngredientInfo }]}
+                >
+                  <IngredientsAmount field={restField} />
+                </Form.Item>
+
+                <MinusCircleOutlined onClick={() => remove(name)} />
+              </Space>
+            ))}
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()}>
+                Add Ingredients
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+      <Button type={"submit"}>Register</Button>
+    </Form>
   );
 };
 
-export default () => <FormDisabledDemo />;
+export default RecipeForm;
+interface IngredientsAmountProps {
+  value?: IngrediantsInfo;
+  onChange?: (value: IngrediantsInfo) => void;
+  field: {};
+}
+const IngredientsAmount: React.FC<IngredientsAmountProps> = ({
+  value = {},
+  onChange,
+  field,
+}) => {
+  const [ingredientsAmount, setIngredientsAmount] = useState(0);
+  const [ingredientsUnit, setIngredientsUnit] =
+    useState<IngredientsUnit>("Qty");
+
+  const triggerChange = (changedValue: {
+    ingredientsAmount?: number;
+    ingredientsUnit?: IngredientsUnit;
+  }) => {
+    onChange?.({
+      ingredientsAmount,
+      ingredientsUnit,
+      ...value,
+      ...changedValue,
+    });
+  };
+
+  const onIngredientsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newNumber = parseInt(e.target.value || "0", 10);
+    if (Number.isNaN(ingredientsAmount)) {
+      return;
+    }
+    if (!("number" in value)) {
+      setIngredientsAmount(newNumber);
+    }
+    triggerChange({ ingredientsAmount: newNumber });
+  };
+
+  const onIngredientsUnitChange = (newIngredientsUnit: IngredientsUnit) => {
+    if (!("IngredientsUnit" in value)) {
+      setIngredientsUnit(newIngredientsUnit);
+    }
+    triggerChange({ ingredientsUnit: newIngredientsUnit });
+  };
+
+  return (
+    <span className={style.d_flex}>
+      <Form.Item
+        {...field}
+        label="Ingredient Name"
+        name={[name, "ingredient"]}
+        rules={[{ required: true, message: "Missing ingredient name" }]}
+      >
+        <Input placeholder="ingredient Name" />
+      </Form.Item>
+      <Form.Item
+        {...field}
+        label="Operation"
+        name={[name, "operation"]}
+        rules={[{ required: true, message: "Missing operation " }]}
+      >
+        <Input placeholder="ingredient Name" />
+      </Form.Item>
+      <Input
+        type="text"
+        value={value.ingredientsAmount || ingredientsAmount}
+        onChange={onIngredientsChange}
+        style={{ width: 100 }}
+      />
+      <Select
+        value={value.ingredientsUnit || ingredientsUnit}
+        style={{ width: 80, margin: "0 8px" }}
+        onChange={onIngredientsUnitChange}
+      >
+        <Option value="Qty">Qty</Option>
+        <Option value="Wgt">Wgt</Option>
+      </Select>
+    </span>
+  );
+};

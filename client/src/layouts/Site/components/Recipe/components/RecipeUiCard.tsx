@@ -1,6 +1,6 @@
-import dish from "./../../../../assets/dish_02.jpg";
+import dish from "./../../../../../assets/dish_02.jpg";
 import style from "./style.module.css";
-const RecipeInfoCard = () => {
+const RecipeUiCard = () => {
   return (
     <div className={style.maincontainer}>
       <div className={style.imgcontainer}>
@@ -14,4 +14,4 @@ const RecipeInfoCard = () => {
   );
 };
 
-export default RecipeInfoCard;
+export default RecipeUiCard;
