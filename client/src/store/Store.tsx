@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import hoverReducer from "./../slices/Slice";
+import { configureStore } from '@reduxjs/toolkit';
+import recipeReducer from './../slices/Slice';
 export const store = configureStore({
-  reducer: { hover: hoverReducer },
+  reducer: { recipe: recipeReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
