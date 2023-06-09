@@ -1,6 +1,6 @@
-import FormDisabledDemo from '../../../components/Form/RecipeForm';
+import RecipeForm from "../../../components/Form/RecipeForm";
 const CreateRecipe = () => {
-  return <FormDisabledDemo />;
+  return <RecipeForm />;
 };
 
 export default CreateRecipe;

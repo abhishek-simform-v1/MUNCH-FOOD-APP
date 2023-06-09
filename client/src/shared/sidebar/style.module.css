@@ -20,10 +20,16 @@
   box-shadow: rgba(33, 49, 52, 0.205) 0px 2px 8px 0px;
   height: 100vh;
   width: 220px;
+background-color: var(--first_color);
+
   justify-content: start;
   color: var(--accent_color);
   padding: 0rem 1rem;
   align-items: left;
+  position: fixed;
+  left: 0;
+  z-index: 9;
+
 }
 
 .mobilenav {
@@ -31,8 +37,14 @@
   flex-direction: column;
   height: 100vh;
   width: 100px;
+  z-index: 9;
+background-color: var(--first_color);
   padding: 0rem 1rem;
   gap: 1rem;
+  box-shadow: rgba(33, 49, 52, 0.205) 0px 2px 8px 0px;
+
+  position: fixed;
+  left: 0;
 }
 .menuItem {
   display: flex;

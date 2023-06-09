@@ -14,12 +14,14 @@
   font-family: F_regular;
   src: url(./../utils/fonts/Poppins-SemiBold.ttf);
 }
+
 :root {
   --first_color: #fefffe;
   --secondary_color: #f1e6d6;
   --secondary_transparent: #f7efe481;
   --tertiary_color: #e6fbfe;
-  --accent_color: #213234;
+  --accent_color: hsl(186, 22%, 17%);
+  --accent_lite: #547e83;
   --logo_color: #fe7f2d;
   --green_light_color: #cde4d6;
   --green_dark_color: #32b768;

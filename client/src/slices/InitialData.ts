@@ -1,7 +1,6 @@
 export interface RecipeInterface {
-  title: string;
   name: string;
-  categories: string;
+  category: string;
   selectedFile: string;
   creator: string;
   time: {
@@ -41,9 +40,8 @@ export type initType = {
 
 export const init: initType = {
   recipe: {
-    title: '',
     name: '',
-    categories: '',
+    category: '',
     selectedFile: '',
     creator: '',
     time: {
@@ -72,9 +70,8 @@ export const init: initType = {
   },
   recipes: [
     {
-      title: '',
       name: '',
-      categories: '',
+      category: '',
       selectedFile: '',
       creator: '',
       time: {
