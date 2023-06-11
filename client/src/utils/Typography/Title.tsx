@@ -11,7 +11,7 @@ const Title = ({ color, align, children, md_align, sm_align }: props) => {
   const Title = styled.h1`
     font-size: var(--title_1440);
     color: ${color ? color : 'var(--accent_color)'};
-    font-family: f_bold;
+    font-family: 'DM Serif Display', serif;
     font-weight: 900;
     text-align: ${align ? align : 'left'};
     line-height: 1.2;

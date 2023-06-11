@@ -4,9 +4,10 @@ type props = {
   color?: string;
   align?: string;
   md_align?: string;
+  className?: string;
   children: ReactNode;
 };
-const Paragraph = ({ color, md_align, align, children }: props) => {
+const Paragraph = ({ className, color, md_align, align, children }: props) => {
   const Paragraph = styled.p`
     color: ${color ? color : 'var(--accent_color)'};
     text-align: ${align ? align : 'left'};
@@ -34,7 +35,7 @@ const Paragraph = ({ color, md_align, align, children }: props) => {
     }
   `;
 
-  return <Paragraph>{children}</Paragraph>;
+  return <Paragraph className={className}>{children}</Paragraph>;
 };
 
 export default memo(Paragraph);

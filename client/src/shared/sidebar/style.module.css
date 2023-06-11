@@ -20,7 +20,7 @@
   box-shadow: rgba(33, 49, 52, 0.205) 0px 2px 8px 0px;
   height: 100vh;
   width: 220px;
-background-color: var(--first_color);
+  background-color: var(--first_color);
 
   justify-content: start;
   color: var(--accent_color);
@@ -29,7 +29,6 @@ background-color: var(--first_color);
   position: fixed;
   left: 0;
   z-index: 9;
-
 }
 
 .mobilenav {
@@ -38,7 +37,7 @@ background-color: var(--first_color);
   height: 100vh;
   width: 100px;
   z-index: 9;
-background-color: var(--first_color);
+  background-color: var(--first_color);
   padding: 0rem 1rem;
   gap: 1rem;
   box-shadow: rgba(33, 49, 52, 0.205) 0px 2px 8px 0px;
@@ -85,7 +84,7 @@ background-color: var(--first_color);
 .inactiveDash:visited {
   color: inherit;
 }
-.d_flex {
+.display_flex {
   display: flex;
   justify-content: center;
 }

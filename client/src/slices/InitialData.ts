@@ -1,12 +1,14 @@
+import { Timestamp } from 'firebase/firestore';
+
 export interface RecipeInterface {
-  name: string;
-  category: string;
-  selectedFile: string;
-  creator: string;
-  time: {
-    prep: number;
-    chill: number;
-    cook: number;
+  recipe_name: string;
+  recipe_image: {};
+  id?: string;
+  // creator: string;
+  cooking_time: {
+    preperation_time: number;
+    chill_time: number;
+    cook_time: number;
   };
   nutrition: {
     calories: number;
@@ -16,87 +18,18 @@ export interface RecipeInterface {
     fats: number;
     sugar: number;
   };
-  tags: string[];
-  likeCount: {
-    type: number;
-    default: 0;
-  };
-  createdAt: {
-    date: Date;
-  };
+  category: string[];
+  // likeCount: {
+  //   type: number;
+  //   default: 0;
+  // };
+  created_at: string;
+
   instructions: string[];
-  ingredients: {
-    name: string;
-    operation: string;
-    qty: number;
-    wgt: number;
+  ingredient_info: {
+    ingredient_name: string;
+    ingredient_operation: string;
+    ingredient_amount: number;
+    ingredient_unit: string;
   }[];
 }
-
-export type initType = {
-  recipe: RecipeInterface;
-  recipes: RecipeInterface[];
-};
-
-export const init: initType = {
-  recipe: {
-    name: '',
-    category: '',
-    selectedFile: '',
-    creator: '',
-    time: {
-      prep: 0,
-      chill: 0,
-      cook: 0,
-    },
-    nutrition: {
-      calories: 0,
-      fiber: 0,
-      protein: 0,
-      carbs: 0,
-      fats: 0,
-      sugar: 0,
-    },
-    tags: [],
-    likeCount: {
-      type: 0,
-      default: 0,
-    },
-    createdAt: {
-      date: new Date(),
-    },
-    instructions: [],
-    ingredients: [],
-  },
-  recipes: [
-    {
-      name: '',
-      category: '',
-      selectedFile: '',
-      creator: '',
-      time: {
-        prep: 0,
-        chill: 0,
-        cook: 0,
-      },
-      nutrition: {
-        calories: 0,
-        fiber: 0,
-        protein: 0,
-        carbs: 0,
-        fats: 0,
-        sugar: 0,
-      },
-      tags: [],
-      likeCount: {
-        type: 0,
-        default: 0,
-      },
-      createdAt: {
-        date: new Date(),
-      },
-      instructions: [],
-      ingredients: [],
-    },
-  ],
-};

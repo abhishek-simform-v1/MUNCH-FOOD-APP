@@ -1,5 +1,5 @@
-import { ReactNode, memo } from "react";
-import styled from "styled-components";
+import { ReactNode, memo } from 'react';
+import styled from 'styled-components';
 type props = {
   padding?: string;
   bgColor?: string;
@@ -22,10 +22,10 @@ const MainContainer = ({
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: ${bgColor ? bgColor : "transparent"};
-    padding: ${padding ? padding : "100px"} 50px;
-    margin: ${margin ? margin : "0px"} auto;
-    border-radius: ${border_radius ? border_radius : "0"};
+    background-color: ${bgColor ? bgColor : 'transparent'};
+    padding: ${padding ? padding : '100px'} 50px;
+    margin: ${margin ? margin : '0px'} auto;
+    border-radius: ${border_radius ? border_radius : '0'};
     gap: var(--title_1440);
     @media (max-width: 1440px) {
       gap: var(--title_1440);
@@ -37,10 +37,10 @@ const MainContainer = ({
       background-image: url(${src});
       background-repeat: no-repeat;
       background-size: cover;
-      padding: ${padding ? padding : "25px"} 30px;
+      padding: ${padding ? padding : '25px'} 30px;
     }
     @media (max-width: 576px) {
-      padding: ${padding ? padding : "25px"} 30px;
+      padding: ${padding ? padding : '25px'} 30px;
     }
   `;
 

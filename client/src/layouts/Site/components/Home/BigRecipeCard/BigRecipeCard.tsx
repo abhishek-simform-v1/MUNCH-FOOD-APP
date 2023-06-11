@@ -1,27 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import clock from "./../../../../../assets/icons/clock.svg";
-import spoons from "./../../../../../assets/icons/spoons.svg";
-import dish_01 from "../../../../../assets/dish.jpg";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import clock from './../../../../../assets/icons/clock.svg';
+import spoons from './../../../../../assets/icons/spoons.svg';
+import dish_01 from '../../../../../assets/dish.jpg';
 // import dish_02 from "../../../../assets/dish_02.jpg";
 // import dish_03 from "../../../../assets/dish_03.jpg";
 // import dish_04 from "../../../../assets/dish_04.jpg";
 // import dish_05 from "../../../../assets/dish_05.jpg";
-import "./styles.css";
-import style from "./Recipe.module.css";
+import './styles.css';
+import style from './Recipe.module.css';
 // import required modules
-import { Pagination, Autoplay, Navigation } from "swiper";
-import Pill from "../../../../../utils/buttons/Pill";
-import Span from "../../../../../utils/Typography/Span";
-import MainContainer from "../../../../../utils/containers/MainContainer";
-import SubTitle from "../../../../../utils/Typography/SubTitle";
-import TagLine from "../../../../../utils/Typography/Tag";
-import Button from "../../../../../utils/buttons/Button";
+import { Pagination, Autoplay, Navigation } from 'swiper';
+import Pill from '../../../../../utils/buttons/Pill';
+import Span from '../../../../../utils/Typography/Span';
+import MainContainer from '../../../../../utils/containers/MainContainer';
+import SubTitle from '../../../../../utils/Typography/SubTitle';
+import TagLine from '../../../../../utils/Typography/Tag';
+import Button from '../../../../../utils/buttons/Button';
 
 export default function BigRecipeCard() {
   return (
@@ -32,7 +32,7 @@ export default function BigRecipeCard() {
           <Button border="var(--accent_color)">More Recipes</Button>
         </div>
         <Swiper
-          slidesPerView={"auto"}
+          slidesPerView={'auto'}
           centeredSlides={true}
           touchStartPreventDefault={false}
           spaceBetween={30}

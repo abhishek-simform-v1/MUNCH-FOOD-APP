@@ -75,6 +75,20 @@ body {
   line-height: 1;
   color: black;
 }
+body::-webkit-scrollbar {
+  width: 15px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: var(--secondary_transparent);
+  border-radius: var(--lg_border_radius);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--accent_color);
+
+  border-radius: var(--lg_border_radius);
+}
 ol,
 ul {
   list-style: none;
