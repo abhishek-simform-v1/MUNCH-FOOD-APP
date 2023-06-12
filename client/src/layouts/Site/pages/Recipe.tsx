@@ -1,7 +1,15 @@
+import { useEffect } from "react";
 import MainContainer from "../../../utils/containers/MainContainer";
 import RecipeUiCard from "../components/Recipe/components/RecipeUiCard";
+import { getRecipes } from "../../../slices/Slice";
+import { useAppDispatch } from "../../../hooks/hooks";
 
 const Recipe = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getRecipes());
+  }, []);
   return (
     <>
       {/* <Header /> */}

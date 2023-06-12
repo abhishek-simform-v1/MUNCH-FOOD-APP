@@ -30,6 +30,7 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
 });
 
 type initType = {
+
   recipes: RecipeInterface[];
 };
 
@@ -37,26 +38,14 @@ const initialState: initType = {
   recipes: [],
 };
 
-export const fetchRecipes = createAsyncThunk(
-  'recipe/fetchRecipes',
-  async (_, { dispatch }) => {
-    try {
-      const recipes = await dispatch(getRecipes());
-      return recipes.payload;
-    } catch (error) {
-      // Handle error
-      return [];
-    }
-  }
-);
 
 export const RecipeSlice = createSlice({
   name: 'recipe',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getRecipes.fulfilled, (state, action) => {
-      state.recipes.push(...action.payload);
+    builder.addCase(getRecipes.fulfilled, (state, action: any) => {
+      state.recipes = [...action.payload]
     });
   },
 });
