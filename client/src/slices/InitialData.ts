@@ -13,7 +13,7 @@ export interface RecipeInterface {
     chill_time: number;
     cook_time: number;
   };
-  nutrition: {
+  nutritions: {
     calories: number;
     fiber: number;
     protein: number;

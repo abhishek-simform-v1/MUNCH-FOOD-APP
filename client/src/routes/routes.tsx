@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "../layouts/Dashboard/pages/Recipe/CreateRecipe/CreateRecipe";
 import Profile from "../layouts/Dashboard/pages/Profile/Profile";
 import CreateRecipe from "../layouts/Dashboard/pages/Recipe/CreateRecipe/CreateRecipe";
@@ -14,109 +13,93 @@ import Home from "../layouts/Site/pages/Home";
 import About from "../layouts/Site/pages/About";
 import Recipe from "../layouts/Site/pages/Recipe";
 import Blog from "../layouts/Site/pages/Blog";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "../hooks/hooks";
+import { getRecipes } from "../slices/Slice";
 
-/** import all components */
+function AppRoutes() {
+  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
-/** root routes */
-export const routerOfApp = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <>
-        <Home />
-      </>
-    ),
-  },
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(getRecipes());
+        setIsLoading(false);
+      } catch (error) {
+        // Handle error
+        setIsLoading(false);
+      }
+    };
 
-  {
-    path: "/about",
-    element: (
-      <>
-        <About />
-      </>
-    ),
-  },
-  {
-    path: "/recipe/:id",
-    element: (
-      <>
-        <Recipe />,
-      </>
-    ),
-  },
-  {
-    path: "/blog",
-    element: (
-      <>
-        <Blog />
-      </>
-    ),
-  },
-  // dashboard pages
+    fetchData();
+  }, [dispatch]);
 
-  {
-    path: "/profile",
-    element: (
-      <DashboardLayout>
-        <Profile />
-      </DashboardLayout>
-    ),
-  },
-  //recipe Pages
-  {
-    path: "/createrecipe",
-    element: (
-      <DashboardLayout>
-        <CreateRecipe />
-      </DashboardLayout>
-    ),
-  },
+  if (isLoading) {
+    return <>loading</>;
+  }
 
-  {
-    path: "/myrecipes",
-    element: (
-      <DashboardLayout>
-        <Dashboard />
-      </DashboardLayout>
-    ),
-  },
-  //blog Pages
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/recipe/:id" element={<Recipe />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route
+          path="/profile"
+          element={
+            <DashboardLayout>
+              <Profile />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/createrecipe"
+          element={
+            <DashboardLayout>
+              <CreateRecipe />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/myrecipes"
+          element={
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/myblogs"
+          element={
+            <DashboardLayout>
+              <MyBlog />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/createblog"
+          element={
+            <DashboardLayout>
+              <CreateBlog />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <DashboardLayout>
+              <Favorite />
+            </DashboardLayout>
+          }
+        />
+        <Route path="/signup" element={<h1>register</h1>} />
+        <Route path="/singin" element={<h1>singin</h1>} />
+        <Route path="*" element={<h1>pagenotfound</h1>} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
-  {
-    path: "/myblogs",
-    element: (
-      <DashboardLayout>
-        <MyBlog />
-      </DashboardLayout>
-    ),
-  },
-  {
-    path: "/createblog",
-    element: (
-      <DashboardLayout>
-        <CreateBlog />
-      </DashboardLayout>
-    ),
-  },
-  {
-    path: "/favorites",
-    element: (
-      <DashboardLayout>
-        <Favorite />
-      </DashboardLayout>
-    ),
-  },
-  {
-    path: "/signup",
-    element: <h1>register</h1>,
-  },
-  {
-    path: "/singin",
-    element: <h1>singin</h1>,
-  },
-
-  {
-    path: "*",
-    element: <h1>pagenotfound</h1>,
-  },
-]);
+export default AppRoutes;

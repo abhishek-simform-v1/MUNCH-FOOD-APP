@@ -1,31 +1,52 @@
+import { RecipeInterface } from "../../../../../../slices/InitialData";
 import Paragraph from "../../../../../../utils/Typography/Paragraph";
 import Title from "../../../../../../utils/Typography/Title";
 import Pill from "../../../../../../utils/buttons/Pill";
 import style from "./style.module.css";
-
-const TitleContainer = () => {
+type props = {
+  recipe: RecipeInterface;
+};
+const TitleContainer = ({ recipe }: props) => {
   return (
     <div className={style.title_container}>
       <div>
-        <Title>Chickpea & sweet potato with tahini sauce</Title>
+        <Title>{recipe.recipe_name}</Title>
+      </div>
+      <div>
+        <Paragraph>{recipe.recipe_tagline}</Paragraph>
       </div>
       <div className={style.pill_container}>
-        <Pill>sdfsf</Pill>
-        <Pill>sdfsf</Pill>
-        <Pill>sdfsf</Pill>
+        {recipe.category.map((cat) => (
+          <Pill>{cat}</Pill>
+        ))}
       </div>
       <div className={style.cook_time_container}>
         <Paragraph>
-          Total <span style={{ fontWeight: 900 }}>15m</span>
+          Total{" "}
+          <span style={{ fontWeight: 900 }}>
+            {recipe.cooking_time.chill_time +
+              recipe.cooking_time.cook_time +
+              recipe.cooking_time.preperation_time}
+            m
+          </span>
         </Paragraph>
         <Paragraph>
-          Prep <span style={{ fontWeight: 900 }}>15m</span>
+          Prep{" "}
+          <span style={{ fontWeight: 900 }}>
+            {recipe.cooking_time.preperation_time}m
+          </span>
         </Paragraph>
         <Paragraph>
-          Chill <span style={{ fontWeight: 900 }}>15m</span>
+          Chill{" "}
+          <span style={{ fontWeight: 900 }}>
+            {recipe.cooking_time.chill_time}m
+          </span>
         </Paragraph>
         <Paragraph>
-          Cook <span style={{ fontWeight: 900 }}>15m</span>
+          Cook{" "}
+          <span style={{ fontWeight: 900 }}>
+            {recipe.cooking_time.cook_time}m
+          </span>
         </Paragraph>
       </div>
     </div>

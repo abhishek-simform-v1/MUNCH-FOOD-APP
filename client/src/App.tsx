@@ -1,19 +1,14 @@
-import { RouterProvider } from "react-router-dom";
-import { routerOfApp } from "./routes/routes";
-import "./styles/global.css";
-import Sidebar from "./shared/sidebar/Sidebar";
+import React from "react";
 import { Provider } from "react-redux";
 import { store } from "./store/Store";
-import { useEffect } from "react";
-import { useAppDispatch } from "./hooks/hooks";
 
-RouterProvider;
+import "./styles/global.css";
+import AppRoutes from "./routes/routes";
+
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <RouterProvider router={routerOfApp}></RouterProvider>
-      </div>
+      <AppRoutes />
     </Provider>
   );
 }

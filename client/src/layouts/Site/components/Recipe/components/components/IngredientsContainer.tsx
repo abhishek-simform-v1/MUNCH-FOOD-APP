@@ -7,7 +7,13 @@ import minus from "./../../../../../../assets/icons/minusIcon.svg";
 import Paragraph from "../../../../../../utils/Typography/Paragraph";
 import Ingredients from "./../../../../../../assets/icons/ingredients.svg";
 import Profile from "./../../../../../../assets/icons/profile.svg";
-const IngredientsContainer = () => {
+import { RecipeInterface } from "../../../../../../slices/InitialData";
+
+type props = {
+  recipe: RecipeInterface;
+};
+const IngredientsContainer = ({ recipe }: props) => {
+  console.log(recipe);
   const [count, setCount] = useState(1);
   const increment_Ingredient = () => {
     setCount((prev) => prev + 1);
@@ -15,12 +21,15 @@ const IngredientsContainer = () => {
   const decrement_Ingredient = () => {
     setCount((prev) => (prev < 2 ? prev : prev - 1));
   };
+
   return (
     <div className={style.ingredients}>
       <div className={style.ingredients_counter_container}>
         <SubTitleH2>
-          <span style={{ fontWeight: 900 }}>5</span> Ingredients{" "}
-          <img src={Ingredients} alt="Ingredients" />
+          <span style={{ fontWeight: 900 }}>
+            {recipe.ingredient_info.length}
+          </span>{" "}
+          Ingredients <img src={Ingredients} alt="Ingredients" />
         </SubTitleH2>
 
         <div className={style.ingredients_counter}>
@@ -46,14 +55,19 @@ const IngredientsContainer = () => {
         </div>
       </div>
       <div className={style.ingredients_container}>
-        {[1, 2, 3, 4].map((i, index) => (
+        {recipe.ingredient_info.map((ingredient, index) => (
           <div key={index} className={style.ingredient_container}>
             <div className={style.ingredient_name_operation}>
-              <Paragraph>bins</Paragraph>
-              <span>sliced</span>
+              <Paragraph>{ingredient.ingredient_name}</Paragraph>
+              <span style={{ fontSize: "12px" }}>
+                {ingredient.ingredient_operation}
+              </span>
             </div>
             <div className={style.ingredient_amount}>
-              <Paragraph>{200 * count}g</Paragraph>
+              <Paragraph>
+                {ingredient.ingredient_amount * count}{" "}
+                {ingredient.ingredient_unit}
+              </Paragraph>
             </div>
           </div>
         ))}

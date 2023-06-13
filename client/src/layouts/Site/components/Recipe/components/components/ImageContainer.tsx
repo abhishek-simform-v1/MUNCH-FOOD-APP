@@ -1,15 +1,17 @@
 import style from "./style.module.css";
 import dish from "./../../../../../../assets/dish.jpg";
 import { RecipeInterface } from "../../../../../../slices/InitialData";
+
 type props = {
-  id: string;
-  recipes: RecipeInterface[];
+  recipe: RecipeInterface;
 };
-const ImageContainer = ({ id, recipes }: props) => {
+const ImageContainer = ({ recipe }: props) => {
   return (
-    <div className={style.img_container}>
-      <img className={style.img} src={dish} />
-    </div>
+    <>
+      <div className={style.img_container}>
+        <img className={style.img} src={recipe.recipe_image.url} />
+      </div>
+    </>
   );
 };
 

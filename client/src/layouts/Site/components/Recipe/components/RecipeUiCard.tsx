@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
 import useWindowSize from "../../../../../hooks/useWindowSize";
 
@@ -9,39 +9,49 @@ import NutrionContainer from "./components/NutritionContainer";
 import TitleContainer from "./components/TitleContainer";
 import style from "./style.module.css";
 import NutritionContainer from "./components/NutritionContainer";
+import { Button } from "antd";
+import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
+
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
-  // const dispatch = useAppDispatch();
-  // const state = useAppSelector((state) => state.recipe.recipes);
+
   const params = useParams();
-  const recipes = useAppSelector((state) => state.recipe.recipes);
+
+  const [recipe] = useAppSelector((state) =>
+    state.recipe.recipes.filter((recipe) => recipe.id == params.id)
+  );
+  const navigate = useNavigate();
+  console.log(recipe);
   return (
     <>
-      {windowSize.width > 1024 ? (
-        <div className={style.main_container}>
-          <div className={style.left_side}>
-            <ImageContainer id={params} recipes={recipes} />
-            <IngredientsContainer id={params} recipes={recipes} />
+      <>
+        {windowSize.width > 1024 ? (
+          <div className={style.main_container}>
+            <div className={style.left_side}>
+              <ImageContainer recipe={recipe} />
+              <IngredientsContainer recipe={recipe} />
+            </div>
+            <div className={style.right_side}>
+              <TitleContainer recipe={recipe} />
+              <NutrionContainer recipe={recipe} />
+              <InstructionContainer recipe={recipe} />
+            </div>
           </div>
-          <div className={style.right_side}>
-            <TitleContainer id={params} recipes={recipes} />
-            <NutrionContainer id={params} recipes={recipes} />
-            <InstructionContainer id={params} recipes={recipes} />
+        ) : (
+          <div className={style.main_container}>
+            <div className={style.left_side}>
+              <TitleContainer recipe={recipe} />
+              <ImageContainer recipe={recipe} />
+              {/* <NutritionContainer id={params} recipes={recipes} r /> */}
+            </div>
+            <div className={style.right_side}>
+              <IngredientsContainer recipe={recipe} />
+              {/* <InstructionContainer id={params} recipes={recipes} /> */}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className={style.main_container}>
-          <div className={style.left_side}>
-            <TitleContainer id={params} recipes={recipes} />
-            <ImageContainer id={params} recipes={recipes} />
-            <NutritionContainer id={params} recipes={recipes} r />
-          </div>
-          <div className={style.right_side}>
-            <IngredientsContainer id={params} recipes={recipes} />
-            <InstructionContainer id={params} recipes={recipes} />
-          </div>
-        </div>
-      )}
+        )}
+      </>
+      <ButtonOutLine onClick={() => navigate("/")}>go back</ButtonOutLine>
     </>
   );
 };

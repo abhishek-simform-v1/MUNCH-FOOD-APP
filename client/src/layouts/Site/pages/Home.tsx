@@ -8,11 +8,6 @@ import { useEffect } from "react";
 import { getRecipes } from "../../../slices/Slice";
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getRecipes());
-  }, []);
-
   return (
     <>
       {/* <Header /> */}
