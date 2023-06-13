@@ -38,7 +38,7 @@ const Button = ({
     }
   `;
   return (
-    <Button type={type} onClick={onClick}>
+    <Button type="button" onClick={onClick}>
       {children}
     </Button>
   );

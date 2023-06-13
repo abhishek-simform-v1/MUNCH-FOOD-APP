@@ -1,13 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "../layouts/Dashboard/pages/Recipe/CreateRecipe/CreateRecipe";
+import Dashboard from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
 import Profile from "../layouts/Dashboard/pages/Profile/Profile";
-import CreateRecipe from "../layouts/Dashboard/pages/Recipe/CreateRecipe/CreateRecipe";
-import FavoriteRecipe from "../layouts/Dashboard/pages/favorites/FavoriteRecipe/FavoriteRecipe";
-import Sidebar from "../shared/sidebar/Sidebar";
+import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
 import DashboardLayout from "../shared/sidebar/DashboardLayout";
 import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
 import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
-import FavoriteBlog from "../layouts/Dashboard/pages/favorites/FavoriteBlog/FavoriteBlog";
 import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
 import Home from "../layouts/Site/pages/Home";
 import About from "../layouts/Site/pages/About";
