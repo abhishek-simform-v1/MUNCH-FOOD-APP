@@ -23,12 +23,11 @@ export default function RecipeForm() {
   const dispatch = useAppDispatch();
 
   const onFinish = (values: RecipeInterface) => {
+    console.log(values);
     values.recipe_image = {
       url: images[0]["data_url"],
     };
     const date = new Date();
-    (values.created_at = `${date}`), console.log(values);
-    // console.log(values);
     dispatch(CREATE_RECIPE(values));
     form.resetFields();
   };

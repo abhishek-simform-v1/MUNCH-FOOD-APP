@@ -1,25 +1,16 @@
-.slide{
-/* background-color: aqua; */
-display: flex;
-gap: 1rem;
-overflow: hidden;
-height:400px;
-width: 100%;
-background-color: var(--secondary_transparent);
-border-radius: var(--lg_border_radius);
-}
+
+
 .slideText{
     display: flex;
     flex-direction: column;
+    width: 60%;
 padding: 20px;
-width: 80%;
     justify-content: space-between;
 }
 .slideTitle{
 display: flex;
 
 flex-direction: column;
-gap: 1rem;
 align-items: flex-start;
 
 }
@@ -27,18 +18,13 @@ align-items: flex-start;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-/* background-color: rgb(0, 89, 255); */
 }
 .dish_image{
     /* height: 300px; */
-    width: 50%;
+    width: 40%;
     object-fit: cover;
 }
-.category_pills{
-    display: flex;
-    gap: 1rem;
-}
+
 @media only screen and (max-width: 904px) {
     .slide{
         height: auto;

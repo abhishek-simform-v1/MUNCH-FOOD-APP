@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 export const NavContainer = styled.div`
   display: flex;
   z-index: 100;
@@ -42,9 +42,6 @@ export const NavLogo = styled.div`
   gap: 1rem;
   .logo {
     width: 40px !important;
-  }
-  p {
-    font-size: 20px;
   }
 
   @media (max-width: 768px) {

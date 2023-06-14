@@ -1,4 +1,4 @@
-import Categories from "../../Home/Categories/Categories";
+import Categories from "../../HomeSite/Categories/Categories";
 
 export const Recipies = [
     {

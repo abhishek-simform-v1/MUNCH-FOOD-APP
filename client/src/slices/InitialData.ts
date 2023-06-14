@@ -31,8 +31,11 @@ export interface RecipeInterface {
   instructions: string[];
   ingredient_info: {
     ingredient_name: string;
-    ingredient_operation: string;
+    ingredient_operation?: string;
     ingredient_amount: number;
     ingredient_unit: string;
   }[];
 }
+// export interface userData {
+//   user_name:
+// }

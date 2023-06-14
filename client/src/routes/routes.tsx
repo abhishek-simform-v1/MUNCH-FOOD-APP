@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
-import Profile from "../layouts/Dashboard/pages/Profile/Profile";
-import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
+// import Dashboard from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
+// import Profile from "../layouts/Dashboard/pages/Profile/Profile";
+// import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
 import DashboardLayout from "../shared/sidebar/DashboardLayout";
-import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
-import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
-import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
+// import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
+// import CreateBlog from "../../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
+// import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
 import Home from "../layouts/Site/pages/Home";
 import About from "../layouts/Site/pages/About";
 import Recipe from "../layouts/Site/pages/Recipe";
@@ -13,6 +13,14 @@ import Blog from "../layouts/Site/pages/Blog";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
 import { getRecipes } from "../slices/Slice";
+import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
+import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
+import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
+import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
+import Profile from "../layouts/Dashboard/pages/Profile/Profile";
+import Recipes from "../layouts/Site/pages/Recipes";
+import SignIn from "../Authentication/SignIn";
+import SignUp from "../Authentication/SignUp";
 
 function AppRoutes() {
   const dispatch = useAppDispatch();
@@ -30,7 +38,7 @@ function AppRoutes() {
     };
 
     fetchData();
-  }, [dispatch]);
+  }, []);
 
   if (isLoading) {
     return <>loading</>;
@@ -42,7 +50,10 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/recipe/:id" element={<Recipe />} />
+        <Route path="/recipes" element={<Recipes />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route
           path="/profile"
           element={
@@ -59,14 +70,14 @@ function AppRoutes() {
             </DashboardLayout>
           }
         />
-        <Route
+        {/* <Route
           path="/myrecipes"
           element={
             <DashboardLayout>
               <Dashboard />
             </DashboardLayout>
           }
-        />
+        /> */}
         <Route
           path="/myblogs"
           element={

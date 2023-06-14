@@ -1,7 +1,7 @@
-import { Form, Input, InputNumber, Select } from 'antd';
-import style from './../../style.module.css';
-import { MinusCircleOutlined } from '@ant-design/icons';
-import ButtonOutLine from '../../../../../utils/buttons/ButtonOutLine';
+import { Form, Input, InputNumber, Select } from "antd";
+import style from "./../../style.module.css";
+import { MinusCircleOutlined } from "@ant-design/icons";
+import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
 
 const Ingredients = () => {
   return (
@@ -15,13 +15,13 @@ const Ingredients = () => {
                   <Form.Item
                     {...restField}
                     label="ingredient Name"
-                    style={{ width: '100%' }}
-                    name={[name, 'ingredient_name']}
-                    validateTrigger={['onChange', 'onBlur']}
+                    style={{ width: "100%" }}
+                    name={[name, "ingredient_name"]}
+                    validateTrigger={["onChange", "onBlur"]}
                     rules={[
                       {
                         required: true,
-                        message: 'Missing ingredient Name',
+                        message: "Missing ingredient Name",
                       },
                     ]}
                   >
@@ -30,13 +30,13 @@ const Ingredients = () => {
                   <Form.Item
                     {...restField}
                     label="ingredient operation"
-                    style={{ width: '100%' }}
-                    validateTrigger={['onChange', 'onBlur']}
-                    name={[name, 'ingredient_operation']}
+                    style={{ width: "100%" }}
+                    validateTrigger={["onChange", "onBlur"]}
+                    name={[name, "ingredient_operation"]}
                     rules={[
                       {
-                        required: true,
-                        message: 'Missing Operation',
+                        required: false,
+                        message: "Missing Operation",
                       },
                     ]}
                   >
@@ -47,13 +47,13 @@ const Ingredients = () => {
                   <Form.Item
                     {...restField}
                     label="ingredient Amount"
-                    validateTrigger={['onChange', 'onBlur']}
-                    style={{ width: '100%' }}
-                    name={[name, 'ingredient_amount']}
+                    validateTrigger={["onChange", "onBlur"]}
+                    style={{ width: "100%" }}
+                    name={[name, "ingredient_amount"]}
                     rules={[
                       {
                         required: true,
-                        message: 'Missing ingredient amount',
+                        message: "Missing ingredient amount",
                       },
                     ]}
                   >
@@ -64,13 +64,13 @@ const Ingredients = () => {
                   </Form.Item>
                   <Form.Item
                     label="ingredient Unit"
-                    validateTrigger={['onChange', 'onBlur']}
-                    name={[name, 'ingredient_unit']}
-                    style={{ width: '90%' }}
+                    validateTrigger={["onChange", "onBlur"]}
+                    name={[name, "ingredient_unit"]}
+                    style={{ width: "90%" }}
                     rules={[
                       {
                         required: true,
-                        message: 'Please Select Unit',
+                        message: "Please Select Unit",
                       },
                     ]}
                   >
@@ -79,8 +79,8 @@ const Ingredients = () => {
                       allowClear
                       className={style.input_field}
                       options={[
-                        { value: 'Qty', label: 'Qty' },
-                        { value: 'Wgt', label: 'Wgt' },
+                        { value: "Qty", label: "Qty" },
+                        { value: "Wgt", label: "Wgt" },
                       ]}
                     />
                   </Form.Item>
@@ -89,7 +89,7 @@ const Ingredients = () => {
               {fields.length > 1 ? (
                 <MinusCircleOutlined
                   style={{
-                    marginTop: '1.5rem',
+                    marginTop: "1.5rem",
                   }}
                   onClick={() => remove(name)}
                 />
@@ -97,8 +97,8 @@ const Ingredients = () => {
             </div>
           ))}
           <Form.Item
-            validateTrigger={['onChange', 'onBlur']}
-            rules={[{ required: true, message: 'Please Select Unit' }]}
+            validateTrigger={["onChange", "onBlur"]}
+            rules={[{ required: true, message: "Please Select Unit" }]}
           >
             <ButtonOutLine onClick={() => add()}>Add Ingridients</ButtonOutLine>
           </Form.Item>

@@ -39,7 +39,6 @@ export const validationSchema = Yup.object().shape({
             function utf8_to_b64(value: string) {
                 return window.btoa(unescape(encodeURIComponent(value)));
             }
-            //   console.log(b64_to_utf8(value));
             const decodedData = atob(utf8_to_b64(value));
 
             // Calculate the file size in bytes

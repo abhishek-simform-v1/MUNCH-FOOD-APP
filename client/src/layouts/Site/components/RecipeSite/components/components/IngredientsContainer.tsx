@@ -13,7 +13,6 @@ type props = {
   recipe: RecipeInterface;
 };
 const IngredientsContainer = ({ recipe }: props) => {
-  console.log(recipe);
   const [count, setCount] = useState(1);
   const increment_Ingredient = () => {
     setCount((prev) => prev + 1);
@@ -59,9 +58,7 @@ const IngredientsContainer = ({ recipe }: props) => {
           <div key={index} className={style.ingredient_container}>
             <div className={style.ingredient_name_operation}>
               <Paragraph>{ingredient.ingredient_name}</Paragraph>
-              <span style={{ fontSize: "12px" }}>
-                {ingredient.ingredient_operation}
-              </span>
+              <span>{ingredient.ingredient_operation}</span>
             </div>
             <div className={style.ingredient_amount}>
               <Paragraph>

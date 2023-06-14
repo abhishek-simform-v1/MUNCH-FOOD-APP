@@ -11,17 +11,18 @@ import style from "./style.module.css";
 import NutritionContainer from "./components/NutritionContainer";
 import { Button } from "antd";
 import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
+import { DELETE_RECIPE } from "../../../../../slices/Slice";
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
-
+  const dispatch = useAppDispatch();
   const params = useParams();
 
   const [recipe] = useAppSelector((state) =>
     state.recipe.recipes.filter((recipe) => recipe.id == params.id)
   );
+  let id: string = recipe.id!;
   const navigate = useNavigate();
-  console.log(recipe);
   return (
     <>
       <>
@@ -42,16 +43,29 @@ const RecipeUiCard = () => {
             <div className={style.left_side}>
               <TitleContainer recipe={recipe} />
               <ImageContainer recipe={recipe} />
-              {/* <NutritionContainer id={params} recipes={recipes} r /> */}
+              <NutrionContainer recipe={recipe} />
             </div>
             <div className={style.right_side}>
               <IngredientsContainer recipe={recipe} />
-              {/* <InstructionContainer id={params} recipes={recipes} /> */}
+              <InstructionContainer recipe={recipe} />
             </div>
           </div>
         )}
       </>
-      <ButtonOutLine onClick={() => navigate("/")}>go back</ButtonOutLine>
+      <ButtonOutLine
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        go back
+      </ButtonOutLine>
+      <Button
+        onClick={() => {
+          dispatch(DELETE_RECIPE(id));
+        }}
+      >
+        Delete{" "}
+      </Button>
     </>
   );
 };

@@ -7,8 +7,20 @@ export const CREATE_RECIPE = createAsyncThunk(
   'recipe/CREATE_RECIPE',
   async (newRecipe: RecipeInterface) => {
     try {
+      console.log(newRecipe)
       await RecipeDataService.addRecipes(newRecipe);
       alert('New recipe added');
+    } catch (error) {
+      // Handle error
+    }
+  }
+);
+export const DELETE_RECIPE = createAsyncThunk(
+  'recipe/DELETE_RECIPE',
+  async (id: string) => {
+    try {
+      await RecipeDataService.delete(id);
+      alert('Recipe Deleted');
     } catch (error) {
       // Handle error
     }
@@ -32,21 +44,28 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
 type initType = {
 
   recipes: RecipeInterface[];
+  // users: userData[]
+  // current_user: userData
 };
 
 const initialState: initType = {
   recipes: [],
+  // users: []
+  // current_user: {}
 };
 
 
 export const RecipeSlice = createSlice({
   name: 'recipe',
   initialState,
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder.addCase(getRecipes.fulfilled, (state, action: any) => {
+
       state.recipes = [...action.payload]
-    });
+    })
   },
 });
 

@@ -6,14 +6,12 @@ type props = {
   border_radius?: string;
   children?: ReactNode;
   onClick?: () => void;
-  type?: string;
 };
 const Button = ({
   border,
   padding,
   border_radius,
   children,
-  type,
   onClick,
 }: props) => {
   const Button = styled.button`
@@ -38,7 +36,7 @@ const Button = ({
     }
   `;
   return (
-    <Button type="button" onClick={onClick}>
+    <Button type="submit" onClick={onClick}>
       {children}
     </Button>
   );

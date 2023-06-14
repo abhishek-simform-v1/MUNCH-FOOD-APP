@@ -23,15 +23,19 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
 import { getRecipes } from "../../../../../slices/Slice";
 
+import Paragraph from "../../../../../utils/Typography/Paragraph";
+import NutritionContainer from "../../RecipeSite/components/components/NutritionContainer";
+import SubTitleH2 from "../../../../../utils/Typography/SubTitleH2";
+import Title from "../../../../../utils/Typography/Title";
+import Tag from "../../../../../utils/Typography/Tag";
+
 export default function BigRecipeCard() {
   const recipes = useAppSelector((state) => state.recipe.recipes);
-  console.log(recipes);
 
-  recipes.length > 0 ? console.log(recipes[0].category[0]) : 0;
   const navigate = useNavigate();
   return (
     <>
-      <MainContainer padding="4em">
+      <MainContainer>
         <div className="Title">
           <SubTitle>Recipes</SubTitle>
           <Button border="var(--accent_color)">More Recipes</Button>
@@ -47,7 +51,7 @@ export default function BigRecipeCard() {
             grabCursor={true}
             loop={true}
             autoplay={{
-              delay: 150000,
+              delay: 1500,
               disableOnInteraction: false,
             }}
             pagination={{
@@ -59,34 +63,13 @@ export default function BigRecipeCard() {
             {recipes.map((recipe) => {
               return (
                 <SwiperSlide>
-                  <div className={style.slide}>
+                  <div className={"slide"}>
                     <div className={style.slideText}>
                       <div className={style.slideTitle}>
                         <SubTitle>{recipe.recipe_name}</SubTitle>
-                        <TagLine align="left">{recipe.recipe_tagline}</TagLine>
-                        <div className={style.slideProfile}>
-                          <Pill>
-                            <img src={clock} />
-                            <Span>
-                              {" "}
-                              {recipe.cooking_time.chill_time +
-                                recipe.cooking_time.cook_time +
-                                recipe.cooking_time.preperation_time}{" "}
-                              minutes
-                            </Span>
-                          </Pill>
-                          <div className={style.category_pills}>
-                            {recipe.category.map((i) => {
-                              return (
-                                <Pill>
-                                  <img src={spoons} />
-                                  <Span>{i}</Span>
-                                </Pill>
-                              );
-                            })}
-                          </div>
-                        </div>
+                        <Tag align="left">{recipe.recipe_tagline}</Tag>
                       </div>
+                      <NutritionContainer recipe={recipe} />
                       <div className={style.slideProfile}>
                         <Pill>
                           <img src={clock} />

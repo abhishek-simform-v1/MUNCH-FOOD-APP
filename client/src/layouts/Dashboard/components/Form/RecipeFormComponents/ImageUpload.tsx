@@ -1,9 +1,9 @@
-import FormItem from 'antd/es/form/FormItem';
-import { useState } from 'react';
-import ReactImageUploading from 'react-images-uploading';
-import style from './../../ImageStyle.module.css';
+import FormItem from "antd/es/form/FormItem";
+import { useState } from "react";
+import ReactImageUploading from "react-images-uploading";
+import style from "./../../ImageStyle.module.css";
 const ImageUpload = ({ setImages, images }: any) => {
-  //   const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const maxNumber = 69;
   const onChange = (imageList: any) => {
     // data for submit
@@ -14,8 +14,8 @@ const ImageUpload = ({ setImages, images }: any) => {
       <FormItem
         name="recipe_image"
         label="Recipe Image"
-        validateTrigger={['onChange', 'onBlur']}
-        rules={[{ required: true, message: 'Missing Image' }]}
+        validateTrigger={["onChange", "onBlur"]}
+        rules={[{ required: true, message: "Missing Image" }]}
       >
         <ReactImageUploading
           multiple
@@ -31,51 +31,71 @@ const ImageUpload = ({ setImages, images }: any) => {
             onImageRemove,
             isDragging,
             dragProps,
+            errors,
           }) => (
-            // write your building UI
-            <div className={style.upload__image_wrapper}>
-              {imageList.map((image, index) => (
-                <div className={style.upload__items} key={index}>
-                  <img
-                    className={style.recipe_uploaded_image}
-                    src={image['data_url']}
-                    alt=""
-                    width="100%"
-                  />
-                  <div className={style.image_item__btn_wrapper}>
+            <>
+              <div className={style.upload__image_wrapper}>
+                {imageList.map((image, index) => (
+                  <div className={style.upload__items} key={index}>
+                    <img
+                      className={style.recipe_uploaded_image}
+                      src={image["data_url"]}
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={style.image_item__btn_wrapper}>
+                      <button
+                        className={style.image_item__btn_update}
+                        onClick={() => onImageUpdate(index)}
+                      >
+                        Update Image
+                      </button>
+                      <button
+                        className={style.image_item__btn_remove}
+                        onClick={() => onImageRemove(index)}
+                      >
+                        Remove Image
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {imageList.length === 0 ? (
+                  <div>
                     <button
-                      className={style.image_item__btn_update}
-                      onClick={() => onImageUpdate(index)}
+                      onClick={onImageUpload}
+                      {...dragProps}
+                      style={isDragging ? { color: "red" } : undefined}
+                      className={style.image_item__btn_upload}
                     >
-                      Update Image
-                    </button>
-                    <button
-                      className={style.image_item__btn_remove}
-                      onClick={() => onImageRemove(index)}
-                    >
-                      Remove Image
+                      Click or Drag image here
                     </button>
                   </div>
-                </div>
-              ))}
-              {imageList.length === 0 ? (
+                ) : (
+                  <></>
+                )}
+                <span className={style.spanItem}>
+                  500*500 recomended image size
+                </span>
+              </div>
+              {errors && (
                 <div>
-                  <button
-                    onClick={onImageUpload}
-                    {...dragProps}
-                    style={isDragging ? { color: 'red' } : undefined}
-                    className={style.image_item__btn_upload}
-                  >
-                    Click or Drag image here
-                  </button>
+                  {errors.maxNumber && (
+                    <span>Number of selected images exceed maxNumber</span>
+                  )}
+                  {errors.acceptType && (
+                    <span>Your selected file type is not allow</span>
+                  )}
+                  {errors.maxFileSize && (
+                    <span>Selected file size exceed maxFileSize</span>
+                  )}
+                  {errors.resolution && (
+                    <span>
+                      Selected file is not match your desired resolution
+                    </span>
+                  )}
                 </div>
-              ) : (
-                <></>
               )}
-              <span className={style.spanItem}>
-                500*500 recomended image size
-              </span>
-            </div>
+            </>
           )}
         </ReactImageUploading>
       </FormItem>
