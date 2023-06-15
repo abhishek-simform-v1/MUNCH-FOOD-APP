@@ -1,6 +1,7 @@
 import FormItem from "antd/es/form/FormItem";
 import { useState } from "react";
 import ReactImageUploading from "react-images-uploading";
+import upload from "./../../../../../assets/Image upload.gif";
 import style from "./../../ImageStyle.module.css";
 const ImageUpload = ({ setImages, images }: any) => {
   // const [images, setImages] = useState([]);
@@ -13,7 +14,7 @@ const ImageUpload = ({ setImages, images }: any) => {
     <div className={style.form_header_Img}>
       <FormItem
         name="recipe_image"
-        label="Recipe Image"
+        // label="Recipe Image"
         validateTrigger={["onChange", "onBlur"]}
         rules={[{ required: true, message: "Missing Image" }]}
       >
@@ -22,6 +23,7 @@ const ImageUpload = ({ setImages, images }: any) => {
           value={images}
           onChange={onChange}
           maxNumber={maxNumber}
+          maxFileSize={262144}
           dataURLKey="data_url"
         >
           {({
@@ -67,7 +69,7 @@ const ImageUpload = ({ setImages, images }: any) => {
                       style={isDragging ? { color: "red" } : undefined}
                       className={style.image_item__btn_upload}
                     >
-                      Click or Drag image here
+                      <img src={upload} alt="" />
                     </button>
                   </div>
                 ) : (
@@ -78,7 +80,7 @@ const ImageUpload = ({ setImages, images }: any) => {
                 </span>
               </div>
               {errors && (
-                <div>
+                <div style={{ color: "red" }}>
                   {errors.maxNumber && (
                     <span>Number of selected images exceed maxNumber</span>
                   )}
@@ -86,7 +88,7 @@ const ImageUpload = ({ setImages, images }: any) => {
                     <span>Your selected file type is not allow</span>
                   )}
                   {errors.maxFileSize && (
-                    <span>Selected file size exceed maxFileSize</span>
+                    <span>exceed File Size, Should less than 256kb</span>
                   )}
                   {errors.resolution && (
                     <span>

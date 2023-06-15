@@ -4,7 +4,6 @@ export const int = {
   profile_img: "",
   name: "",
   email: "",
-  phone_number: "",
   password: "",
   confirm_pwd: "",
 };
@@ -18,12 +17,6 @@ export const validationSchema = Yup.object().shape({
     .matches(
       /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
       "Invaild Email Format!"
-    ),
-  phone_number: Yup.string()
-    .required("Phone Number Required!")
-    .matches(
-      /^(?:(?:\+|0{0,2})91(\s*[-]\s*)?|[0]?)?[789]\d{9}$/,
-      "Invalid phone number!"
     ),
 
   password: Yup.string().required("Password Required!"),

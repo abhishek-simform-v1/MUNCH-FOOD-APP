@@ -34,6 +34,8 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
       ...doc.data(),
       id: `${doc.id}`,
     }));
+    console.log(data)
+    console.log(allRecipe)
     return allRecipe;
   } catch (error) {
     // Handle error
@@ -63,7 +65,6 @@ export const RecipeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getRecipes.fulfilled, (state, action: any) => {
-
       state.recipes = [...action.payload]
     })
   },

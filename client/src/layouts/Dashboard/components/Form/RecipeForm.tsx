@@ -15,11 +15,12 @@ import RecipeName from "./RecipeFormComponents/RecipeName";
 import RecipeCat from "./RecipeFormComponents/RecipeCat";
 import { RecipeInterface } from "../../../../slices/InitialData";
 import RecipeTitle from "./RecipeFormComponents/RecipeTag";
+import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
 
 export default function RecipeForm() {
   const [images, setImages] = useState([]);
   const [form] = Form.useForm();
-
+  const [next, setNext] = useState(false);
   const dispatch = useAppDispatch();
 
   const onFinish = (values: RecipeInterface) => {
@@ -30,8 +31,14 @@ export default function RecipeForm() {
     const date = new Date();
     dispatch(CREATE_RECIPE(values));
     form.resetFields();
+    setNext(false);
   };
-
+  const onNext = (values: any) => {
+    values.length !== 0 ? setNext(true) : setNext(false);
+  };
+  const onPrev = () => {
+    setNext(false);
+  };
   return (
     <ConfigProvider
       theme={{
@@ -53,22 +60,28 @@ export default function RecipeForm() {
           size={"large"}
           autoComplete="off"
         >
-          <div className={style.form_header}>
-            <ImageUpload setImages={setImages} images={images} />
-            <div className={style.form_header_content}>
-              <RecipeName />
-              <RecipeTitle />
-              <RecipeCat />
-              <PrepTime />
+          {!next ? (
+            <div className={style.form_header}>
+              <ImageUpload setImages={setImages} images={images} />
+              <div className={style.form_header_content}>
+                <RecipeName />
+                <RecipeTitle />
+                <RecipeCat />
+                <PrepTime />
+                <Button onClick={() => onNext(images)}>next</Button>
+              </div>
             </div>
-          </div>
-          <div className={style.form_footer}>
-            <Nutritions />
-            <Ingredients />
-            <Instructions />
-          </div>
-
-          <Button>Create / Update Recipe</Button>
+          ) : (
+            <div className={style.form_footer}>
+              <Nutritions />
+              <Ingredients />
+              <Instructions />
+              <div>
+                <ButtonOutLine onClick={onPrev}>prev</ButtonOutLine>
+                <Button>Create / Update Recipe</Button>
+              </div>
+            </div>
+          )}
         </Form>
       </div>
     </ConfigProvider>
