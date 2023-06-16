@@ -2,29 +2,77 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import style from "./auth.module.css";
 import { useFormik } from "formik";
-import { int, validationSchema } from "./validation/validationScema";
+import { int, loginValidateSchema } from "./validation/validationScema";
 import authImage from "./../assets/siginSvg.svg";
+import { ToastContainer, toast } from "react-toastify";
 
 import { useAppDispatch } from "../hooks/hooks";
 import Title from "../utils/Typography/Title";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../database/firebase-config";
 const SignIn = () => {
   const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
-  const handleLogIn = async () => {
-    console.log(formik.values);
+  const handleLogIn = () => {
+    console.log("first");
+    console.log(formik.values.email, formik.values.password);
+    if (formik.isSubmitting) {
+      toast.promise(
+        () => new Promise((resolve) => setTimeout(resolve, 1000)),
+        {
+          pending: "Creating User",
+        },
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    }
+
+    signInWithEmailAndPassword(
+      auth,
+      formik.values.email,
+      formik.values.password
+    )
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+        // return formik.resetForm();
+      })
+      .catch((err) => {
+        throw (
+          (new Error(err),
+          toast.error("User does not Exist", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }))
+        );
+      });
   };
-  const handleReset = () => {
-    formik.resetForm();
-  };
+
   const formik = useFormik({
     initialValues: int,
-    validationSchema: validationSchema,
+    validationSchema: loginValidateSchema,
     onSubmit: handleLogIn,
   });
 
   return (
     <div className={style.container}>
+      <ToastContainer />
       <div className={style.wrapper}>
         <div className={style.auth_form}>
           <div className={style.formContainer}>

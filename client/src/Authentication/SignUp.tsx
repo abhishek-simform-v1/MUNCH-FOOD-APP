@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useNavigate } from "react-router-dom";
 import style from "./auth.module.css";
 import { useFormik } from "formik";
@@ -8,23 +11,64 @@ import Title from "../utils/Typography/Title";
 import ImageUploading from "react-images-uploading";
 import authImage from "./../assets/cooking-animate.svg";
 import profile from "./../assets/icons/signinprofile.svg";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../database/firebase-config";
 const SignUp = () => {
   const handleSignUp = () => {
     console.log("first");
-    console.log(
-      formik.values.email,
-      formik.values.phone_number,
-      formik.values.password
-    );
+    console.log(formik.values.email, formik.values.password);
+    if (formik.isSubmitting) {
+      toast.promise(
+        () => new Promise((resolve) => setTimeout(resolve, 1000)),
+        {
+          pending: "Creating User",
+        },
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    }
     createUserWithEmailAndPassword(
       auth,
       formik.values.email,
       formik.values.confirm_pwd
     )
-      .then((req) => console.log(req))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        navigate("/");
+        return (
+          toast.success("User Created", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }),
+          formik.resetForm()
+        );
+      })
+      .catch((err) => {
+        formik.resetForm();
+        return toast.error("User already Exist", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
   };
 
   const formik = useFormik({
@@ -49,6 +93,18 @@ const SignUp = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className={style.container}>
         <div className={style.wrapper}>
           <div className={style.auth_form}>
@@ -194,7 +250,11 @@ const SignUp = () => {
                   ) : null}
                 </div>
                 <div className={style.registerBtn}>
-                  <button type="submit" className={`btn ${style.submitBtn}`}>
+                  <button
+                    disabled={formik.isSubmitting}
+                    type="submit"
+                    className={`btn ${style.submitBtn}`}
+                  >
                     Sign Up
                   </button>
                 </div>

@@ -2,9 +2,7 @@ import { Timestamp } from 'firebase/firestore';
 
 export interface RecipeInterface {
   recipe_name: string;
-  recipe_image: {
-    url: string
-  };
+  recipe_image: string;
   id?: string;
   recipe_tagline: string
   // creator: string;

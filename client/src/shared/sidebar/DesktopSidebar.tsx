@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
-import profileImg from "./../../assets/icons/profile.svg";
+import profileImg from "./../../assets/icons/signinprofile.svg";
 import createRecipe from "./../../assets/icons/create.svg";
 import createBlog from "./../../assets/icons/createBlog.svg";
 import favImg from "./../../assets/icons/favoriteRecipe.svg";
@@ -18,7 +18,11 @@ const DesktopSidebar = () => {
         to={"/profile"}
       >
         <div className={style.navItems}>
-          <img src={profileImg} alt="profileImg" />
+          <img
+            className={style.profile_image}
+            src={profileImg}
+            alt="profileImg"
+          />
           <span>Profile</span>
         </div>
       </NavLink>

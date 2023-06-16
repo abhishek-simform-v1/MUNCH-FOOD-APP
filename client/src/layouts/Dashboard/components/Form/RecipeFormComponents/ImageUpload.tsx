@@ -8,6 +8,7 @@ const ImageUpload = ({ setImages, images }: any) => {
   const maxNumber = 69;
   const onChange = (imageList: any) => {
     // data for submit
+    console.log(imageList);
     setImages(imageList);
   };
   return (
@@ -23,7 +24,7 @@ const ImageUpload = ({ setImages, images }: any) => {
           value={images}
           onChange={onChange}
           maxNumber={maxNumber}
-          maxFileSize={262144}
+          // maxFileSize={26200000144}
           dataURLKey="data_url"
         >
           {({

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import style from "./style.module.css";
-import profileImg from "./../../assets/icons/profile.svg";
+import profileImg from "./../../assets/icons/signinprofile.svg";
 import createRecipe from "./../../assets/icons/create.svg";
 import createBlog from "./../../assets/icons/createBlog.svg";
 import favImg from "./../../assets/icons/favoriteRecipe.svg";
@@ -16,7 +16,11 @@ const MobileSidebar = () => {
         to={"/profile"}
       >
         <div className={style.mobilenavItems}>
-          <img src={profileImg} alt="profileImg" />
+          <img
+            src={profileImg}
+            alt="profileImg"
+            className={style.profile_image}
+          />
         </div>
       </NavLink>
 

@@ -16,25 +16,44 @@ import RecipeCat from "./RecipeFormComponents/RecipeCat";
 import { RecipeInterface } from "../../../../slices/InitialData";
 import RecipeTitle from "./RecipeFormComponents/RecipeTag";
 import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
+import { imageStore } from "../../../../database/firebase-config";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { v4 } from "uuid";
 
 export default function RecipeForm() {
-  const [images, setImages] = useState([]);
+  const [imageUrl, setImageUrl] = useState<string>();
+  const [images, setImages] = useState<any>();
   const [form] = Form.useForm();
   const [next, setNext] = useState(false);
   const dispatch = useAppDispatch();
 
   const onFinish = (values: RecipeInterface) => {
     console.log(values);
-    values.recipe_image = {
-      url: images[0]["data_url"],
-    };
-    const date = new Date();
-    dispatch(CREATE_RECIPE(values));
-    form.resetFields();
-    setNext(false);
+    console.log(images);
+    if (images.length === 0) {
+      return;
+    } else {
+      const imageRef = ref(imageStore, `images/recipeImage${v4()}}`);
+      uploadString(imageRef, images[0].url, "data_url")
+        .then((snapshot) => {
+          console.log("Uploaded a data_url string!");
+        })
+        // .then(() =>
+        //   getDownloadURL(imageRef).then((downloadURL) => {
+        //     console.log(downloadURL);
+        //     setImageUrl(downloadURL);
+        //   })
+        // )
+        .catch(() => console.log("first"));
+      console.log(imageUrl);
+      const date = new Date();
+      dispatch(CREATE_RECIPE(values));
+      form.resetFields();
+      setNext(false);
+    }
   };
-  const onNext = (values: any) => {
-    values.length !== 0 ? setNext(true) : setNext(false);
+  const onNext = () => {
+    setNext(true);
   };
   const onPrev = () => {
     setNext(false);
@@ -62,13 +81,18 @@ export default function RecipeForm() {
         >
           {!next ? (
             <div className={style.form_header}>
-              <ImageUpload setImages={setImages} images={images} />
+              <ImageUpload
+                images={images}
+                setImages={setImages}
+                setImageUrl={setImageUrl}
+                imageUrl={imageUrl}
+              />
               <div className={style.form_header_content}>
                 <RecipeName />
                 <RecipeTitle />
                 <RecipeCat />
                 <PrepTime />
-                <Button onClick={() => onNext(images)}>next</Button>
+                <Button onClick={() => onNext()}>next</Button>
               </div>
             </div>
           ) : (

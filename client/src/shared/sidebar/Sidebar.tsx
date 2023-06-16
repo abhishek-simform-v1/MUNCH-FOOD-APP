@@ -1,5 +1,4 @@
 import { ReactNode, useRef, useState } from "react";
-import styled from "styled-components";
 import style from "./style.module.css";
 
 type props = {

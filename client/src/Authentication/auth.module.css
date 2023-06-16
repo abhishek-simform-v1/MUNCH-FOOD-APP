@@ -124,6 +124,9 @@
     background-color: var(--accent_color);
 
 }
+.submitBtn:disabled {
+    background-color: gray;
+}
 
 .input_field {
     display: flex;

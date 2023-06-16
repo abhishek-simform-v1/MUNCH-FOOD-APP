@@ -6,7 +6,7 @@ import plus from "./../../../../../../assets/icons/plusIcon.svg";
 import minus from "./../../../../../../assets/icons/minusIcon.svg";
 import Paragraph from "../../../../../../utils/Typography/Paragraph";
 import Ingredients from "./../../../../../../assets/icons/ingredients.svg";
-import Profile from "./../../../../../../assets/icons/profile.svg";
+import Profile from "./../../../../../../assets/icons/signinprofile.svg";
 import { RecipeInterface } from "../../../../../../slices/InitialData";
 
 type props = {
