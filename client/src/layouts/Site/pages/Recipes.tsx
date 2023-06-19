@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import MainContainer from "../../../utils/containers/MainContainer";
-import RecipesUI from "../components/RecipesSite/RecipesUI";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { getRecipes } from "../../../slices/Slice";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import MainContainer from '../../../utils/containers/MainContainer';
+import RecipesUI from '../components/RecipesSite/RecipesUI';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { getRecipes } from '../../../slices/recipeSlice';
+import axios from 'axios';
 
 const Recipes = () => {
   const dispatch = useAppDispatch();

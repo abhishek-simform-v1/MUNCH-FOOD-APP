@@ -11,7 +11,6 @@ import {
   DocumentReference,
 } from 'firebase/firestore';
 const recipeCollectionRef = collection(db, 'recipes');
-const userCollecttion = collection(db, 'recipes');
 class RecipeDataService {
   addRecipes = (newRecipe: any) => {
     return addDoc(recipeCollectionRef, newRecipe);

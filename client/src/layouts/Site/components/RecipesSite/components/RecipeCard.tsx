@@ -1,14 +1,13 @@
-import { useAppSelector } from "../../../../../hooks/hooks";
-import Span from "../../../../../utils/Typography/Span";
-import SubTitle from "../../../../../utils/Typography/SubTitle";
-import Tag from "../../../../../utils/Typography/Tag";
-import Button from "../../../../../utils/buttons/Button";
-import Pill from "../../../../../utils/buttons/Pill";
-import NutritionContainer from "../../RecipeSite/components/components/NutritionContainer";
-import style from "./RecipeCards.module.css";
-import clock from "./../../../../../assets/icons/clock.svg";
-import { useNavigate } from "react-router-dom";
-import { RecipeInterface } from "../../../../../slices/InitialData";
+import { useAppSelector } from '../../../../../hooks/hooks';
+import Span from '../../../../../utils/Typography/Span';
+import SubTitle from '../../../../../utils/Typography/SubTitle';
+import Tag from '../../../../../utils/Typography/Tag';
+import Button from '../../../../../utils/buttons/Button';
+import Pill from '../../../../../utils/buttons/Pill';
+import style from './RecipeCards.module.css';
+import clock from './../../../../../assets/icons/clock.svg';
+import { useNavigate } from 'react-router-dom';
+import { RecipeInterface } from '../../../../../slices/InitialData';
 type props = {
   recipe: RecipeInterface;
 };
@@ -40,7 +39,7 @@ const RecipeCard = ({ recipe }: props) => {
         </div>
 
         <div className={style.dish_image_container}>
-          <img src={recipe.recipe_image.url} className={style.dish_image} />
+          <img src={recipe.recipe_image} className={style.dish_image} />
         </div>
       </div>
     </div>

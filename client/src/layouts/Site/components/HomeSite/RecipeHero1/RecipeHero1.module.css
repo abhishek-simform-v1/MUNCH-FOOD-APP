@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  gap: 1em;
+
+  align-items: center;
+}
+.img_container img {
+  width: 80%;
+}
+.img_container {
+  background-color: var(--secondary_transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  border-radius: var(--lg_border_radius);
+  width: 50%;
+}
+.text_container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  width: 60%;
+  align-items: flex-start;
+}

@@ -1,17 +1,17 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
-import useWindowSize from "../../../../../hooks/useWindowSize";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/hooks';
+import useWindowSize from '../../../../../hooks/useWindowSize';
 
-import ImageContainer from "./components/ImageContainer";
-import IngredientsContainer from "./components/IngredientsContainer";
-import InstructionContainer from "./components/InstructionContainer";
-import NutrionContainer from "./components/NutritionContainer";
-import TitleContainer from "./components/TitleContainer";
-import style from "./style.module.css";
-import NutritionContainer from "./components/NutritionContainer";
-import { Button } from "antd";
-import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
-import { DELETE_RECIPE } from "../../../../../slices/Slice";
+import ImageContainer from './components/ImageContainer';
+import IngredientsContainer from './components/IngredientsContainer';
+import InstructionContainer from './components/InstructionContainer';
+import NutrionContainer from './components/NutritionContainer';
+import TitleContainer from './components/TitleContainer';
+import style from './style.module.css';
+import NutritionContainer from './components/NutritionContainer';
+import { Button } from 'antd';
+import ButtonOutLine from '../../../../../utils/buttons/ButtonOutLine';
+import { DELETE_RECIPE } from '../../../../../slices/recipeSlice';
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
@@ -54,7 +54,7 @@ const RecipeUiCard = () => {
       </>
       <ButtonOutLine
         onClick={() => {
-          navigate("/");
+          navigate('/');
         }}
       >
         go back
@@ -64,7 +64,7 @@ const RecipeUiCard = () => {
           dispatch(DELETE_RECIPE(id));
         }}
       >
-        Delete{" "}
+        Delete{' '}
       </Button>
     </>
   );

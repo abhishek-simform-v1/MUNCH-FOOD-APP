@@ -1,6 +1,6 @@
-import style from "./style.module.css";
-import dish from "./../../../../../../assets/dish.jpg";
-import { RecipeInterface } from "../../../../../../slices/InitialData";
+import style from './style.module.css';
+import dish from './../../../../../../assets/dish.jpg';
+import { RecipeInterface } from '../../../../../../slices/InitialData';
 
 type props = {
   recipe: RecipeInterface;
@@ -9,7 +9,7 @@ const ImageContainer = ({ recipe }: props) => {
   return (
     <>
       <div className={style.img_container}>
-        <img className={style.img} src={recipe.recipe_image.url} />
+        <img className={style.img} src={recipe.recipe_image} />
       </div>
     </>
   );

@@ -1,14 +1,14 @@
-import Paragraph from "../../../../../utils/Typography/Paragraph";
-import TagLine from "../../../../../utils/Typography/Tag";
-import Title from "../../../../../utils/Typography/Title";
-import Button from "../../../../../utils/buttons/Button";
-import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
-import MainContainer from "../../../../../utils/containers/MainContainer";
-import heroImg from "./../../../../../assets/fulldish.png";
-import style from "./Hero.module.css";
+import Paragraph from '../../../../../utils/Typography/Paragraph';
+import TagLine from '../../../../../utils/Typography/Tag';
+import Title from '../../../../../utils/Typography/Title';
+import Button from '../../../../../utils/buttons/Button';
+import ButtonOutLine from '../../../../../utils/buttons/ButtonOutLine';
+import MainContainer from '../../../../../utils/containers/MainContainer';
+import heroImg from './../../../../../assets/cooking-animate.svg';
+import style from './Hero.module.css';
 const Hero = () => {
   return (
-    <MainContainer padding="0px">
+    <MainContainer>
       <div className={style.heroContainer}>
         <div className={style.heroTextContainer}>
           <Title>
@@ -22,7 +22,7 @@ const Hero = () => {
           <div className={style.heroBtnContainer}>
             <Button border="var(--accent_color)">Go to Recipes</Button>
             <ButtonOutLine
-              border_radius={"20rem"}
+              border_radius={'20rem'}
               padding="0.4rem 0.6rem"
               border="var(--accent_color)"
             >

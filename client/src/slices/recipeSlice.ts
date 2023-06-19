@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RecipeInterface } from './InitialData';
-import RecipeDataService from './../services/recipe.services';
+import RecipeDataService from '../services/recipe.services';
 
 export const CREATE_RECIPE = createAsyncThunk(
   'recipe/CREATE_RECIPE',
   async (newRecipe: RecipeInterface) => {
     try {
-      console.log(newRecipe)
+      console.log(newRecipe);
       await RecipeDataService.addRecipes(newRecipe);
       alert('New recipe added');
     } catch (error) {
@@ -34,8 +34,8 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
       ...doc.data(),
       id: `${doc.id}`,
     }));
-    console.log(data)
-    console.log(allRecipe)
+    console.log(data);
+    console.log(allRecipe);
     return allRecipe;
   } catch (error) {
     // Handle error
@@ -44,29 +44,21 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
 });
 
 type initType = {
-
   recipes: RecipeInterface[];
-  // users: userData[]
-  // current_user: userData
 };
 
 const initialState: initType = {
   recipes: [],
-  // users: []
-  // current_user: {}
 };
-
 
 export const RecipeSlice = createSlice({
   name: 'recipe',
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getRecipes.fulfilled, (state, action: any) => {
-      state.recipes = [...action.payload]
-    })
+      state.recipes = [...action.payload];
+    });
   },
 });
 

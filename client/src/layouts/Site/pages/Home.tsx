@@ -1,11 +1,10 @@
-import Header from "../../../shared/navbar/Header";
-import Hero from "../components/HomeSite/Hero/Hero";
-import Categories from "../components/HomeSite/Categories/Categories";
+import Header from '../../../shared/navbar/Header';
+import Hero from '../components/HomeSite/Hero/Hero';
 
-import BigRecipeCard from "../components/HomeSite/BigRecipeCard/BigRecipeCard";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { useEffect, useState } from "react";
-import { getRecipes } from "../../../slices/Slice";
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { useEffect, useState } from 'react';
+import { getRecipes } from '../../../slices/recipeSlice';
+import RecipeHero1 from '../components/HomeSite/RecipeHero1/RecipeHero1';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -28,9 +27,7 @@ const Home = () => {
     <>
       {/* <Header /> */}
       <Hero />
-      <Categories />
-
-      <BigRecipeCard />
+      <RecipeHero1 />
     </>
   );
 };

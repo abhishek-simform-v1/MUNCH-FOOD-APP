@@ -4,7 +4,7 @@ export interface RecipeInterface {
   recipe_name: string;
   recipe_image: string;
   id?: string;
-  recipe_tagline: string
+  recipe_tagline: string;
   // creator: string;
   cooking_time: {
     preperation_time: number;
@@ -34,6 +34,8 @@ export interface RecipeInterface {
     ingredient_unit: string;
   }[];
 }
-// export interface userData {
-//   user_name:
-// }
+export interface UserInterface {
+  Username: string;
+  email: string;
+  authToken?: string;
+}
