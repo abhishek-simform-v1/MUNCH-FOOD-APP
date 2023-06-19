@@ -4,9 +4,10 @@ import Tag from '../../../../../utils/Typography/Tag';
 import Title from '../../../../../utils/Typography/Title';
 import Button from '../../../../../utils/buttons/Button';
 import MainContainer from '../../../../../utils/containers/MainContainer';
-import dish from './../../../../../assets/dish_02.jpg';
-import style from './RecipeHero1.module.css';
-const RecipeHero1 = () => {
+import dish from './../../../../../assets/dish_03.jpg';
+
+import style from './RecipeHero2.module.css';
+const RecipeHero2 = () => {
   return (
     <MainContainer>
       <div className={style.container}>
@@ -14,11 +15,10 @@ const RecipeHero1 = () => {
           <img src={dish} alt="" />
         </div>
         <div className={style.text_container}>
-          <SubTitle>Spice up Your Life with Recipe Sharing</SubTitle>
+          <SubTitle>Unlock Thousands of Lip-Smacking Recipes</SubTitle>
           <Paragraph>
-            Discover, share, and treasure mouth-watering recipes through an
-            exciting online community. Experience the world’s diverse culinary
-            flavor in one spot.
+            Embark on a thrilling culinary adventure with our app that’s
+            brimming with mouthwatering dishes from around the globe.
           </Paragraph>
         </div>
       </div>
@@ -26,4 +26,4 @@ const RecipeHero1 = () => {
   );
 };
 
-export default RecipeHero1;
+export default RecipeHero2;

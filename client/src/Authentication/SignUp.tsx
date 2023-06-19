@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { useNavigate } from "react-router-dom";
-import style from "./auth.module.css";
-import { useFormik } from "formik";
+import { useNavigate } from 'react-router-dom';
+import style from './auth.module.css';
+import { useFormik } from 'formik';
 // import { useState } from "react";
-import { int, validationSchema } from "./validation/validationScema";
-import Title from "../utils/Typography/Title";
-import ImageUploading from "react-images-uploading";
-import authImage from "./../assets/cooking-animate.svg";
-import profile from "./../assets/icons/signinprofile.svg";
+import { int, validationSchema } from './validation/validationScema';
+import Title from '../utils/Typography/Title';
+import ImageUploading from 'react-images-uploading';
+import authImage from './../assets/signin.jpg';
+import profile from './../assets/icons/signinprofile.svg';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
-} from "firebase/auth";
-import { app, auth, db, imageStore } from "../database/firebase-config";
-import { v4 } from "uuid";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
-import { useAppDispatch } from "../hooks/hooks";
-import { LOG_IN } from "../slices/userSlice";
+} from 'firebase/auth';
+import { app, auth, db, imageStore } from '../database/firebase-config';
+import { v4 } from 'uuid';
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { doc, setDoc } from 'firebase/firestore';
+import { useAppDispatch } from '../hooks/hooks';
+import { LOG_IN } from '../slices/userSlice';
+import SubTitle from '../utils/Typography/SubTitle';
 type imageType = {
   data_url: string;
   file: File;
@@ -42,25 +43,25 @@ const SignUp = () => {
       toast.promise(
         () => new Promise((resolve) => setTimeout(resolve, 1000)),
         {
-          pending: "Creating User",
+          pending: 'Creating User',
         },
         {
-          position: "top-center",
+          position: 'top-center',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         }
       );
     }
     if (images!.length > 0) {
       const imageRef = ref(imageStore, `users/userImage${v4()}}`);
-      uploadString(imageRef, images![0].data_url, "data_url")
+      uploadString(imageRef, images![0].data_url, 'data_url')
         .then(() => {
-          console.log("Uploaded a data_url string!");
+          console.log('Uploaded a data_url string!');
         })
         .then(() =>
           getDownloadURL(imageRef).then((downloadURL) => {
@@ -70,43 +71,43 @@ const SignUp = () => {
               formik.values.confirm_pwd
             )
               .then((cred) => {
-                navigate("/");
+                navigate('/');
                 return (
-                  setDoc(doc(db, "users", cred.user.uid), {
+                  setDoc(doc(db, 'users', cred.user.uid), {
                     user_name: formik.values.name,
                     user_email: formik.values.email,
                     user_image: downloadURL,
                   }),
                   dispatch(LOG_IN()),
-                  toast.success("User Created", {
-                    position: "top-right",
+                  toast.success('User Created', {
+                    position: 'top-right',
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "light",
+                    theme: 'light',
                   }),
                   formik.resetForm()
                 );
               })
               .catch((err) => {
                 formik.resetForm();
-                return toast.error("User already Exist", {
-                  position: "top-right",
+                return toast.error('User already Exist', {
+                  position: 'top-right',
                   autoClose: 5000,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
                   draggable: true,
                   progress: undefined,
-                  theme: "light",
+                  theme: 'light',
                 });
               });
           })
         )
-        .catch(() => console.log("first"));
+        .catch(() => console.log('first'));
     }
   };
 
@@ -134,8 +135,8 @@ const SignUp = () => {
         <div className={style.wrapper}>
           <div className={style.auth_form}>
             <div className={style.formContainer}>
-              <div style={{ alignSelf: "center" }}>
-                <Title>Sign Up</Title>
+              <div style={{ alignSelf: 'center' }}>
+                <SubTitle>Sign Up</SubTitle>
               </div>
 
               <form className={style.form} onSubmit={formik.handleSubmit}>
@@ -176,7 +177,7 @@ const SignUp = () => {
                         {imageList.map((image, index) => (
                           <div key={index} className="image-item">
                             <img
-                              src={image["data_url"]}
+                              src={image['data_url']}
                               alt="profile-image"
                               className={style.profile_image}
                             />
@@ -288,7 +289,7 @@ const SignUp = () => {
                 Already have an account ?
                 <span
                   className={style.routeLink}
-                  onClick={() => navigate("/signin")}
+                  onClick={() => navigate('/signin')}
                 >
                   &nbsp; Login
                 </span>

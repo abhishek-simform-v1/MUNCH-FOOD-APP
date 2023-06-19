@@ -1,18 +1,23 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const NavContainer = styled.div`
   display: flex;
   z-index: 100;
   width: 100%;
   max-width: 1400px;
   height: 80px;
+  -webkit-box-align: center;
   align-items: center;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
   justify-content: space-between;
   backdrop-filter: blur(50px);
   position: fixed;
   background-color: var(--secondary_transparent);
   padding: 2rem;
   border-radius: 2rem;
-  top: 1%;
+  top: -1.5%;
+  left: 50%;
+  transform: translate(-50%, 50%);
   @media (max-width: 568px) {
     /* flex-direction: column; */
   }

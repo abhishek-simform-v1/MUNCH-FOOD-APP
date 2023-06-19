@@ -1,0 +1,14 @@
+.dark_container {
+  background-color: var(--secondary_color);
+  padding: 20px 50px;
+}
+@media screen and (max-width: 768px) {
+  .dark_container {
+    padding: 20px 20px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .dark_container {
+    padding: 20px 0px;
+  }
+}

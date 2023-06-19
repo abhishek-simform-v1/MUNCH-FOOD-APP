@@ -1,12 +1,11 @@
-.main_container{
-    height: 100%;
-    width:calc(100% - 3rem);
-    display: flex;
-    padding-top: 3em;
-    padding-bottom: 3em;
-    gap: var(--step-3
-    );
-    margin: 0 auto;
-    max-width: 1400px;
-    flex-direction: column;
+.main_container {
+  height: 100%;
+  width: calc(100% - 3rem);
+  display: flex;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  gap: var(--step-3);
+  margin: 0 auto;
+  max-width: 1400px;
+  flex-direction: column;
 }

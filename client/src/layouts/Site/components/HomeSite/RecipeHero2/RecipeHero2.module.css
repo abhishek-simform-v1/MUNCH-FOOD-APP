@@ -1,13 +1,12 @@
 .container {
   display: flex;
   gap: 2em;
-
+  flex-direction: row-reverse;
   align-items: center;
 }
 .img_container img {
-  width: 100%;
-  /* filter: hue-rotate(300deg); */
   filter: sepia(40%);
+  width: 100%;
 }
 .img_container {
   display: flex;
