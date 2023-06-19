@@ -7,7 +7,6 @@ export const CREATE_RECIPE = createAsyncThunk(
   'recipe/CREATE_RECIPE',
   async (newRecipe: RecipeInterface) => {
     try {
-      console.log(newRecipe);
       await RecipeDataService.addRecipes(newRecipe);
       alert('New recipe added');
     } catch (error) {
@@ -34,8 +33,6 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
       ...doc.data(),
       id: `${doc.id}`,
     }));
-    console.log(data);
-    console.log(allRecipe);
     return allRecipe;
   } catch (error) {
     // Handle error
@@ -45,10 +42,12 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
 
 type initType = {
   recipes: RecipeInterface[];
+  loading: boolean
 };
 
 const initialState: initType = {
   recipes: [],
+  loading: true
 };
 
 export const RecipeSlice = createSlice({
@@ -58,8 +57,16 @@ export const RecipeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getRecipes.fulfilled, (state, action: any) => {
       state.recipes = [...action.payload];
+      state.loading = false
+
+    }).addCase(getRecipes.pending, (state, action) => {
+      state.loading = true
+    }).addCase(getRecipes.rejected, (state, action) => {
+      state.loading = false
     });
   },
 });
 
 export default RecipeSlice.reducer;
+export const selectRecipes = (state: any) => state.recipe.recipes
+export const selectLoading = (state: any) => state.recipe.loading

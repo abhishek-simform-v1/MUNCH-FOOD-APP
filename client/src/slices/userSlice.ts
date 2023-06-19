@@ -2,18 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { UserInterface } from './InitialData';
 import UserDataService from '../services/user.services';
+import { auth } from '../database/firebase-config';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
-export const CREATE_USER = createAsyncThunk(
-  'recipe/CREATE_USER',
-  async (newUser: UserInterface) => {
-    try {
-      console.log(newUser);
-      await UserDataService.addUsers(newUser);
-    } catch (error) {
-      // Handle error
-    }
-  }
-);
+
 export const DELETE_USER = createAsyncThunk(
   'recipe/DELETE_USER',
   async (id: string) => {
@@ -26,16 +19,10 @@ export const DELETE_USER = createAsyncThunk(
   }
 );
 
-export const getUsers = createAsyncThunk('recipe/GET_USERS', async () => {
+export const getUser = createAsyncThunk('recipe/GET_USERS', () => {
   try {
-    const data = await UserDataService.getAllUsers();
-    const allUsers = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: `${doc.id}`,
-    }));
-    console.log(data);
-    console.log(allUsers);
-    return allUsers;
+    const user = auth.currentUser;
+    return user
   } catch (error) {
     // Handle error
     return [];
@@ -43,19 +30,44 @@ export const getUsers = createAsyncThunk('recipe/GET_USERS', async () => {
 });
 
 const initialState = {
-  users: <UserInterface[]>[],
   current_user: <UserInterface>{},
+  auth: false
 };
 
 export const UserSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    LOG_IN: (state) => {
+      state.auth = true
+      console.log(state)
+    },
+    LOG_OUT: (state) => {
+      signOut(auth)
+        .then(() => {
+          state.current_user = {
+            Username: "",
+            email: ""
+          }
+          state.auth = false
+
+
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+
+    }
+  },
   extraReducers: (builder) => {
-    builder.addCase(getUsers.fulfilled, (state, action: any) => {
-      state.users = [...action.payload];
+    builder.addCase(getUser.fulfilled, (state, action: any) => {
+      state.current_user = action.payload;
+      state.auth = true
+
     });
   },
 });
 
 export default UserSlice.reducer;
+export const { LOG_IN, LOG_OUT } = UserSlice.actions
+export const selectUser = (state: any) => state.user.current_user

@@ -1,24 +1,24 @@
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/hooks';
-import { getRecipes } from '../../../../../slices/recipeSlice';
-import Paragraph from '../../../../../utils/Typography/Paragraph';
-import SubTitle from '../../../../../utils/Typography/SubTitle';
-import Button from '../../../../../utils/buttons/Button';
-import ButtonOutLine from '../../../../../utils/buttons/ButtonOutLine';
-import MainContainer from '../../../../../utils/containers/MainContainer';
-import dish from './../../../../../assets/dish_02.jpg';
-import style from './style.module.css';
-import plus from './../../../../../assets/icons/plusIcon.svg';
-import minus from './../../../../../assets/icons/minusIcon.svg';
-import { useState } from 'react';
-import Title from '../../../../../utils/Typography/Title';
-import Tag from '../../../../../utils/Typography/Tag';
-import Pill from '../../../../../utils/buttons/Pill';
-import SubTitleH2 from '../../../../../utils/Typography/SubTitleH2';
-import React from 'react';
+import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
+import { getRecipes, selectRecipes } from "../../../../../slices/recipeSlice";
+import Paragraph from "../../../../../utils/Typography/Paragraph";
+import SubTitle from "../../../../../utils/Typography/SubTitle";
+import Button from "../../../../../utils/buttons/Button";
+import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
+import MainContainer from "../../../../../utils/containers/MainContainer";
+import dish from "./../../../../../assets/dish_02.jpg";
+import style from "./style.module.css";
+import plus from "./../../../../../assets/icons/plusIcon.svg";
+import minus from "./../../../../../assets/icons/minusIcon.svg";
+import { useState } from "react";
+import Title from "../../../../../utils/Typography/Title";
+import Tag from "../../../../../utils/Typography/Tag";
+import Pill from "../../../../../utils/buttons/Pill";
+import SubTitleH2 from "../../../../../utils/Typography/SubTitleH2";
+import React from "react";
 const RecipeUiCard = () => {
   const [count, setCount] = useState(1);
   const dispatch = useAppDispatch();
-  const state = useAppSelector((state) => state.recipe.recipes);
+  const state = useAppSelector(selectRecipes);
   console.log(state);
   const increment_Ingredient = () => {
     setCount((prev) => prev + 1);
@@ -41,7 +41,7 @@ const RecipeUiCard = () => {
               <ButtonOutLine
                 padding="0.5rem 0.8rem"
                 onClick={increment_Ingredient}
-                border_radius={'50rem'}
+                border_radius={"50rem"}
               >
                 <img src={plus} />
               </ButtonOutLine>
@@ -49,7 +49,7 @@ const RecipeUiCard = () => {
               <ButtonOutLine
                 onClick={decrement_Ingredient}
                 padding="0.5rem 0.8rem"
-                border_radius={'50rem'}
+                border_radius={"50rem"}
               >
                 <img src={minus} />
               </ButtonOutLine>

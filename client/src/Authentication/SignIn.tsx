@@ -10,13 +10,13 @@ import { useAppDispatch } from "../hooks/hooks";
 import Title from "../utils/Typography/Title";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebase-config";
+import { LOG_IN } from "../slices/userSlice";
 const SignIn = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   const handleLogIn = () => {
-    console.log("first");
     console.log(formik.values.email, formik.values.password);
     if (formik.isSubmitting) {
       toast.promise(
@@ -43,8 +43,7 @@ const SignIn = () => {
       formik.values.password
     )
       .then((res) => {
-        console.log(res);
-        navigate("/");
+        dispatch(LOG_IN());
         // return formik.resetForm();
       })
       .catch((err) => {

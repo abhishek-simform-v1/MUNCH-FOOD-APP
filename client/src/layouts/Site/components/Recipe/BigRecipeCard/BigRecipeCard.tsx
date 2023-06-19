@@ -1,36 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import clock from './../../../../../assets/icons/clock.svg';
-import spoons from './../../../../../assets/icons/spoons.svg';
-import dish_01 from '../../../../../assets/dish.jpg';
+import "swiper/css";
+import "swiper/css/pagination";
+import clock from "./../../../../../assets/icons/clock.svg";
+import spoons from "./../../../../../assets/icons/spoons.svg";
+import dish_01 from "../../../../../assets/dish.jpg";
 
-import './styles.css';
-import style from './Recipe.module.css';
+import "./styles.css";
+import style from "./Recipe.module.css";
 // import required modules
-import { Pagination, Autoplay, Navigation } from 'swiper';
-import Pill from '../../../../../utils/buttons/Pill';
-import Span from '../../../../../utils/Typography/Span';
-import MainContainer from '../../../../../utils/containers/MainContainer';
-import SubTitle from '../../../../../utils/Typography/SubTitle';
-import TagLine from '../../../../../utils/Typography/Tag';
-import Button from '../../../../../utils/buttons/Button';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/hooks';
-import { getRecipes } from '../../../../../slices/recipeSlice';
+import { Pagination, Autoplay, Navigation } from "swiper";
+import Pill from "../../../../../utils/buttons/Pill";
+import Span from "../../../../../utils/Typography/Span";
+import MainContainer from "../../../../../utils/containers/MainContainer";
+import SubTitle from "../../../../../utils/Typography/SubTitle";
+import TagLine from "../../../../../utils/Typography/Tag";
+import Button from "../../../../../utils/buttons/Button";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
+import { getRecipes, selectRecipes } from "../../../../../slices/recipeSlice";
 
-import Paragraph from '../../../../../utils/Typography/Paragraph';
-import NutritionContainer from '../../RecipeSite/components/components/NutritionContainer';
-import SubTitleH2 from '../../../../../utils/Typography/SubTitleH2';
-import Title from '../../../../../utils/Typography/Title';
-import Tag from '../../../../../utils/Typography/Tag';
+import Paragraph from "../../../../../utils/Typography/Paragraph";
+import NutritionContainer from "../../RecipeSite/components/components/NutritionContainer";
+import SubTitleH2 from "../../../../../utils/Typography/SubTitleH2";
+import Title from "../../../../../utils/Typography/Title";
+import Tag from "../../../../../utils/Typography/Tag";
+import { RecipeInterface } from "../../../../../slices/InitialData";
 
 export default function BigRecipeCard() {
-  const recipes = useAppSelector((state) => state.recipe.recipes);
+  const recipes = useAppSelector(selectRecipes);
 
   const navigate = useNavigate();
   return (
@@ -44,7 +45,7 @@ export default function BigRecipeCard() {
           <></>
         ) : (
           <Swiper
-            slidesPerView={'auto'}
+            slidesPerView={"auto"}
             centeredSlides={true}
             touchStartPreventDefault={false}
             spaceBetween={30}
@@ -60,10 +61,10 @@ export default function BigRecipeCard() {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            {recipes.map((recipe) => {
+            {recipes.map((recipe: RecipeInterface) => {
               return (
                 <SwiperSlide>
-                  <div className={'slide'}>
+                  <div className={"slide"}>
                     <div className={style.slideText}>
                       <div className={style.slideTitle}>
                         <SubTitle>{recipe.recipe_name}</SubTitle>

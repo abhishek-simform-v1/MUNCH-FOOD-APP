@@ -1,5 +1,6 @@
 import { RecipeInterface } from "../../../../../../slices/InitialData";
 import Paragraph from "../../../../../../utils/Typography/Paragraph";
+import Tag from "../../../../../../utils/Typography/Tag";
 import Title from "../../../../../../utils/Typography/Title";
 import Pill from "../../../../../../utils/buttons/Pill";
 import style from "./style.module.css";
@@ -13,7 +14,7 @@ const TitleContainer = ({ recipe }: props) => {
         <Title>{recipe.recipe_name}</Title>
       </div>
       <div>
-        <Paragraph>{recipe.recipe_tagline}</Paragraph>
+        <Tag>{recipe.recipe_tagline}</Tag>
       </div>
       <div className={style.pill_container}>
         {recipe.category.map((cat) => (

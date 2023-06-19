@@ -11,12 +11,33 @@ import Title from "../utils/Typography/Title";
 import ImageUploading from "react-images-uploading";
 import authImage from "./../assets/cooking-animate.svg";
 import profile from "./../assets/icons/signinprofile.svg";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../database/firebase-config";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { app, auth, db, imageStore } from "../database/firebase-config";
+import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { useAppDispatch } from "../hooks/hooks";
+import { LOG_IN } from "../slices/userSlice";
+type imageType = {
+  data_url: string;
+  file: File;
+};
 const SignUp = () => {
+  const [images, setImages] = useState<imageType[]>();
+  const maxNumber = 1;
+
+  const onChange = (imageList: any, addUpdateIndex: any) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  };
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleSignUp = () => {
-    console.log("first");
-    console.log(formik.values.email, formik.values.password);
     if (formik.isSubmitting) {
       toast.promise(
         () => new Promise((resolve) => setTimeout(resolve, 1000)),
@@ -35,40 +56,58 @@ const SignUp = () => {
         }
       );
     }
-    createUserWithEmailAndPassword(
-      auth,
-      formik.values.email,
-      formik.values.confirm_pwd
-    )
-      .then((res) => {
-        navigate("/");
-        return (
-          toast.success("User Created", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          }),
-          formik.resetForm()
-        );
-      })
-      .catch((err) => {
-        formik.resetForm();
-        return toast.error("User already Exist", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      });
+    if (images!.length > 0) {
+      const imageRef = ref(imageStore, `users/userImage${v4()}}`);
+      uploadString(imageRef, images![0].data_url, "data_url")
+        .then(() => {
+          console.log("Uploaded a data_url string!");
+        })
+        .then(() =>
+          getDownloadURL(imageRef).then((downloadURL) => {
+            createUserWithEmailAndPassword(
+              auth,
+              formik.values.email,
+              formik.values.confirm_pwd
+            )
+              .then((cred) => {
+                navigate("/");
+                return (
+                  setDoc(doc(db, "users", cred.user.uid), {
+                    user_name: formik.values.name,
+                    user_email: formik.values.email,
+                    user_image: downloadURL,
+                  }),
+                  dispatch(LOG_IN()),
+                  toast.success("User Created", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  }),
+                  formik.resetForm()
+                );
+              })
+              .catch((err) => {
+                formik.resetForm();
+                return toast.error("User already Exist", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              });
+          })
+        )
+        .catch(() => console.log("first"));
+    }
   };
 
   const formik = useFormik({
@@ -76,20 +115,6 @@ const SignUp = () => {
     validationSchema: validationSchema,
     onSubmit: handleSignUp,
   });
-
-  const handleReset = () => {
-    formik.resetForm();
-  };
-  const [images, setImages] = React.useState([]);
-  const maxNumber = 1;
-
-  const onChange = (imageList: any, addUpdateIndex: any) => {
-    // data for submit
-    console.log(imageList, addUpdateIndex);
-    setImages(imageList);
-  };
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -117,7 +142,7 @@ const SignUp = () => {
                 <div className="inputFile">
                   <ImageUploading
                     multiple
-                    value={images}
+                    value={images!}
                     onChange={onChange}
                     maxNumber={maxNumber}
                     dataURLKey="data_url"

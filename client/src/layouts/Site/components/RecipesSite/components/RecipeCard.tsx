@@ -1,19 +1,19 @@
-import { useAppSelector } from '../../../../../hooks/hooks';
-import Span from '../../../../../utils/Typography/Span';
-import SubTitle from '../../../../../utils/Typography/SubTitle';
-import Tag from '../../../../../utils/Typography/Tag';
-import Button from '../../../../../utils/buttons/Button';
-import Pill from '../../../../../utils/buttons/Pill';
-import style from './RecipeCards.module.css';
-import clock from './../../../../../assets/icons/clock.svg';
-import { useNavigate } from 'react-router-dom';
-import { RecipeInterface } from '../../../../../slices/InitialData';
+import { useAppSelector } from "../../../../../hooks/hooks";
+import Span from "../../../../../utils/Typography/Span";
+import SubTitle from "../../../../../utils/Typography/SubTitle";
+import Tag from "../../../../../utils/Typography/Tag";
+import Button from "../../../../../utils/buttons/Button";
+import Pill from "../../../../../utils/buttons/Pill";
+import style from "./RecipeCards.module.css";
+import clock from "./../../../../../assets/icons/clock.svg";
+import { useNavigate } from "react-router-dom";
+import { RecipeInterface } from "../../../../../slices/InitialData";
 type props = {
   recipe: RecipeInterface;
 };
 const RecipeCard = ({ recipe }: props) => {
   const navigate = useNavigate();
-  //   const [recipe] = useAppSelector((state) => state.recipe.recipes);
+
   return (
     <div className={style.recipe_card}>
       <div className={style.slide}>

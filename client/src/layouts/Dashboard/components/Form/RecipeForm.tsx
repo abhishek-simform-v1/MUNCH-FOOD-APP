@@ -1,25 +1,26 @@
-import { useState } from 'react';
-import { ConfigProvider } from 'antd';
-import Button from '../../../../utils/buttons/Button';
-import { Form } from 'antd';
-import style from './../style.module.css';
-import SubTitle from '../../../../utils/Typography/SubTitle';
-import { useAppDispatch } from '../../../../hooks/hooks';
-import { CREATE_RECIPE } from '../../../../slices/recipeSlice';
-import ImageUpload from './RecipeFormComponents/ImageUpload';
-import Ingredients from './RecipeFormComponents/Ingredients';
-import Instructions from './RecipeFormComponents/Instructions';
-import Nutritions from './RecipeFormComponents/Nutritions';
-import PrepTime from './RecipeFormComponents/PrepTime';
-import RecipeName from './RecipeFormComponents/RecipeName';
-import RecipeCat from './RecipeFormComponents/RecipeCat';
-import { RecipeInterface } from '../../../../slices/InitialData';
-import RecipeTitle from './RecipeFormComponents/RecipeTag';
-import ButtonOutLine from '../../../../utils/buttons/ButtonOutLine';
-import { imageStore } from '../../../../database/firebase-config';
-import { getDownloadURL, ref, uploadString } from 'firebase/storage';
-import { v4 } from 'uuid';
-import { useForm } from 'antd/es/form/Form';
+import { useState } from "react";
+import { ConfigProvider } from "antd";
+import Button from "../../../../utils/buttons/Button";
+import { Form } from "antd";
+import style from "./../style.module.css";
+import SubTitle from "../../../../utils/Typography/SubTitle";
+import { useAppDispatch } from "../../../../hooks/hooks";
+import { CREATE_RECIPE } from "../../../../slices/recipeSlice";
+import ImageUpload from "./RecipeFormComponents/ImageUpload";
+import Ingredients from "./RecipeFormComponents/Ingredients";
+import Instructions from "./RecipeFormComponents/Instructions";
+import Nutritions from "./RecipeFormComponents/Nutritions";
+import PrepTime from "./RecipeFormComponents/PrepTime";
+import RecipeName from "./RecipeFormComponents/RecipeName";
+import RecipeCat from "./RecipeFormComponents/RecipeCat";
+import { RecipeInterface } from "../../../../slices/InitialData";
+import RecipeTitle from "./RecipeFormComponents/RecipeTag";
+import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
+import { imageStore } from "../../../../database/firebase-config";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { v4 } from "uuid";
+import { useForm } from "antd/es/form/Form";
+import { LOG_OUT } from "../../../../slices/userSlice";
 
 export default function RecipeForm() {
   const [imageUrl, setImageUrl] = useState<string>();
@@ -33,9 +34,9 @@ export default function RecipeForm() {
       return;
     } else {
       const imageRef = ref(imageStore, `images/recipeImage${v4()}}`);
-      uploadString(imageRef, images[0].data_url, 'data_url')
+      uploadString(imageRef, images[0].data_url, "data_url")
         .then((snapshot) => {
-          console.log('Uploaded a data_url string!');
+          console.log("Uploaded a data_url string!");
         })
         .then(() =>
           getDownloadURL(imageRef).then((downloadURL) => {
@@ -48,7 +49,7 @@ export default function RecipeForm() {
             setImageUrl(downloadURL);
           })
         )
-        .catch(() => console.log('first'));
+        .catch(() => console.log("first"));
       console.log(values);
       // const date = new Date();
     }
@@ -63,21 +64,22 @@ export default function RecipeForm() {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: 'hsl(186.38297872340422, 21.86046511627907%, 66%)',
-          fontFamily: 'f_regular',
+          colorPrimary: "hsl(186.38297872340422, 21.86046511627907%, 66%)",
+          fontFamily: "f_regular",
         },
       }}
     >
       <div className={style.form_container}>
         <SubTitle align="center">Create Recipe</SubTitle>
+
         <Form
           name="dynamic_form_nest_item"
           layout="vertical"
           form={form}
           onFinish={onFinish}
-          initialValues={{ ingredient_info: [''], instructions: [''] }}
+          initialValues={{ ingredient_info: [""], instructions: [""] }}
           className={style.form_style}
-          size={'large'}
+          size={"large"}
           autoComplete="off"
         >
           <div
@@ -85,6 +87,8 @@ export default function RecipeForm() {
               next ? `${style.form_header} hide` : `${style.form_header}`
             }
           >
+            <Button onClick={() => dispatch(LOG_OUT())}>logout </Button>
+
             <ImageUpload
               images={images}
               setImages={setImages}

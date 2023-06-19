@@ -1,83 +1,91 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import Dashboard from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
-// import Profile from "../layouts/Dashboard/pages/Profile/Profile";
-// import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
-import DashboardLayout from '../shared/sidebar/DashboardLayout';
-// import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
-// import CreateBlog from "../../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
-// import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
-import Home from '../layouts/Site/pages/Home';
-import About from '../layouts/Site/pages/About';
-import Recipe from '../layouts/Site/pages/Recipe';
-import Blog from '../layouts/Site/pages/Blog';
-import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../hooks/hooks';
-import { getRecipes } from '../slices/recipeSlice';
-import CreateRecipe from '../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe';
-import Favorite from '../layouts/Dashboard/pages/favorites/Favorite';
-import CreateBlog from '../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog';
-import MyBlog from '../layouts/Dashboard/pages/Blog/MyBlog/MyBlog';
-import Profile from '../layouts/Dashboard/pages/Profile/Profile';
-import Recipes from '../layouts/Site/pages/Recipes';
-import SignIn from '../Authentication/SignIn';
-import SignUp from '../Authentication/SignUp';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import DashboardLayout from "../shared/sidebar/DashboardLayout";
+import Home from "../layouts/Site/pages/Home";
+import About from "../layouts/Site/pages/About";
+import Recipe from "../layouts/Site/pages/Recipe";
+import Blog from "../layouts/Site/pages/Blog";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { getRecipes } from "../slices/recipeSlice";
+import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
+import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
+import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
+import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
+import Profile from "../layouts/Dashboard/pages/Profile/Profile";
+import Recipes from "../layouts/Site/pages/Recipes";
+import SignIn from "../Authentication/SignIn";
+import SignUp from "../Authentication/SignUp";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../database/firebase-config";
+import { getUser, selectUser } from "../slices/userSlice";
 
 function AppRoutes() {
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const current_user = useAppSelector(selectUser);
+  function get_current_user() {
+    if (current_user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  const iscurrentUser = get_current_user();
+  const isLoading = useAppSelector((state) => state.recipe?.loading);
+  const [isAuthenticated, setIsAuthenticated] = useState(iscurrentUser);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await dispatch(getRecipes());
-        setIsLoading(false);
-      } catch (error) {
-        // Handle error
-        setIsLoading(false);
-      }
+      } catch (error) {}
     };
 
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+        dispatch(getUser());
+      } else {
+        setIsAuthenticated(false);
+      }
+    });
     fetchData();
   }, []);
-
-  if (isLoading) {
-    return <>loading</>;
-  }
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/about" element={<About />} />
         <Route path="/recipe/:id" element={<Recipe />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+
         <Route
           path="/profile"
           element={
-            <DashboardLayout>
-              <Profile />
-            </DashboardLayout>
+            isAuthenticated ? (
+              <DashboardLayout>
+                <Profile />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/signup" replace />
+            )
           }
         />
         <Route
           path="/createrecipe"
           element={
-            <DashboardLayout>
-              <CreateRecipe />
-            </DashboardLayout>
+            isAuthenticated ? (
+              <DashboardLayout>
+                <CreateRecipe />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/signup" replace />
+            )
           }
         />
-        {/* <Route
-          path="/myrecipes"
-          element={
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
-          }
-        /> */}
+        <Route path="*" element={<h1>pagenotfound</h1>} />
         <Route
           path="/myblogs"
           element={
@@ -89,21 +97,30 @@ function AppRoutes() {
         <Route
           path="/createblog"
           element={
-            <DashboardLayout>
-              <CreateBlog />
-            </DashboardLayout>
+            isAuthenticated ? (
+              <DashboardLayout>
+                <CreateBlog />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/signup" replace />
+            )
           }
         />
         <Route
           path="/favorites"
           element={
-            <DashboardLayout>
-              <Favorite />
-            </DashboardLayout>
+            isAuthenticated ? (
+              <DashboardLayout>
+                <Favorite />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/signup" replace />
+            )
           }
         />
-        <Route path="/signup" element={<h1>register</h1>} />
-        <Route path="/singin" element={<h1>singin</h1>} />
+
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<h1>pagenotfound</h1>} />
       </Routes>
     </BrowserRouter>

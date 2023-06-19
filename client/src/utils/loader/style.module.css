@@ -1,0 +1,91 @@
+.spinner {
+    -webkit-box-shadow: 0 0 0 7px #42a5f5, inset 0 0 0 1px #42a5f5;
+    box-shadow: 0 0 0 7px #42a5f5, inset 0 0 0 1px #42a5f5;
+    position: relative;
+    height: 50px;
+    width: 230px;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-animation: rotate_5132 6s linear infinite;
+    animation: rotate_5132 6s linear infinite;
+}
+
+.spinner:before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #42a5f5;
+    -webkit-animation: load_5123 6s linear infinite;
+    animation: load_5123 6s linear infinite;
+}
+
+@-webkit-keyframes rotate_5132 {
+    42% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    48%,
+    92% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate_5132 {
+    42% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    48%,
+    92% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes load_5123 {
+    0% {
+        width: 0;
+    }
+
+    40%,
+    50% {
+        width: 100%;
+    }
+
+    90%,
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes load_5123 {
+    0% {
+        width: 0;
+    }
+
+    40%,
+    50% {
+        width: 100%;
+    }
+
+    90%,
+    100% {
+        width: 0;
+    }
+}
