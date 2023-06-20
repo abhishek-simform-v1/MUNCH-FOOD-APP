@@ -87,8 +87,6 @@ export default function RecipeForm() {
               next ? `${style.form_header} hide` : `${style.form_header}`
             }
           >
-            <Button onClick={() => dispatch(LOG_OUT())}>logout </Button>
-
             <ImageUpload
               images={images}
               setImages={setImages}

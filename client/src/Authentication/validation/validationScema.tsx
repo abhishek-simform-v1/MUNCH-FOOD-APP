@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 
 export const int = {
-  profile_img: "",
   name: "",
   email: "",
   password: "",

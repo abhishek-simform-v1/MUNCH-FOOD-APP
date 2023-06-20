@@ -1,170 +1,165 @@
 .container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 .container {
-  animation: gradient 5s ease infinite;
+    animation: gradient 5s ease infinite;
 }
 
 .error {
-  transition: all 0.2s;
-  color: var(--logo_color);
+    transition: all 0.2s;
+    color: var(--logo_color);
 }
 
 .wrapper {
-  width: 100%;
-  justify-content: space-between;
-  height: 100%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row-reverse;
+    width: 100%;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .auth_form {
-  width: 100%;
-  min-height: 700px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: var(--lg-border-radius);
-  /* display: none; */
+    width: 100%;
+    min-height: 700px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--lg-border-radius);
+    /* display: none; */
 }
 
 .heroImgContainer {
-  width: 35%;
-  height: 100vh;
+    width: 35%;
+    height: 100vh;
 }
 
 .heroImgContainer img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  /* background-color: aqua; */
+    object-fit: cover;
+    width: 115%;
+    height: 100%;
+    /* background-color: aqua; */
 }
 
 .formContainer {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  width: 100%;
-  gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    width: 100%;
+    gap: 1.5rem;
 }
 
 .input {
-  padding: 0.8em 1rem 0.5em 0;
-  outline: 0;
-  border: 0;
+    padding: 0.8em 1rem 0.5em 0;
+    outline: 0;
+    border: 0;
 }
 .routeLink {
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--logo_color);
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--logo_color);
 }
 .profile_image {
-  width: 100px;
-  outline: 3px solid var(--accent_lite);
-  height: 100px;
-  border-radius: 50rem;
-  object-fit: cover;
-  transition: all 0.3s;
-  background: linear-gradient(
-    -45deg,
-    var(--secondary_color),
-    var(--green_light_color),
-    var(--secondary_color)
-  );
-  background-size: 400% 400%;
-  animation: gradient 4.5s ease infinite;
+    width: 100px;
+    outline: 3px solid var(--accent_lite);
+    height: 100px;
+    border-radius: 50rem;
+    object-fit: cover;
+    transition: all 0.3s;
+    background: linear-gradient(-45deg, var(--secondary_color), var(--green_light_color), var(--secondary_color));
+    background-size: 400% 400%;
+    animation: gradient 4.5s ease infinite;
 }
 .profile_image img {
-  width: 100px;
+    width: 100px;
 }
 .profile_image:hover {
-  border-radius: 50rem;
-  object-fit: cover;
+    border-radius: 50rem;
+    object-fit: cover;
 }
 .submitBtn {
-  background-color: var(--accent_lite);
-  padding: 1rem;
-  cursor: pointer;
-  font-family: f_regular;
-  font-size: var(--step-1);
-  color: var(--secondary_color);
-  border-radius: var(--lg_border_radius);
-  transition: all 0.3s;
+    background-color: var(--accent_lite);
+    padding: 1rem;
+    cursor: pointer;
+    font-family: f_regular;
+    font-size: var(--step-1);
+    color: var(--secondary_color);
+    border-radius: var(--lg_border_radius);
+    transition: all 0.3s;
 }
 .submitBtn:hover {
-  background-color: var(--accent_color);
+    background-color: var(--accent_color);
 }
 .submitBtn:disabled {
-  background-color: gray;
+    background-color: gray;
 }
 
 .input_field {
-  display: flex;
-  gap: 0.5em;
-  flex-direction: column;
+    display: flex;
+    gap: 0.5em;
+    flex-direction: column;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .upload__image_wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 50rem;
-  height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50rem;
+    height: auto;
 }
 
 .image_drop_area {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-  /* width: 200px; */
-  /* height: 200px; */
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    /* width: 200px; */
+    /* height: 200px; */
 }
 .label {
-  font-size: var(--step-0);
+    font-size: var(--step-0);
 }
 .input {
-  background-color: transparent;
-  border-bottom: 2px solid var(--accent_lite);
-  color: var(--accent_color);
-  font-size: var(--step-0);
+    background-color: transparent;
+    border-bottom: 2px solid var(--accent_lite);
+    color: var(--accent_color);
+    font-size: var(--step-0);
 }
-@media (max-width: 768px) {
-  .auth_form {
-    padding: 2rem 1rem;
-  }
+@media(max-width: 768px) {
+    .auth_form {
+        padding: 2rem 1rem;
+    }
 }
 
-@media (max-width: 900px) {
-  .wrapper {
-    /* border: 2px solid black; */
-    margin-top: 0;
-    box-shadow: none;
-    background: none;
-    border-radius: 0;
-    flex-direction: column-reverse !important;
-  }
-  .auth_form {
-    background-color: transparent;
-    max-width: 100%;
-  }
-  .heroImgContainer {
-    display: none;
-  }
+@media(max-width: 900px) {
+    .wrapper {
+        /* border: 2px solid black; */
+        margin-top: 0;
+        box-shadow: none;
+        background: none;
+        border-radius: 0;
+        flex-direction: column-reverse !important;
+    }
+    .auth_form {
+        background-color: transparent;
+        max-width: 100%;
+    }
+    .heroImgContainer {
+        display: none;
+    }
 }

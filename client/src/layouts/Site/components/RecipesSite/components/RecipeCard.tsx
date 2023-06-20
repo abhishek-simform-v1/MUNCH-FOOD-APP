@@ -24,10 +24,6 @@ const RecipeCard = ({ recipe }: props) => {
           </div>
           {/* <NutritionContainer recipe={recipe} /> */}
           <div className={style.slideProfile}>
-            <Pill>
-              <img src={clock} />
-              <Span> Profile</Span>
-            </Pill>
             <Button
               onClick={() => {
                 navigate(`/recipe/${recipe.id}`);

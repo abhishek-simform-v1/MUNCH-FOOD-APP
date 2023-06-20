@@ -14,6 +14,7 @@
   align-items: center;
   gap: 1rem;
 }
+
 .select_list_content {
   display: flex;
   width: 100%;
@@ -21,12 +22,14 @@
   gap: 1rem;
   align-items: center;
 }
+
 .select_items {
   display: flex;
   width: 100%;
   gap: 1rem;
   align-items: center;
 }
+
 .form_style {
   display: flex;
   align-items: flex-end;
@@ -34,6 +37,7 @@
 
   width: 60% !important;
 }
+
 .form_container {
   display: flex;
   width: 100%;
@@ -42,6 +46,7 @@
   flex-direction: column;
   padding: 3rem 1rem 5rem;
 }
+
 /* image upload css */
 
 .form_header {
@@ -50,52 +55,62 @@
   align-items: center;
   flex-direction: column;
 }
+
 .instruction_num_container {
   border-radius: var(--lg_border_radius);
 
   background-color: var(--secondary_transparent);
 }
+
 .instruction_num {
   padding: 1rem 1.5rem;
 }
 
-@media only screen and(max-width: 1440px) {
+@media only screen and (max-width: 1440px) {
   .form_style {
     width: 80% !important;
   }
 }
+
 .form_footer {
   align-items: flex-start;
 }
-@media only screen and(max-width: 1024px) {
+
+@media only screen and (max-width: 1024px) {
   .form_style {
     width: 100% !important;
   }
+
   .form_header {
     width: 100%;
     flex-direction: column;
   }
+
   .image_item__btn_upload {
     width: 100%;
   }
+
   .form_header_content {
     width: 100%;
   }
+
   .form_header_Img {
     width: 100%;
   }
 }
+
 /* @media only screen and (max-width: 768px) {
   .select_list_content {
     flex-direction: column;
   }
 } */
 
-@media only screen and(max-width: 380px) {
+@media only screen and (max-width: 380px) {
   .form {
     padding: 0 2rem;
     width: 100%;
   }
+
   .ingFlex {
     display: flex;
     flex-direction: column;

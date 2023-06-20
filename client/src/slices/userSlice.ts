@@ -19,19 +19,28 @@ export const DELETE_USER = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk('recipe/GET_USERS', () => {
+export const getUser = createAsyncThunk('recipe/GET_USERS', async () => {
   try {
+    const data = await UserDataService.getAllUsers();
+    const allUsers = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: `${doc.id}`,
+    }));
     const user = auth.currentUser;
-    return user
+    const current_user = (allUsers.filter(users => users.id === user?.uid))
+    return current_user
   } catch (error) {
     // Handle error
     return [];
   }
+
 });
 
 const initialState = {
-  current_user: <UserInterface>{},
-  auth: false
+  current_user: <UserInterface | null>null,
+  auth: false,
+  loading: false
+
 };
 
 export const UserSlice = createSlice({
@@ -45,25 +54,30 @@ export const UserSlice = createSlice({
     LOG_OUT: (state) => {
       signOut(auth)
         .then(() => {
-          state.current_user = {
-            Username: "",
-            email: ""
-          }
-          state.auth = false
-
+          console.log("zilen")
 
         })
         .catch((error) => {
           // An error happened.
         });
+      state.current_user = {
+        Username: "",
+        email: ""
+      }
+
+      state.auth = false
 
     }
   },
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action: any) => {
-      state.current_user = action.payload;
+      const [user] = action.payload
+      state.current_user = user
       state.auth = true
+      state.loading = false
 
+    }).addCase(getUser.pending, (state) => {
+      state.loading = true
     });
   },
 });
@@ -71,3 +85,5 @@ export const UserSlice = createSlice({
 export default UserSlice.reducer;
 export const { LOG_IN, LOG_OUT } = UserSlice.actions
 export const selectUser = (state: any) => state.user.current_user
+export const selectLoadingUser = (state: any) => state.user.loading
+export const selectAuth = (state: any) => state.user.auth

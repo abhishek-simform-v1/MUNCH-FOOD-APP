@@ -1,17 +1,18 @@
 // import React from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
-import style from './auth.module.css';
-import { useFormik } from 'formik';
-import { int, loginValidateSchema } from './validation/validationScema';
-import authImage from './../assets/signin.jpg';
+import { Navigate, useNavigate } from "react-router-dom";
+import style from "./auth.module.css";
+import { useFormik } from "formik";
+import { int, loginValidateSchema } from "./validation/validationScema";
+import authImage from "./../assets/signin.jpg";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
-import { useAppDispatch } from '../hooks/hooks';
-import Title from '../utils/Typography/Title';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../database/firebase-config';
-import { LOG_IN } from '../slices/userSlice';
+import { useAppDispatch } from "../hooks/hooks";
+import Title from "../utils/Typography/Title";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../database/firebase-config";
+import { LOG_IN } from "../slices/userSlice";
+import SubTitle from "../utils/Typography/SubTitle";
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -23,17 +24,17 @@ const SignIn = () => {
       toast.promise(
         () => new Promise((resolve) => setTimeout(resolve, 1000)),
         {
-          pending: 'Creating User',
+          pending: "Creating User",
         },
         {
-          position: 'top-center',
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: "light",
         }
       );
     }
@@ -50,15 +51,15 @@ const SignIn = () => {
       .catch((err) => {
         throw (
           (new Error(err),
-          toast.error('User does not Exist', {
-            position: 'top-right',
+          toast.error("User does not Exist", {
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: 'light',
+            theme: "light",
           }))
         );
       });
@@ -76,8 +77,8 @@ const SignIn = () => {
       <div className={style.wrapper}>
         <div className={style.auth_form}>
           <div className={style.formContainer}>
-            <div style={{ alignSelf: 'center' }}>
-              <Title>Sign In</Title>
+            <div style={{ alignSelf: "center" }}>
+              <SubTitle>Sign In</SubTitle>
             </div>
             <form className={style.form} onSubmit={formik.handleSubmit}>
               <div className={style.input_field}>
@@ -127,7 +128,7 @@ const SignIn = () => {
               Don't have an account ?
               <span
                 className={style.routeLink}
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate("/signup")}
               >
                 &nbsp;Register
               </span>

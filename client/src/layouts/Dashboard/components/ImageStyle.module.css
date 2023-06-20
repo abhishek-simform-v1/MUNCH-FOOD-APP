@@ -2,17 +2,20 @@
     display: flex;
     flex-direction: column;
 }
+
 .upload__items {
     display: flex;
     align-items: center;
     gap: 2rem;
     flex-direction: column;
 }
+
 .image_item__btn_wrapper {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
+
 .image_item__btn_remove {
     color: var(--accent_color);
     background: var(--secondary_color);
@@ -22,6 +25,7 @@
     transition: all 0.4s ease-in-out;
     border-radius: var(--sm_border_radius);
 }
+
 .image_item__btn_update {
     background-color: var(--accent_color);
     color: var(--secondary_color);
@@ -31,6 +35,7 @@
     transition: all 0.4s ease-in-out;
     border-radius: var(--sm_border_radius);
 }
+
 .image_item__btn_upload {
     /* background-color: hsl(186, 12%, 92%); */
     color: var(--accent_color);
@@ -46,42 +51,50 @@
     align-items: center;
 
 }
+
 .spanItem {
     text-align: center;
     font-family: f_regular;
     color: var(--accent_lite);
 }
+
 .recipe_uploaded_image {
     width: 360px;
     height: 400px;
     object-fit: cover;
     border-radius: var(--lg_border_radius);
 }
+
 .image_item__btn_remove_all:hover {
     color: var(--accent_color);
     background-color: var(--secondary_color);
     transition: all 0.4s ease-in-out;
 }
+
 .image_item__btn_upload:hover {
     color: var(--accent_color);
     background-color: hsl(186, 12%, 98%);
 
     transition: all 0.4s ease-in-out;
 }
+
 .image_item__btn_update:hover {
     color: var(--accent_color);
     background-color: var(--secondary_color);
     transition: all 0.4s ease-in-out;
 }
+
 .image_item__btn_remove:hover {
     color: var(--accent_color);
     background-color: var(--secondary_transparent);
     transition: all 0.4s ease-in-out;
 }
-@media only screen and(max-width: 1024px) {
+
+@media only screen and (max-width: 1024px) {
     .image_item__btn_upload {
         width: 100%;
     }
+
     .form_header_Img {
         width: 100%;
     }

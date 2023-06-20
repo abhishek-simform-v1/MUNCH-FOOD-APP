@@ -8,6 +8,7 @@
   color: var(--logo_color);
 
 }
+
 .inactive {
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -19,6 +20,24 @@
   cursor: pointer;
   transition: 0.3s all;
 }
+
+.profile_img_container {
+  width: 32px;
+}
+
+.profile_img {
+  width: 32px;
+}
+
 .inactive:hover {
   color: var(--logo_color);
+}
+
+.auth_icon {
+  cursor: pointer;
+
+}
+
+.auth_icon:hover {
+  background-color: var(--secondary_color);
 }

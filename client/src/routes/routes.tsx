@@ -17,9 +17,11 @@ import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../database/firebase-config";
-import { getUser, selectUser } from "../slices/userSlice";
+import { getUser, selectLoadingUser, selectUser } from "../slices/userSlice";
+import { selectLoading } from "../slices/recipeSlice";
 
 function AppRoutes() {
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const dispatch = useAppDispatch();
   const current_user = useAppSelector(selectUser);
   function get_current_user() {
@@ -30,32 +32,44 @@ function AppRoutes() {
     }
   }
   const iscurrentUser = get_current_user();
-  const isLoading = useAppSelector((state) => state.recipe?.loading);
+  const isLoading = useAppSelector(selectLoadingUser);
   const [isAuthenticated, setIsAuthenticated] = useState(iscurrentUser);
 
   useEffect(() => {
+    setIsLoadingAuth(true);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+        setIsLoadingAuth(false);
+      } else {
+        setIsAuthenticated(false);
+        setIsLoadingAuth(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getUser());
+    }
     const fetchData = async () => {
       try {
         await dispatch(getRecipes());
       } catch (error) {}
     };
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-        dispatch(getUser());
-      } else {
-        setIsAuthenticated(false);
-      }
-    });
     fetchData();
-  }, []);
+  }, [isAuthenticated]);
 
+  console.log("loading:", isLoading);
+  console.log("Auth", isAuthenticated);
+  console.log("AuthLoading:", isLoadingAuth);
+  if (isLoading || isLoadingAuth) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/about" element={<About />} />
         <Route path="/recipe/:id" element={<Recipe />} />
         <Route path="/recipes" element={<Recipes />} />
@@ -118,9 +132,15 @@ function AppRoutes() {
             )
           }
         />
+        <Route
+          path="/signin"
+          element={!isAuthenticated ? <SignIn /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/signup"
+          element={!isAuthenticated ? <SignUp /> : <Navigate to="/" replace />}
+        />
 
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<h1>pagenotfound</h1>} />
       </Routes>
     </BrowserRouter>

@@ -5,6 +5,7 @@
     cursor: pointer;
     padding: 2rem;
 }
+
 .mobilemenubtn {
     justify-content: end;
     display: flex;
@@ -13,6 +14,7 @@
 
     padding: 2rem;
 }
+
 .desknav {
     display: flex;
     flex-direction: column;
@@ -45,17 +47,20 @@
     position: fixed;
     left: 0;
 }
+
 .menuItem {
     display: flex;
     gap: 1rem;
     align-items: center;
     justify-content: center;
 }
+
 .navItems {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
+
 .mobilenavItems {
     display: flex;
     gap: 1rem;
@@ -66,45 +71,57 @@
 .closeNavbar {
     align-items: center;
 }
+
 .activeDash {
     background-color: var(--secondary_color);
     color: var(--accent_color);
     border-radius: var(--lg_border_radius);
     padding: 1rem;
 }
+
 .inactiveDash {
     padding: 1rem;
 }
+
 .inactiveDash:hover {
     background-color: var(--secondary_transparent);
 }
+
 .inactiveDash:active {
     color: inherit;
 }
+
 .inactiveDash:visited {
     color: inherit;
 }
+
 .display_flex {
     display: flex;
     justify-content: center;
 }
+
 .profile_image {
     width: 24px;
 }
-@media only screen and(max-width: 1024px) {
+
+@media only screen and (max-width: 1024px) {
     .desknav {
         display: none;
     }
+
     .mobilenav {
         flex-direction: row;
         height: auto;
     }
+
     .deskmenubtn {
         display: none;
     }
+
     .mobilemenubtn {
         display: none;
     }
+
     .mobilenav {
         position: fixed;
         justify-content: center;
@@ -115,7 +132,8 @@
         left: 0;
     }
 }
-@media only screen and(max-width: 438px) {
+
+@media only screen and (max-width: 438px) {
     .mobilenav {
         justify-content: left;
         overflow: scroll;
@@ -123,6 +141,7 @@
         width: 100%;
     }
 }
+
 .container {
     display: flex;
     justify-content: center;
