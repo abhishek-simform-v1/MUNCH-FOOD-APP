@@ -1,10 +1,11 @@
-import FormItem from "antd/es/form/FormItem";
-import { useState } from "react";
-import ReactImageUploading from "react-images-uploading";
-import upload from "./../../../../../assets/Image upload.gif";
-import style from "./../../ImageStyle.module.css";
-const ImageUpload = ({ setImages, images }: any) => {
+import FormItem from 'antd/es/form/FormItem';
+import { useState } from 'react';
+import ReactImageUploading from 'react-images-uploading';
+import upload from './../../../../../assets/Image upload.gif';
+import style from './../../ImageStyle.module.css';
+const ImageUpload = ({ setImages, images, updateUrl }: any) => {
   // const [images, setImages] = useState([]);
+  console.log(updateUrl);
   const maxNumber = 69;
   const onChange = (imageList: any) => {
     // data for submit
@@ -16,8 +17,8 @@ const ImageUpload = ({ setImages, images }: any) => {
       <FormItem
         name="recipe_image"
         // label="Recipe Image"
-        validateTrigger={["onChange", "onBlur"]}
-        rules={[{ required: true, message: "Missing Image" }]}
+        validateTrigger={['onChange', 'onBlur']}
+        rules={[{ required: true, message: 'Missing Image' }]}
       >
         <ReactImageUploading
           multiple
@@ -42,7 +43,7 @@ const ImageUpload = ({ setImages, images }: any) => {
                   <div className={style.upload__items} key={index}>
                     <img
                       className={style.recipe_uploaded_image}
-                      src={image["data_url"]}
+                      src={updateUrl ? updateUrl : image['data_url']}
                       alt=""
                       width="100%"
                     />
@@ -67,7 +68,7 @@ const ImageUpload = ({ setImages, images }: any) => {
                     <button
                       onClick={onImageUpload}
                       {...dragProps}
-                      style={isDragging ? { color: "red" } : undefined}
+                      style={isDragging ? { color: 'red' } : undefined}
                       className={style.image_item__btn_upload}
                     >
                       <img src={upload} alt="" />
@@ -81,7 +82,7 @@ const ImageUpload = ({ setImages, images }: any) => {
                 </span>
               </div>
               {errors && (
-                <div style={{ color: "red" }}>
+                <div style={{ color: 'red' }}>
                   {errors.maxNumber && (
                     <span>Number of selected images exceed maxNumber</span>
                   )}

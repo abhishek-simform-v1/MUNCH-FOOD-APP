@@ -1,15 +1,17 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./store/Store";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store/Store';
 
-import "./styles/global.css";
-import AppRoutes from "./routes/routes";
+import './styles/global.css';
+import AppRoutes from './routes/routes';
 
 function App() {
   return (
-    <Provider store={store}>
-      <AppRoutes />
-    </Provider>
+    <div className="App">
+      <Provider store={store}>
+        <AppRoutes />
+      </Provider>
+    </div>
   );
 }
 

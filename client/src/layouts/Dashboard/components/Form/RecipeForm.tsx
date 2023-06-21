@@ -1,26 +1,29 @@
-import { useState } from "react";
-import { ConfigProvider } from "antd";
-import Button from "../../../../utils/buttons/Button";
-import { Form } from "antd";
-import style from "./../style.module.css";
-import SubTitle from "../../../../utils/Typography/SubTitle";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { CREATE_RECIPE } from "../../../../slices/recipeSlice";
-import ImageUpload from "./RecipeFormComponents/ImageUpload";
-import Ingredients from "./RecipeFormComponents/Ingredients";
-import Instructions from "./RecipeFormComponents/Instructions";
-import Nutritions from "./RecipeFormComponents/Nutritions";
-import PrepTime from "./RecipeFormComponents/PrepTime";
-import RecipeName from "./RecipeFormComponents/RecipeName";
-import RecipeCat from "./RecipeFormComponents/RecipeCat";
-import { RecipeInterface } from "../../../../slices/InitialData";
-import RecipeTitle from "./RecipeFormComponents/RecipeTag";
-import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
-import { imageStore } from "../../../../database/firebase-config";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { v4 } from "uuid";
-import { useForm } from "antd/es/form/Form";
-import { LOG_OUT, selectUser } from "../../../../slices/userSlice";
+import { useState, useEffect } from 'react';
+import { ConfigProvider } from 'antd';
+import Button from '../../../../utils/buttons/Button';
+import { Form } from 'antd';
+import style from './../style.module.css';
+import SubTitle from '../../../../utils/Typography/SubTitle';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
+import {
+  CREATE_RECIPE,
+  selectCurrentRecipe,
+} from '../../../../slices/recipeSlice';
+import ImageUpload from './RecipeFormComponents/ImageUpload';
+import Ingredients from './RecipeFormComponents/Ingredients';
+import Instructions from './RecipeFormComponents/Instructions';
+import Nutritions from './RecipeFormComponents/Nutritions';
+import PrepTime from './RecipeFormComponents/PrepTime';
+import RecipeName from './RecipeFormComponents/RecipeName';
+import RecipeCat from './RecipeFormComponents/RecipeCat';
+import { RecipeInterface } from '../../../../slices/InitialData';
+import RecipeTitle from './RecipeFormComponents/RecipeTag';
+import ButtonOutLine from '../../../../utils/buttons/ButtonOutLine';
+import { imageStore } from '../../../../database/firebase-config';
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { useForm } from 'antd/es/form/Form';
+import { LOG_OUT, selectUser } from '../../../../slices/userSlice';
 
 export default function RecipeForm() {
   const [imageUrl, setImageUrl] = useState<string>();
@@ -28,17 +31,18 @@ export default function RecipeForm() {
   const [form] = Form.useForm();
   const [next, setNext] = useState(false);
   const dispatch = useAppDispatch();
-
   const user = useAppSelector(selectUser);
+  const current_recipe = useAppSelector(selectCurrentRecipe);
+
   const onFinish = (values: RecipeInterface) => {
     console.log(user);
     if (images.length === 0) {
       return;
     } else {
       const imageRef = ref(imageStore, `images/recipeImage${v4()}}`);
-      uploadString(imageRef, images[0].data_url, "data_url")
+      uploadString(imageRef, images[0].data_url, 'data_url')
         .then((snapshot) => {
-          console.log("Uploaded a data_url string!");
+          console.log('Uploaded a data_url string!');
         })
         .then(() =>
           getDownloadURL(imageRef).then((downloadURL) => {
@@ -51,7 +55,7 @@ export default function RecipeForm() {
             setImageUrl(downloadURL);
           })
         )
-        .catch(() => console.log("first"));
+        .catch(() => console.log('first'));
       console.log(values);
       // const date = new Date();
     }
@@ -62,12 +66,13 @@ export default function RecipeForm() {
   const onPrev = () => {
     setNext(false);
   };
+
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "hsl(186.38297872340422, 21.86046511627907%, 66%)",
-          fontFamily: "f_regular",
+          colorPrimary: 'hsl(186.38297872340422, 21.86046511627907%, 66%)',
+          fontFamily: 'f_regular',
         },
       }}
     >
@@ -79,9 +84,9 @@ export default function RecipeForm() {
           layout="vertical"
           form={form}
           onFinish={onFinish}
-          initialValues={{ ingredient_info: [""], instructions: [""] }}
+          initialValues={current_recipe}
           className={style.form_style}
-          size={"large"}
+          size={'large'}
           autoComplete="off"
         >
           <div
@@ -94,6 +99,7 @@ export default function RecipeForm() {
               setImages={setImages}
               setImageUrl={setImageUrl}
               imageUrl={imageUrl}
+              updateUrl={current_recipe?.recipe_image}
             />
             <div className={style.form_header_content}>
               <RecipeName />

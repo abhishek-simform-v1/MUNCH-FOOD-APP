@@ -1,22 +1,23 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../../hooks/hooks";
-import useWindowSize from "../../../../../../hooks/useWindowSize";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
+import useWindowSize from '../../../../../../hooks/useWindowSize';
 
-import ImageContainer from "./components/ImageContainer";
-import IngredientsContainer from "./components/IngredientsContainer";
-import InstructionContainer from "./components/InstructionContainer";
-import NutrionContainer from "./components/NutritionContainer";
-import TitleContainer from "./components/TitleContainer";
-import style from "./style.module.css";
-import { Button } from "antd";
-import ButtonOutLine from "../../../../../../utils/buttons/ButtonOutLine";
+import ImageContainer from './components/ImageContainer';
+import IngredientsContainer from './components/IngredientsContainer';
+import InstructionContainer from './components/InstructionContainer';
+import NutrionContainer from './components/NutritionContainer';
+import TitleContainer from './components/TitleContainer';
+import style from './style.module.css';
+import { Button } from 'antd';
+import ButtonOutLine from '../../../../../../utils/buttons/ButtonOutLine';
 import {
   DELETE_RECIPE,
+  UPDATE_RECIPE,
   getRecipes,
   selectLoading,
   selectRecipes,
-} from "../../../../../../slices/recipeSlice";
-import Loader from "../../../../../../utils/loader/Loader";
+} from '../../../../../../slices/recipeSlice';
+import Loader from '../../../../../../utils/loader/Loader';
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
@@ -61,17 +62,24 @@ const RecipeUiCard = () => {
           </>
           <ButtonOutLine
             onClick={() => {
-              navigate("/");
+              navigate('/');
             }}
           >
             go back
           </ButtonOutLine>
           <Button
             onClick={() => {
+              navigate('/createrecipe');
+            }}
+          >
+            Update
+          </Button>
+          <Button
+            onClick={() => {
               dispatch(DELETE_RECIPE(id));
             }}
           >
-            Delete{" "}
+            Delete{' '}
           </Button>
         </>
       ) : (

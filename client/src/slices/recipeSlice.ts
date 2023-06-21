@@ -25,6 +25,17 @@ export const DELETE_RECIPE = createAsyncThunk(
     }
   }
 );
+export const UPDATE_RECIPE = createAsyncThunk(
+  'recipe/UPDATE_RECIPE',
+  async (id: string, updatedRecipe) => {
+    try {
+      await RecipeDataService.updateRecipes(id, updatedRecipe);
+      alert('Recipe Deleted');
+    } catch (error) {
+      // Handle error
+    }
+  }
+);
 
 export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
   try {
@@ -40,33 +51,37 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
   }
 });
 
-type initType = {
-  recipes: RecipeInterface[];
-  loading: boolean
-};
-
-const initialState: initType = {
-  recipes: [],
-  loading: true
+const initialState = {
+  recipes: <RecipeInterface[]>[],
+  current_recipe: <RecipeInterface>{},
+  loading: true,
 };
 
 export const RecipeSlice = createSlice({
   name: 'recipe',
   initialState,
-  reducers: {},
+  reducers: {
+    ADD_CURRENT_RECIPE: (state, action) => {
+      state.current_recipe = action.payload;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(getRecipes.fulfilled, (state, action: any) => {
-      state.recipes = [...action.payload];
-      state.loading = false
-
-    }).addCase(getRecipes.pending, (state, action) => {
-      state.loading = true
-    }).addCase(getRecipes.rejected, (state, action) => {
-      state.loading = false
-    });
+    builder
+      .addCase(getRecipes.fulfilled, (state, action: any) => {
+        state.recipes = [...action.payload];
+        state.loading = false;
+      })
+      .addCase(getRecipes.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getRecipes.rejected, (state, action) => {
+        state.loading = false;
+      });
   },
 });
 
 export default RecipeSlice.reducer;
-export const selectRecipes = (state: any) => state.recipe.recipes
-export const selectLoading = (state: any) => state.recipe.loading
+export const { ADD_CURRENT_RECIPE } = RecipeSlice.actions;
+export const selectRecipes = (state: any) => state.recipe.recipes;
+export const selectCurrentRecipe = (state: any) => state.recipe.current_recipe;
+export const selectLoading = (state: any) => state.recipe.loading;
