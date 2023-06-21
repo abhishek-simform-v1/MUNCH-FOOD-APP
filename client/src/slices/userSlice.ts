@@ -48,25 +48,20 @@ export const UserSlice = createSlice({
   initialState,
   reducers: {
     LOG_IN: (state) => {
+
       state.auth = true
-      console.log(state)
     },
     LOG_OUT: (state) => {
       signOut(auth)
         .then(() => {
-          console.log("zilen")
 
         })
         .catch((error) => {
           // An error happened.
         });
-      state.current_user = {
-        Username: "",
-        email: ""
-      }
-
+      state.current_user = null
+      state.loading = false
       state.auth = false
-
     }
   },
   extraReducers: (builder) => {

@@ -1,6 +1,6 @@
-import { RecipeInterface } from "../../../../../../slices/InitialData";
-import Paragraph from "../../../../../../utils/Typography/Paragraph";
-import SubTitleH2 from "../../../../../../utils/Typography/SubTitleH2";
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
+import Paragraph from "../../../../../../../utils/Typography/Paragraph";
+import SubTitleH2 from "../../../../../../../utils/Typography/SubTitleH2";
 import style from "./style.module.css";
 
 type props = {

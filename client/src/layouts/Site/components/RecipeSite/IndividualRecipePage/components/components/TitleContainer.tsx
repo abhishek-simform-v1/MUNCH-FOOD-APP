@@ -1,8 +1,8 @@
-import { RecipeInterface } from "../../../../../../slices/InitialData";
-import Paragraph from "../../../../../../utils/Typography/Paragraph";
-import Tag from "../../../../../../utils/Typography/Tag";
-import Title from "../../../../../../utils/Typography/Title";
-import Pill from "../../../../../../utils/buttons/Pill";
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
+import Paragraph from "../../../../../../../utils/Typography/Paragraph";
+import Tag from "../../../../../../../utils/Typography/Tag";
+import Title from "../../../../../../../utils/Typography/Title";
+import Pill from "../../../../../../../utils/buttons/Pill";
 import style from "./style.module.css";
 type props = {
   recipe: RecipeInterface;

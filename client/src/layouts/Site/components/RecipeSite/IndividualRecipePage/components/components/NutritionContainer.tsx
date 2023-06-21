@@ -1,6 +1,6 @@
-import { RecipeInterface } from "../../../../../../slices/InitialData";
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
 // import Paragraph from "../../../../../../utils/Typography/Paragraph";
-import SubTitleH2 from "../../../../../../utils/Typography/SubTitleH2";
+import SubTitleH2 from "../../../../../../../utils/Typography/SubTitleH2";
 // import Title from "../../../../../../utils/Typography/Title";
 // import Pill from "../../../../../../utils/buttons/Pill";
 import style from "./style.module.css";

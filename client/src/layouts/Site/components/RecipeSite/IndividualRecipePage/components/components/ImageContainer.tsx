@@ -1,6 +1,5 @@
-import style from './style.module.css';
-import dish from './../../../../../../assets/dish.jpg';
-import { RecipeInterface } from '../../../../../../slices/InitialData';
+import style from "./style.module.css";
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
 
 type props = {
   recipe: RecipeInterface;

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import SubTitleH2 from "../../../../../../utils/Typography/SubTitleH2";
-import ButtonOutLine from "../../../../../../utils/buttons/ButtonOutLine";
+import SubTitleH2 from "../../../../../../../utils/Typography/SubTitleH2";
+import ButtonOutLine from "../../../../../../../utils/buttons/ButtonOutLine";
 import style from "./style.module.css";
-import plus from "./../../../../../../assets/icons/plusIcon.svg";
-import minus from "./../../../../../../assets/icons/minusIcon.svg";
-import Paragraph from "../../../../../../utils/Typography/Paragraph";
-import Ingredients from "./../../../../../../assets/icons/ingredients.svg";
-import Profile from "./../../../../../../assets/icons/signinprofile.svg";
-import { RecipeInterface } from "../../../../../../slices/InitialData";
+import plus from "./../../../../../../../assets/icons/plusIcon.svg";
+import minus from "./../../../../../../../assets/icons/minusIcon.svg";
+import Paragraph from "./../../../../../../../utils/Typography/Paragraph";
+import Ingredients from "./../../../../../../../assets/icons/ingredients.svg";
+import Profile from "./../../../../../../../assets/icons/signinprofile.svg";
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
 
 type props = {
   recipe: RecipeInterface;

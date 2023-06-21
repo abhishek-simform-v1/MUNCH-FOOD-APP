@@ -46,6 +46,12 @@ const Header = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "inactive")}
+            to={"/api_recipes"}
+          >
+            api
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
             to={"/blog"}
           >
             Blog
@@ -84,8 +90,13 @@ const Header = () => {
             </svg>
           </NavLink>
           <div className="profile_img_container">
-            {auth ? (
-              <img src={user.user_image} className={"profile_img"} />
+            {auth && user ? (
+              <NavLink
+                className={({ isActive }) => (isActive ? "active" : "inactive")}
+                to={"/profile"}
+              >
+                <img src={user.user_image} className={"profile_img"} />
+              </NavLink>
             ) : (
               <img src={Profile} className={"profile_img"} />
             )}

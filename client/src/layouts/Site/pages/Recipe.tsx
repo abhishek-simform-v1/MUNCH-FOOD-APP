@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import MainContainer from "../../../utils/containers/MainContainer";
-import RecipeUiCard from "../components/RecipeSite/components/RecipeUiCard";
+import RecipeUiCard from "../components/RecipeSite/IndividualRecipePage/components/RecipeUiCard";
 import { getRecipes } from "../../../slices/recipeSlice";
 import { useAppDispatch } from "../../../hooks/hooks";
 

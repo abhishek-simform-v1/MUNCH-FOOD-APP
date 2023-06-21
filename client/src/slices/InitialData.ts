@@ -5,7 +5,12 @@ export interface RecipeInterface {
   recipe_image: string;
   id?: string;
   recipe_tagline: string;
-  // creator: string;
+  creator: {
+    id: string;
+    user_email: string;
+    user_image: string;
+    user_name: string
+  };
   cooking_time: {
     preperation_time: number;
     chill_time: number;

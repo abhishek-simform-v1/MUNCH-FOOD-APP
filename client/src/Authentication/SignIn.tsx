@@ -11,8 +11,9 @@ import { useAppDispatch } from "../hooks/hooks";
 import Title from "../utils/Typography/Title";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebase-config";
-import { LOG_IN } from "../slices/userSlice";
+import { LOG_IN, getUser } from "../slices/userSlice";
 import SubTitle from "../utils/Typography/SubTitle";
+import { getRecipes } from "../slices/recipeSlice";
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -38,14 +39,16 @@ const SignIn = () => {
         }
       );
     }
-
     signInWithEmailAndPassword(
       auth,
       formik.values.email,
       formik.values.password
     )
-      .then((res) => {
+      .then(async (res) => {
+        dispatch(getUser());
+        dispatch(getRecipes());
         dispatch(LOG_IN());
+
         // return formik.resetForm();
       })
       .catch((err) => {

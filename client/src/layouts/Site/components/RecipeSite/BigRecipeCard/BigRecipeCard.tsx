@@ -6,8 +6,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import clock from "./../../../../../assets/icons/clock.svg";
-import spoons from "./../../../../../assets/icons/spoons.svg";
-import dish_01 from "../../../../../assets/dish.jpg";
 
 import "./styles.css";
 import style from "./Recipe.module.css";
@@ -19,14 +17,11 @@ import MainContainer from "../../../../../utils/containers/MainContainer";
 import SubTitle from "../../../../../utils/Typography/SubTitle";
 import TagLine from "../../../../../utils/Typography/Tag";
 import Button from "../../../../../utils/buttons/Button";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
-import { getRecipes, selectRecipes } from "../../../../../slices/recipeSlice";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../../../hooks/hooks";
+import { selectRecipes } from "../../../../../slices/recipeSlice";
 
-import Paragraph from "../../../../../utils/Typography/Paragraph";
-import NutritionContainer from "../../RecipeSite/components/components/NutritionContainer";
-import SubTitleH2 from "../../../../../utils/Typography/SubTitleH2";
-import Title from "../../../../../utils/Typography/Title";
+import NutritionContainer from "../IndividualRecipePage/components/components/NutritionContainer";
 import Tag from "../../../../../utils/Typography/Tag";
 import { RecipeInterface } from "../../../../../slices/InitialData";
 

@@ -1,9 +1,6 @@
 import Header from "../../../shared/navbar/Header";
 import Hero from "../components/HomeSite/Hero/Hero";
-import style from "./Home.module.css";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { useEffect, useState } from "react";
-import { getRecipes } from "../../../slices/recipeSlice";
+import style from "./../style/Home.module.css";
 import RecipeHero1 from "../components/HomeSite/RecipeHero1/RecipeHero1";
 import RecipeHero2 from "../components/HomeSite/RecipeHero2/RecipeHero2";
 import RecipeHero3 from "../components/HomeSite/RecipeHero3/RecipeHero3";

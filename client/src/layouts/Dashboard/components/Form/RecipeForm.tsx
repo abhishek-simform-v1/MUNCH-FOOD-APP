@@ -4,7 +4,7 @@ import Button from "../../../../utils/buttons/Button";
 import { Form } from "antd";
 import style from "./../style.module.css";
 import SubTitle from "../../../../utils/Typography/SubTitle";
-import { useAppDispatch } from "../../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { CREATE_RECIPE } from "../../../../slices/recipeSlice";
 import ImageUpload from "./RecipeFormComponents/ImageUpload";
 import Ingredients from "./RecipeFormComponents/Ingredients";
@@ -20,7 +20,7 @@ import { imageStore } from "../../../../database/firebase-config";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { v4 } from "uuid";
 import { useForm } from "antd/es/form/Form";
-import { LOG_OUT } from "../../../../slices/userSlice";
+import { LOG_OUT, selectUser } from "../../../../slices/userSlice";
 
 export default function RecipeForm() {
   const [imageUrl, setImageUrl] = useState<string>();
@@ -29,7 +29,9 @@ export default function RecipeForm() {
   const [next, setNext] = useState(false);
   const dispatch = useAppDispatch();
 
+  const user = useAppSelector(selectUser);
   const onFinish = (values: RecipeInterface) => {
+    console.log(user);
     if (images.length === 0) {
       return;
     } else {
@@ -41,8 +43,8 @@ export default function RecipeForm() {
         .then(() =>
           getDownloadURL(imageRef).then((downloadURL) => {
             values.recipe_image = downloadURL;
+            values.creator = user;
             console.log(values);
-
             dispatch(CREATE_RECIPE(values));
             form.resetFields();
             setNext(false);

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
-import useWindowSize from "../../../../../hooks/useWindowSize";
+import { useAppDispatch, useAppSelector } from "../../../../../../hooks/hooks";
+import useWindowSize from "../../../../../../hooks/useWindowSize";
 
 import ImageContainer from "./components/ImageContainer";
 import IngredientsContainer from "./components/IngredientsContainer";
@@ -9,14 +9,14 @@ import NutrionContainer from "./components/NutritionContainer";
 import TitleContainer from "./components/TitleContainer";
 import style from "./style.module.css";
 import { Button } from "antd";
-import ButtonOutLine from "../../../../../utils/buttons/ButtonOutLine";
+import ButtonOutLine from "../../../../../../utils/buttons/ButtonOutLine";
 import {
   DELETE_RECIPE,
   getRecipes,
   selectLoading,
   selectRecipes,
-} from "../../../../../slices/recipeSlice";
-import Loader from "../../../../../utils/loader/Loader";
+} from "../../../../../../slices/recipeSlice";
+import Loader from "../../../../../../utils/loader/Loader";
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
