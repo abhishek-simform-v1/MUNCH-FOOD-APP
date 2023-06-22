@@ -25,17 +25,6 @@ export const DELETE_RECIPE = createAsyncThunk(
     }
   }
 );
-export const UPDATE_RECIPE = createAsyncThunk(
-  'recipe/UPDATE_RECIPE',
-  async (id: string, updatedRecipe) => {
-    try {
-      await RecipeDataService.updateRecipes(id, updatedRecipe);
-      alert('Recipe Deleted');
-    } catch (error) {
-      // Handle error
-    }
-  }
-);
 
 export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
   try {
@@ -53,7 +42,7 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
 
 const initialState = {
   recipes: <RecipeInterface[]>[],
-  current_recipe: <RecipeInterface>{},
+  current_recipe: <RecipeInterface | null>null,
   loading: true,
 };
 
@@ -61,6 +50,13 @@ export const RecipeSlice = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
+    UPDATE_RECIPE: (state, action) => {
+      const updated_recipe = action.payload;
+      RecipeDataService.updateRecipes(
+        updated_recipe.id,
+        updated_recipe.updated_recipe
+      );
+    },
     ADD_CURRENT_RECIPE: (state, action) => {
       state.current_recipe = action.payload;
     },
@@ -81,7 +77,7 @@ export const RecipeSlice = createSlice({
 });
 
 export default RecipeSlice.reducer;
-export const { ADD_CURRENT_RECIPE } = RecipeSlice.actions;
+export const { ADD_CURRENT_RECIPE, UPDATE_RECIPE } = RecipeSlice.actions;
 export const selectRecipes = (state: any) => state.recipe.recipes;
 export const selectCurrentRecipe = (state: any) => state.recipe.current_recipe;
 export const selectLoading = (state: any) => state.recipe.loading;

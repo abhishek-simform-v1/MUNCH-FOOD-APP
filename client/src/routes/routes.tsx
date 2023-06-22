@@ -1,23 +1,23 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import DashboardLayout from "../shared/sidebar/DashboardLayout";
-import Home from "../layouts/Site/pages/Home";
-import About from "../layouts/Site/pages/About";
-import Recipe from "../layouts/Site/pages/Recipe";
-import Blog from "../layouts/Site/pages/Blog";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { getRecipes } from "../slices/recipeSlice";
-import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
-import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
-import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
-import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
-import Profile from "../layouts/Dashboard/pages/Profile/Profile";
-import Recipes from "../layouts/Site/pages/Recipes";
-import SignIn from "../Authentication/SignIn";
-import SignUp from "../Authentication/SignUp";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../database/firebase-config";
-import { getUser, selectLoadingUser, selectUser } from "../slices/userSlice";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import DashboardLayout from '../shared/sidebar/DashboardLayout';
+import Home from '../layouts/Site/pages/Home';
+import About from '../layouts/Site/pages/About';
+import Recipe from '../layouts/Site/pages/Recipe';
+import Blog from '../layouts/Site/pages/Blog';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { getRecipes } from '../slices/recipeSlice';
+import CreateRecipe from '../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe';
+import Favorite from '../layouts/Dashboard/pages/favorites/Favorite';
+import CreateBlog from '../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog';
+import MyBlog from '../layouts/Dashboard/pages/Blog/MyBlog/MyBlog';
+import Profile from '../layouts/Dashboard/pages/Profile/Profile';
+import Recipes from '../layouts/Site/pages/Recipes';
+import SignIn from '../Authentication/SignIn';
+import SignUp from '../Authentication/SignUp';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../database/firebase-config';
+import { getUser, selectLoadingUser, selectUser } from '../slices/userSlice';
 
 function AppRoutes() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -59,9 +59,6 @@ function AppRoutes() {
     fetchData();
   }, [isAuthenticated]);
 
-  console.log("loading:", isLoading);
-  console.log("Auth", isAuthenticated);
-  console.log("AuthLoading:", isLoadingAuth);
   if (isLoading || isLoadingAuth) {
     return <h1>Loading...</h1>;
   }

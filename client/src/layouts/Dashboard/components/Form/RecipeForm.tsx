@@ -7,6 +7,8 @@ import SubTitle from '../../../../utils/Typography/SubTitle';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   CREATE_RECIPE,
+  UPDATE_RECIPE,
+  getRecipes,
   selectCurrentRecipe,
 } from '../../../../slices/recipeSlice';
 import ImageUpload from './RecipeFormComponents/ImageUpload';
@@ -24,44 +26,53 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useForm } from 'antd/es/form/Form';
 import { LOG_OUT, selectUser } from '../../../../slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecipeForm() {
   const [imageUrl, setImageUrl] = useState<string>();
-  const [images, setImages] = useState<any>();
+  const [images, setImages] = useState<string | null>(null);
   const [form] = Form.useForm();
   const [next, setNext] = useState(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const current_recipe = useAppSelector(selectCurrentRecipe);
-
+  const navigate = useNavigate();
   const onFinish = (values: RecipeInterface) => {
-    console.log(user);
-    if (images.length === 0) {
-      return;
-    } else {
+    if (images !== undefined) {
       const imageRef = ref(imageStore, `images/recipeImage${v4()}}`);
-      uploadString(imageRef, images[0].data_url, 'data_url')
-        .then((snapshot) => {
-          console.log('Uploaded a data_url string!');
-        })
+      uploadString(imageRef, images!, 'data_url')
+        .then(() => {})
         .then(() =>
           getDownloadURL(imageRef).then((downloadURL) => {
-            values.recipe_image = downloadURL;
-            values.creator = user;
-            console.log(values);
-            dispatch(CREATE_RECIPE(values));
-            form.resetFields();
-            setNext(false);
             setImageUrl(downloadURL);
           })
         )
         .catch(() => console.log('first'));
-      console.log(values);
-      // const date = new Date();
     }
+
+    values.creator = user;
+    if (current_recipe) {
+      const update_recipe = {
+        id: current_recipe.id,
+        updated_recipe: values,
+      };
+      dispatch(UPDATE_RECIPE(update_recipe));
+      dispatch(getRecipes());
+      navigate('/recipes', { replace: true });
+    } else {
+      dispatch(CREATE_RECIPE(values));
+    }
+    form.resetFields();
+    setImages(null);
+    setNext(false);
   };
+
   const onNext = () => {
-    images[0].data_url.length !== 0 ? setNext(true) : setNext(false);
+    if (current_recipe) {
+      setNext(true);
+    } else {
+      images!.length !== 0 ? setNext(true) : setNext(false);
+    }
   };
   const onPrev = () => {
     setNext(false);
@@ -84,7 +95,11 @@ export default function RecipeForm() {
           layout="vertical"
           form={form}
           onFinish={onFinish}
-          initialValues={current_recipe}
+          initialValues={
+            current_recipe
+              ? current_recipe
+              : { ingredient_info: [''], instructions: [''] }
+          }
           className={style.form_style}
           size={'large'}
           autoComplete="off"
@@ -95,11 +110,10 @@ export default function RecipeForm() {
             }
           >
             <ImageUpload
-              images={images}
               setImages={setImages}
-              setImageUrl={setImageUrl}
-              imageUrl={imageUrl}
-              updateUrl={current_recipe?.recipe_image}
+              images={images}
+              form={form}
+              current_img={current_recipe?.recipe_image}
             />
             <div className={style.form_header_content}>
               <RecipeName />
@@ -119,7 +133,9 @@ export default function RecipeForm() {
             <Instructions />
             <div>
               <ButtonOutLine onClick={onPrev}>prev</ButtonOutLine>
-              <Button>Create / Update Recipe</Button>
+              <Button>
+                {current_recipe ? 'Update Recipe' : 'Create Recipe'}
+              </Button>
             </div>
           </div>
         </Form>

@@ -1,101 +1,117 @@
 .upload__image_wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .upload__items {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .image_item__btn_wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
 }
 
 .image_item__btn_remove {
-    color: var(--accent_color);
-    background: var(--secondary_color);
-    padding: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    border-radius: var(--sm_border_radius);
+  color: var(--accent_color);
+  background: var(--secondary_color);
+  padding: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  border-radius: var(--sm_border_radius);
 }
 
 .image_item__btn_update {
-    background-color: var(--accent_color);
-    color: var(--secondary_color);
-    padding: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    border-radius: var(--sm_border_radius);
+  background-color: var(--accent_color);
+  color: var(--secondary_color);
+  padding: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  border-radius: var(--sm_border_radius);
 }
 
-.image_item__btn_upload {
-    /* background-color: hsl(186, 12%, 92%); */
-    color: var(--accent_color);
-    display: flex;
-    /* border: dashed 2px var(--accent_color); */
-    font-weight: 700;
-    width: 360px;
-    height: 400px;
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    border-radius: var(--sm_border_radius);
-    justify-content: center;
-    align-items: center;
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.inputfile + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: var(--secondary_color);
+  border-radius: var(--lg_border_radius);
+  padding: 0.8rem 1rem;
+  background-color: var(--accent_color);
+  display: inline-block;
+}
 
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: red;
+}
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
+}
+.inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.inputfile + label * {
+  pointer-events: none;
 }
 
 .spanItem {
-    text-align: center;
-    font-family: f_regular;
-    color: var(--accent_lite);
+  text-align: center;
+  font-family: f_regular;
+  color: var(--accent_lite);
 }
 
 .recipe_uploaded_image {
-    width: 360px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: var(--lg_border_radius);
+  width: 360px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: var(--lg_border_radius);
 }
 
+.image_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 .image_item__btn_remove_all:hover {
-    color: var(--accent_color);
-    background-color: var(--secondary_color);
-    transition: all 0.4s ease-in-out;
-}
-
-.image_item__btn_upload:hover {
-    color: var(--accent_color);
-    background-color: hsl(186, 12%, 98%);
-
-    transition: all 0.4s ease-in-out;
+  color: var(--accent_color);
+  background-color: var(--secondary_color);
+  transition: all 0.4s ease-in-out;
 }
 
 .image_item__btn_update:hover {
-    color: var(--accent_color);
-    background-color: var(--secondary_color);
-    transition: all 0.4s ease-in-out;
+  color: var(--accent_color);
+  background-color: var(--secondary_color);
+  transition: all 0.4s ease-in-out;
 }
 
 .image_item__btn_remove:hover {
-    color: var(--accent_color);
-    background-color: var(--secondary_transparent);
-    transition: all 0.4s ease-in-out;
+  color: var(--accent_color);
+  background-color: var(--secondary_transparent);
+  transition: all 0.4s ease-in-out;
 }
 
 @media only screen and (max-width: 1024px) {
-    .image_item__btn_upload {
-        width: 100%;
-    }
+  .image_item__btn_upload {
+    width: 100%;
+  }
 
-    .form_header_Img {
-        width: 100%;
-    }
+  .form_header_Img {
+    width: 100%;
+  }
 }

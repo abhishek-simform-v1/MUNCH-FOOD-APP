@@ -9,7 +9,7 @@ export interface RecipeInterface {
     id: string;
     user_email: string;
     user_image: string;
-    user_name: string
+    user_name: string;
   };
   cooking_time: {
     preperation_time: number;

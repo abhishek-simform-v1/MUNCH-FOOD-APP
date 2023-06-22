@@ -1,108 +1,58 @@
-import FormItem from 'antd/es/form/FormItem';
-import { useState } from 'react';
-import ReactImageUploading from 'react-images-uploading';
 import upload from './../../../../../assets/Image upload.gif';
 import style from './../../ImageStyle.module.css';
-const ImageUpload = ({ setImages, images, updateUrl }: any) => {
-  // const [images, setImages] = useState([]);
-  console.log(updateUrl);
-  const maxNumber = 69;
-  const onChange = (imageList: any) => {
-    // data for submit
-    console.log(imageList);
-    setImages(imageList);
+import { Form } from 'antd';
+const ImageUpload = ({ setImages, images, form, current_img }: any) => {
+  function convertToBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+  const onUpload = async (e: any) => {
+    const base64: any = await convertToBase64(e.target.files[0]);
+    form.setFields([
+      {
+        name: 'recipe_image',
+        value: base64,
+        errors: [''],
+      },
+    ]);
+    // form.setFieldValue('recipe_image', base64);
+    setImages(base64);
   };
   return (
     <div className={style.form_header_Img}>
-      <FormItem
+      <Form.Item
         name="recipe_image"
-        // label="Recipe Image"
+        label="Recipe Image"
         validateTrigger={['onChange', 'onBlur']}
-        rules={[{ required: true, message: 'Missing Image' }]}
+        rules={[{ required: true, message: 'Missing recipe image' }]}
       >
-        <ReactImageUploading
-          multiple
-          value={images}
-          onChange={onChange}
-          maxNumber={maxNumber}
-          // maxFileSize={26200000144}
-          dataURLKey="data_url"
-        >
-          {({
-            imageList,
-            onImageUpload,
-            onImageUpdate,
-            onImageRemove,
-            isDragging,
-            dragProps,
-            errors,
-          }) => (
-            <>
-              <div className={style.upload__image_wrapper}>
-                {imageList.map((image, index) => (
-                  <div className={style.upload__items} key={index}>
-                    <img
-                      className={style.recipe_uploaded_image}
-                      src={updateUrl ? updateUrl : image['data_url']}
-                      alt=""
-                      width="100%"
-                    />
-                    <div className={style.image_item__btn_wrapper}>
-                      <button
-                        className={style.image_item__btn_update}
-                        onClick={() => onImageUpdate(index)}
-                      >
-                        Update Image
-                      </button>
-                      <button
-                        className={style.image_item__btn_remove}
-                        onClick={() => onImageRemove(index)}
-                      >
-                        Remove Image
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {imageList.length === 0 ? (
-                  <div>
-                    <button
-                      onClick={onImageUpload}
-                      {...dragProps}
-                      style={isDragging ? { color: 'red' } : undefined}
-                      className={style.image_item__btn_upload}
-                    >
-                      <img src={upload} alt="" />
-                    </button>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                <span className={style.spanItem}>
-                  500*500 recomended image size
-                </span>
-              </div>
-              {errors && (
-                <div style={{ color: 'red' }}>
-                  {errors.maxNumber && (
-                    <span>Number of selected images exceed maxNumber</span>
-                  )}
-                  {errors.acceptType && (
-                    <span>Your selected file type is not allow</span>
-                  )}
-                  {errors.maxFileSize && (
-                    <span>exceed File Size, Should less than 256kb</span>
-                  )}
-                  {errors.resolution && (
-                    <span>
-                      Selected file is not match your desired resolution
-                    </span>
-                  )}
-                </div>
-              )}
-            </>
-          )}
-        </ReactImageUploading>
-      </FormItem>
+        <div className={style.image_container}>
+          <img
+            src={images ? images : current_img ? current_img : upload}
+            alt=""
+            className={style.recipe_uploaded_image}
+          />
+          <input
+            onChange={onUpload}
+            type="file"
+            name="file"
+            id="file"
+            className={style.inputfile}
+          />
+          <label htmlFor="file">
+            {images!?.length > 0 ? 'Update Image' : 'Upload Image'}
+          </label>
+        </div>
+      </Form.Item>
     </div>
   );
 };

@@ -1,14 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import data from '../database/db';
 
-
-
-
-
-
-
-
-
 export const searchApiRecipe = createAsyncThunk(
   'api_recipe/searchRecipes',
   async (query) => {
@@ -31,13 +23,12 @@ export const fetchRecipeInformation = createAsyncThunk(
   'api_recipe/fetchInformation',
   async (recipeId) => {
     const myHeaders = new Headers();
-    myHeaders.append("apikey", "85");//D12ZmowWRZ8hn92Sxoaw3kRuYFAB19Jl
+    myHeaders.append('apikey', '85'); //D12ZmowWRZ8hn92Sxoaw3kRuYFAB19Jl
 
     const requestOptions = {
       method: 'GET',
-      headers: myHeaders
+      headers: myHeaders,
     };
-    console.log(recipeId)
     const url = `https://api.apilayer.com/spoonacular/recipes/${recipeId}/information?includeNutrition=true`;
 
     const response = await fetch(url, requestOptions);
@@ -47,22 +38,16 @@ export const fetchRecipeInformation = createAsyncThunk(
   }
 );
 
-
-
-
-
-
-
 type initType = {
   apiRecipes: any;
   apiRecipe: any;
-  loading: boolean
+  loading: boolean;
 };
 
 const initialState: initType = {
   apiRecipes: [],
   apiRecipe: {},
-  loading: true
+  loading: true,
 };
 
 export const ApiRecipeSlice = createSlice({
@@ -78,25 +63,25 @@ export const ApiRecipeSlice = createSlice({
         // const data = JSON.parse(action.payload);
 
         state.loading = false;
-        state.apiRecipes = action.payload
+        state.apiRecipes = action.payload;
       })
       .addCase(searchApiRecipe.rejected, (state, action) => {
         state.loading = false;
-      }).addCase(fetchRecipeInformation.pending, (state) => {
+      })
+      .addCase(fetchRecipeInformation.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchRecipeInformation.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload)
         state.apiRecipe = action.payload;
       })
       .addCase(fetchRecipeInformation.rejected, (state, action) => {
         state.loading = false;
-      });;
+      });
   },
 });
 
 export default ApiRecipeSlice.reducer;
-export const selectApiRecipes = (state: any) => state.apiRecipe.apiRecipes
-export const selectApiRecipe = (state: any) => state.apiRecipe.apiRecipe
-export const selectApiLoading = (state: any) => state.apiRecipe.loading
+export const selectApiRecipes = (state: any) => state.apiRecipe.apiRecipes;
+export const selectApiRecipe = (state: any) => state.apiRecipe.apiRecipe;
+export const selectApiLoading = (state: any) => state.apiRecipe.loading;

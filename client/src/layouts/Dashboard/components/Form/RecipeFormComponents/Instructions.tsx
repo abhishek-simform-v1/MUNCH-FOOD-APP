@@ -31,7 +31,6 @@ const Instructions = () => {
                             'Please input Instruction or delete this field.',
                         },
                       ]}
-                      noStyle
                     >
                       <Input
                         placeholder="Instruction "
