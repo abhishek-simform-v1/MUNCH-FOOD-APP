@@ -1,12 +1,16 @@
-import upload from './../../../../../assets/Image upload.gif';
-import style from './../../ImageStyle.module.css';
-import { Form } from 'antd';
+import { useState } from "react";
+import upload from "./../../../../../assets/Image upload.gif";
+import style from "./../../ImageStyle.module.css";
+import { Form } from "antd";
+import { imageStore } from "../../../../../database/firebase-config";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { v4 } from "uuid";
 const ImageUpload = ({ setImages, images, form, current_img }: any) => {
+  const [imageUrl, setImageUrl] = useState<string>();
   function convertToBase64(file: File) {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
-
       fileReader.onload = () => {
         resolve(fileReader.result);
       };
@@ -17,27 +21,35 @@ const ImageUpload = ({ setImages, images, form, current_img }: any) => {
   }
   const onUpload = async (e: any) => {
     const base64: any = await convertToBase64(e.target.files[0]);
-    form.setFields([
-      {
-        name: 'recipe_image',
-        value: base64,
-        errors: [''],
-      },
-    ]);
-    // form.setFieldValue('recipe_image', base64);
-    setImages(base64);
+    const imageRef = ref(imageStore, `images/recipeImage${v4()}}`);
+
+    uploadString(imageRef, base64, "data_url")
+      .then(() =>
+        getDownloadURL(imageRef).then((downloadURL) => {
+          setImageUrl(downloadURL);
+          setImages(downloadURL);
+          form.setFields([
+            {
+              name: "recipe_image",
+              value: downloadURL,
+              errors: [""],
+            },
+          ]);
+        })
+      )
+      .catch(() => console.log("first"));
   };
   return (
     <div className={style.form_header_Img}>
       <Form.Item
         name="recipe_image"
         label="Recipe Image"
-        validateTrigger={['onChange', 'onBlur']}
-        rules={[{ required: true, message: 'Missing recipe image' }]}
+        validateTrigger={["onChange", "onBlur"]}
+        rules={[{ required: true, message: "Missing recipe image" }]}
       >
         <div className={style.image_container}>
           <img
-            src={images ? images : current_img ? current_img : upload}
+            src={imageUrl ? imageUrl : current_img ? current_img : upload}
             alt=""
             className={style.recipe_uploaded_image}
           />
@@ -49,7 +61,7 @@ const ImageUpload = ({ setImages, images, form, current_img }: any) => {
             className={style.inputfile}
           />
           <label htmlFor="file">
-            {images!?.length > 0 ? 'Update Image' : 'Upload Image'}
+            {images!?.length > 0 ? "Update Image" : "Upload Image"}
           </label>
         </div>
       </Form.Item>

@@ -12,13 +12,18 @@ import { RecipeInterface } from "../../../../../../../slices/InitialData";
 type props = {
   recipe: RecipeInterface;
 };
+
 const IngredientsContainer = ({ recipe }: props) => {
-  const [count, setCount] = useState(1);
-  const increment_Ingredient = () => {
-    setCount((prev) => prev + 1);
-  };
-  const decrement_Ingredient = () => {
-    setCount((prev) => (prev < 2 ? prev : prev - 1));
+  const [dashedIngredients, setDashedIngredients] = useState<boolean[]>(
+    new Array(recipe.ingredient_info.length).fill(true)
+  );
+
+  const toggleDashed = (index: number) => {
+    setDashedIngredients((prevIngredients) => {
+      const updatedIngredients = [...prevIngredients];
+      updatedIngredients[index] = !updatedIngredients[index];
+      return updatedIngredients;
+    });
   };
 
   return (
@@ -28,43 +33,28 @@ const IngredientsContainer = ({ recipe }: props) => {
           <span style={{ fontWeight: 900 }}>
             {recipe.ingredient_info.length}
           </span>{" "}
-          Ingredients <img src={Ingredients} alt="Ingredients" />
+          Ingredients
         </SubTitleH2>
-
-        <div className={style.ingredients_counter}>
-          <ButtonOutLine
-            padding="0.5rem 0.8rem"
-            onClick={increment_Ingredient}
-            border_radius={"50rem"}
-          >
-            <img src={plus} />
-          </ButtonOutLine>
-          <Paragraph>
-            <img width={"16px"} src={Profile} alt="Ingredients" />
-            &nbsp;
-            {count}&nbsp;
-          </Paragraph>
-          <ButtonOutLine
-            onClick={decrement_Ingredient}
-            padding="0.5rem 0.8rem"
-            border_radius={"50rem"}
-          >
-            <img src={minus} />
-          </ButtonOutLine>
-        </div>
       </div>
       <div className={style.ingredients_container}>
         {recipe.ingredient_info.map((ingredient, index) => (
-          <div key={index} className={style.ingredient_container}>
+          <div
+            key={index}
+            className={
+              dashedIngredients[index]
+                ? style.ingredient_container
+                : `${style.ingredient_container_dashed} ${style.ingredient_container}`
+            }
+            onClick={() => {
+              toggleDashed(index);
+            }}
+          >
             <div className={style.ingredient_name_operation}>
-              <Paragraph>{ingredient.ingredient_name}</Paragraph>
-              <span>{ingredient.ingredient_operation}</span>
+              <span>{ingredient.ingredient_name}</span>
+              <Paragraph>{ingredient.ingredient_operation}</Paragraph>
             </div>
             <div className={style.ingredient_amount}>
-              <Paragraph>
-                {ingredient.ingredient_amount * count}{" "}
-                {ingredient.ingredient_unit}
-              </Paragraph>
+              <Paragraph>{ingredient.ingredient_amount}</Paragraph>
             </div>
           </div>
         ))}

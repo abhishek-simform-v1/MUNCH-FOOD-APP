@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RecipeInterface } from './InitialData';
 import RecipeDataService from '../services/recipe.services';
+import { get } from 'mongoose';
 
 export const CREATE_RECIPE = createAsyncThunk(
   'recipe/CREATE_RECIPE',
@@ -20,6 +21,7 @@ export const DELETE_RECIPE = createAsyncThunk(
     try {
       await RecipeDataService.delete(id);
       alert('Recipe Deleted');
+
     } catch (error) {
       // Handle error
     }

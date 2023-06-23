@@ -5,6 +5,13 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.slideProfile_container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+}
+
 @media only screen and (max-width: 1024px) {
   .recipe_card_cntainer {
     grid-template-columns: repeat(2, 1fr);
@@ -12,6 +19,7 @@
 }
 
 @media screen and (min-width: 30em) and (orientation: landscape) {
+
   /* CSS rules here */
   p {
     font-size: 0.5rem;
@@ -58,6 +66,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .user_image {
   width: var(--step-4);
   height: var(--step-4);

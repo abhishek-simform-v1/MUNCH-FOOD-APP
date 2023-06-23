@@ -42,8 +42,6 @@ const Ingredients = () => {
                   >
                     <Input placeholder="Slice" />
                   </Form.Item>
-                </div>
-                <div className={style.select_items}>
                   <Form.Item
                     {...restField}
                     label="ingredient Amount"
@@ -57,31 +55,9 @@ const Ingredients = () => {
                       },
                     ]}
                   >
-                    <InputNumber
+                    <Input
                       placeholder="ingredient amount"
                       className={style.input_field}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="ingredient Unit"
-                    validateTrigger={["onChange", "onBlur"]}
-                    name={[name, "ingredient_unit"]}
-                    style={{ width: "90%" }}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please Select Unit",
-                      },
-                    ]}
-                  >
-                    <Select
-                      defaultValue="Enter Unit"
-                      allowClear
-                      className={style.input_field}
-                      options={[
-                        { value: "Qty", label: "Qty" },
-                        { value: "Wgt", label: "Wgt" },
-                      ]}
                     />
                   </Form.Item>
                 </div>
