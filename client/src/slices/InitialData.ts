@@ -24,21 +24,10 @@ export interface RecipeInterface {
     fats: number;
     sugar: number;
   };
-  // recipe_review_info?: {
-  //   recipe_review: string;
-  //   review_user: {
-  //     user_image: string;
-  //     user_email: string;
-  //     user_name: string;
-  //     id: string
-  //   }
 
   // };
   category: string[];
-  // likeCount: {
-  //   type: number;
-  //   default: 0;
-  // };
+
   created_at: string;
 
   instructions: string[];

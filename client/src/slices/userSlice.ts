@@ -6,7 +6,6 @@ import { auth } from '../database/firebase-config';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-
 export const DELETE_USER = createAsyncThunk(
   'recipe/DELETE_USER',
   async (id: string) => {
@@ -27,58 +26,59 @@ export const getUser = createAsyncThunk('recipe/GET_USERS', async () => {
       id: `${doc.id}`,
     }));
     const user = auth.currentUser;
-    const current_user = (allUsers.filter(users => users.id === user?.uid))
-    return current_user
+    const current_user = allUsers.filter((users) => users.id === user?.uid);
+    return current_user;
   } catch (error) {
     // Handle error
     return [];
   }
-
 });
 
 const initialState = {
   current_user: <UserInterface | null>null,
+  rated_recipes: <any>[],
   auth: false,
-  loading: false
-
+  loading: false,
 };
 
 export const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    UPDATE_USER: (state, action) => {
+      const update_user = action.payload;
+      UserDataService.updateUsers(update_user.id, update_user.updated_user);
+    },
     LOG_IN: (state) => {
-
-      state.auth = true
+      state.auth = true;
     },
     LOG_OUT: (state) => {
       signOut(auth)
-        .then(() => {
-
-        })
+        .then(() => {})
         .catch((error) => {
           // An error happened.
         });
-      state.current_user = null
-      state.loading = false
-      state.auth = false
-    }
+      state.current_user = null;
+      state.loading = false;
+      state.auth = false;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUser.fulfilled, (state, action: any) => {
-      const [user] = action.payload
-      state.current_user = user
-      state.auth = true
-      state.loading = false
-
-    }).addCase(getUser.pending, (state) => {
-      state.loading = true
-    });
+    builder
+      .addCase(getUser.fulfilled, (state, action: any) => {
+        const [user] = action.payload;
+        state.current_user = user;
+        state.auth = true;
+        state.loading = false;
+      })
+      .addCase(getUser.pending, (state) => {
+        state.loading = true;
+      });
   },
 });
 
 export default UserSlice.reducer;
-export const { LOG_IN, LOG_OUT } = UserSlice.actions
-export const selectUser = (state: any) => state.user.current_user
-export const selectLoadingUser = (state: any) => state.user.loading
-export const selectAuth = (state: any) => state.user.auth
+export const { LOG_IN, LOG_OUT, UPDATE_USER } = UserSlice.actions;
+export const selectUser = (state: any) => state.user.current_user;
+export const selectLoadingUser = (state: any) => state.user.loading;
+export const selectAuth = (state: any) => state.user.auth;

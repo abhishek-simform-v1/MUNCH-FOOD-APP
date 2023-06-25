@@ -14,6 +14,7 @@ import TextArea from 'antd/es/input/TextArea';
 import FormItem from 'antd/es/form/FormItem';
 import Button from '../../../../../../../../utils/buttons/Button';
 import like from './../../../../../../../../assets/icons/likeIcon.svg';
+import dislike from './../../../../../../../../assets/icons/dislikeIcon.svg';
 
 import { RecipeInterface } from '../../../../../../../../slices/InitialData';
 import {
@@ -32,10 +33,8 @@ import {
 import deleteIcon from './../../../../../../../../assets/icons/deleteIcon.svg';
 import editIcon from './../../../../../../../../assets/icons/editIcon.svg';
 export default function ReviewForm({ recipe }: any) {
-  const [form] = useForm();
   const user = useAppSelector(selectUser);
 
-  const { user_image, user_name } = user;
   const dispatch = useAppDispatch();
   const oldReviews = useAppSelector(selectReview);
   const reviewLoading = useAppSelector(selectReviewLoading);
@@ -43,13 +42,13 @@ export default function ReviewForm({ recipe }: any) {
     if (reviewLoading) {
       return [];
     } else if (oldReviews === undefined) {
+      // setReviews([]);
       return [];
     } else {
       const recipeReviews = oldReviews.find((item) => item.id === recipe.id);
       return recipeReviews ? recipeReviews.reviews : [];
     }
   }
-  // const [reviews, setReviews] = useState<any>(oldReviews[0].reviews);
   const [reviews, setReviews] = useState<any>(init() || []);
   function initialState() {
     return {
@@ -84,7 +83,7 @@ export default function ReviewForm({ recipe }: any) {
 
   useEffect(() => {
     dispatch(getReviews());
-    setDoc(doc(db, 'reviews', recipe.recipe.id), {
+    setDoc(doc(db, 'reviews', recipe.id), {
       reviews,
     });
   }, [reviews]);
@@ -138,9 +137,6 @@ export default function ReviewForm({ recipe }: any) {
             <h2>loading ....</h2>
           ) : (
             <>
-              <div>
-                like: <img src={like} />
-              </div>
               <div className={style.review_list}>
                 {reviews?.map((review) => (
                   <div className={style.review_container}>

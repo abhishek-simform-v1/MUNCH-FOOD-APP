@@ -21,6 +21,7 @@ import Loader from '../../../../../../utils/loader/Loader';
 import ReviewForm from './components/ReviewForm/ReviewForm';
 import { selectReview } from '../../../../../../slices/reviewSlice';
 import Paragraph from '../../../../../../utils/Typography/Paragraph';
+import RatingComponent from './components/ReviewForm/RatingComponent';
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
@@ -31,7 +32,6 @@ const RecipeUiCard = () => {
   const [recipe] = data.filter((recipe: any) => recipe.id == params.id);
   let id: string = recipe?.id!;
   const navigate = useNavigate();
-  console.log();
   return (
     <>
       {!state ? (
@@ -47,6 +47,8 @@ const RecipeUiCard = () => {
                   <TitleContainer recipe={recipe} />
                   <NutritionContainer recipe={recipe} />
                   <InstructionContainer recipe={recipe} />
+                  <RatingComponent recipe={recipe} />
+                  <ReviewForm recipe={recipe} />
                 </div>
               </div>
             ) : (
@@ -59,13 +61,13 @@ const RecipeUiCard = () => {
                 <div className={style.right_side}>
                   <IngredientsContainer recipe={recipe} />
                   <InstructionContainer recipe={recipe} />
+                  <RatingComponent recipe={recipe} />
                 </div>
               </div>
               // <>dfdf</>
             )}
           </>
 
-          <ReviewForm recipe={recipe} />
           <ButtonOutLine
             onClick={() => {
               navigate(-1);
