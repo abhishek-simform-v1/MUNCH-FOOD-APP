@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RecipeInterface } from './InitialData';
 import ReviewDataService from '../services/review.services ';
-import { get } from 'mongoose';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../database/firebase-config';
 
 // export const CREATE_RECIPE = createAsyncThunk(
 //   'recipe/CREATE_RECIPE',
@@ -15,18 +16,8 @@ import { get } from 'mongoose';
 //     }
 //   }
 // );
-export const DELETE_RECIPE = createAsyncThunk(
-  'recipe/DELETE_RECIPE',
-  async (id: string) => {
-    try {
-      await ReviewDataService.delete(id);
-      alert('Recipe Deleted');
 
-    } catch (error) {
-      // Handle error
-    }
-  }
-);
+// Async thunk action creator
 
 export const getReviews = createAsyncThunk('recipe/GET_REVIEWS', async () => {
   try {
@@ -58,7 +49,6 @@ export const ReviewSlice = createSlice({
         updated_review.updated_review
       );
     },
-
   },
   extraReducers: (builder) => {
     builder
@@ -78,4 +68,4 @@ export const ReviewSlice = createSlice({
 export default ReviewSlice.reducer;
 export const { UPDATE_REVIEW } = ReviewSlice.actions;
 export const selectReview = (state: any) => state.review.reviews;
-export const selectLoading = (state: any) => state.review.loading;
+export const selectReviewLoading = (state: any) => state.review.loading;

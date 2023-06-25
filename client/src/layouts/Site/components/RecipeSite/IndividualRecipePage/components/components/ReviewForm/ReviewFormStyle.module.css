@@ -1,0 +1,39 @@
+.reviewer_profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--secondary_color);
+}
+.review_container {
+  display: flex;
+  padding: 1em;
+  justify-content: space-between;
+}
+.review_content {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.review_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: aquamarine;
+}
+.delete_btn {
+  cursor: pointer;
+}
+.review_text_area {
+  width: 100%;
+  padding: 1em;
+  font-family: inherit;
+  min-height: 100px;
+  border-radius: var(--lg_border_radius);
+  outline: none;
+  border: none;
+  background-color: var(--secondary_transparent);
+  resize: vertical;
+}
+.review_text_area:focus {
+  outline: 5px solid var(--secondary_color);
+}

@@ -18,6 +18,7 @@ import SignUp from '../Authentication/SignUp';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../database/firebase-config';
 import { getUser, selectLoadingUser, selectUser } from '../slices/userSlice';
+import { getReviews } from '../slices/reviewSlice';
 
 function AppRoutes() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -49,6 +50,8 @@ function AppRoutes() {
 
   useEffect(() => {
     if (isAuthenticated) {
+      dispatch(getReviews());
+
       dispatch(getUser());
     }
     const fetchData = async () => {
