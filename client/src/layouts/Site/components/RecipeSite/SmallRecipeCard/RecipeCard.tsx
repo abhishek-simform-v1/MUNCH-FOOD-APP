@@ -12,12 +12,17 @@ import Paragraph from "../../../../../utils/Typography/Paragraph";
 import { ADD_CURRENT_RECIPE } from "../../../../../slices/recipeSlice";
 import commentIcon from "./../../../../../assets/icons/comment.svg";
 import likeIcon from "./../../../../../assets/icons/likeIcon.svg";
+import SubTitleH2 from "../../../../../utils/Typography/SubTitleH2";
+import RatingComponent from "../IndividualRecipePage/components/components/ReviewForm/RatingComponent";
+import { RatingContainer } from "../IndividualRecipePage/components/components/RatingContainer";
+import { selectReview } from "../../../../../slices/reviewSlice";
 type props = {
   recipe: RecipeInterface;
 };
 
 const RecipeCard = ({ recipe }: props) => {
   const navigate = useNavigate();
+  const reviews = useAppSelector(selectReview);
   const handleOpenRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
@@ -28,17 +33,15 @@ const RecipeCard = ({ recipe }: props) => {
       <div className={style.slide}>
         <div className={style.slideText}>
           <div className={style.slideTitle}>
-            <SubTitle>{recipe.recipe_name}</SubTitle>
-            <Paragraph align="left">{recipe.recipe_tagline}</Paragraph>
+            <SubTitleH2>{recipe.recipe_name}</SubTitleH2>
           </div>
-          {/* <NutritionContainer recipe={recipe} /> */}
+
           <div className={style.slideProfile}>
+            <RatingContainer recipe={recipe} />
             <span>
               <img src={commentIcon} alt="" /> 65+
             </span>
-            <span>
-              <img src={likeIcon} alt="" /> 65+
-            </span>
+
             <Button onClick={handleOpenRecipe}>See Recipe</Button>
           </div>
         </div>

@@ -2,8 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RecipeInterface } from './InitialData';
 import RatingDataService from '../services/rating.services';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../database/firebase-config';
+import { allRatingType } from '../layouts/Site/components/RecipeSite/IndividualRecipePage/components/components/ReviewForm/RatingComponent';
 
 export const getRatings = createAsyncThunk('review/GET_RATINGS', async () => {
   try {
@@ -14,6 +15,18 @@ export const getRatings = createAsyncThunk('review/GET_RATINGS', async () => {
     }));
     return allRatings;
   } catch (error) {
+    // Handle error
+    return [];
+  }
+});
+export const setNewRating = createAsyncThunk('rating/SET_RATINGS', async (newRating: allRatingType) => {
+  try {
+    setDoc(doc(db, 'ratings', newRating.id), {
+      id: newRating.id,
+      allRatings: newRating.allRating
+    });
+  } catch (error) {
+    console.log(error)
     // Handle error
     return [];
   }
@@ -48,7 +61,9 @@ export const RatingSlice = createSlice({
       })
       .addCase(getRatings.rejected, (state, action) => {
         state.loading = false;
-      });
+      }).addCase(setNewRating.fulfilled, (state, action: any) => {
+        getRatings()
+      })
   },
 });
 
