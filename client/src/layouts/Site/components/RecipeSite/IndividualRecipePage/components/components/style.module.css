@@ -173,16 +173,17 @@
   padding: 1rem 1.5rem;
 }
 
+.rating_experience_star {
+  width: 20px;
+}
+
 .rating_experience_txt {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.4em;
 }
 
-.rating_experience_txt p {
-  font-weight: 700;
-  font-family: f_bold
-}
+
 
 @media only screen and (max-width: 1270px) {
   .nutrition_card_container {

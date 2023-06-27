@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import MainContainer from '../../../utils/containers/MainContainer';
-import RecipeUiCard from '../components/RecipeSite/IndividualRecipePage/components/RecipeUiCard';
-import { getRecipes } from '../../../slices/recipeSlice';
-import { useAppDispatch } from '../../../hooks/hooks';
+import { useEffect } from "react";
+import MainContainer from "../../../utils/containers/MainContainer";
+import RecipeUiCard from "../components/RecipeSite/IndividualRecipePage/components/RecipeUiCard";
+import { getRecipes } from "../../../slices/recipeSlice";
+import { useAppDispatch } from "../../../hooks/hooks";
+import Header from "../../../shared/navbar/Header";
 
 const Recipe = () => {
   const dispatch = useAppDispatch();
@@ -13,10 +14,9 @@ const Recipe = () => {
   return (
     <div
       style={{
-        marginTop: '120px',
+        marginTop: "120px",
       }}
     >
-      {/* <Header /> */}
       <MainContainer>
         <RecipeUiCard />
       </MainContainer>

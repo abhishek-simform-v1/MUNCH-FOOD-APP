@@ -1,10 +1,10 @@
-import { RecipeInterface } from '../../../../../../../slices/InitialData';
-import Paragraph from '../../../../../../../utils/Typography/Paragraph';
-import Tag from '../../../../../../../utils/Typography/Tag';
-import Title from '../../../../../../../utils/Typography/Title';
-import Pill from '../../../../../../../utils/buttons/Pill';
-import { RatingContainer } from './RatingContainer';
-import style from './style.module.css';
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
+import Paragraph from "../../../../../../../utils/Typography/Paragraph";
+import Tag from "../../../../../../../utils/Typography/Tag";
+import Title from "../../../../../../../utils/Typography/Title";
+import Pill from "../../../../../../../utils/buttons/Pill";
+import { RatingContainer } from "./RatingContainer";
+import style from "./style.module.css";
 type props = {
   recipe: RecipeInterface;
 };
@@ -19,14 +19,12 @@ const TitleContainer = ({ recipe }: props) => {
       </div>
 
       <div className={style.pill_container}>
-        {recipe.category.map((cat) => (
-          <Pill>{cat}</Pill>
-        ))}
+        <Pill>{recipe.category}</Pill>
       </div>
       <RatingContainer recipe={recipe} />
       <div className={style.cook_time_container}>
         <Paragraph>
-          Total{' '}
+          Total{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.chill_time +
               recipe.cooking_time.cook_time +
@@ -35,19 +33,19 @@ const TitleContainer = ({ recipe }: props) => {
           </span>
         </Paragraph>
         <Paragraph>
-          Prep{' '}
+          Prep{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.preperation_time}m
           </span>
         </Paragraph>
         <Paragraph>
-          Chill{' '}
+          Chill{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.chill_time}m
           </span>
         </Paragraph>
         <Paragraph>
-          Cook{' '}
+          Cook{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.cook_time}m
           </span>

@@ -7,21 +7,14 @@ type pillText = {
 const Pill = ({ children }: pillText) => {
   const PillContainer = styled.div`
     color: var(--accent_color);
-    display: inline;
     border-radius: var(--xxl_border_radius);
-    align-items: center;
     gap: 0.5em;
-    flex-direction: column;
-    border: 1px solid var(--logo_color);
-    /* height: 50px; */
-    display: flex;
-    font-size: 10px;
-    justify-content: space-around;
-    padding: 0.5rem 1.5rem;
-    width: 40px;
-    cursor: pointer;
-    /* padding: 8px 16px; */
-    font-weight: 700;
+    font-size: var(--step-0);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid var(--accent_lite);
+    background-color: var(--secondary_transparent);
+    padding: 0.4em 0.8em;
   `;
 
   return <PillContainer>{children}</PillContainer>;

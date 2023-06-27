@@ -1,0 +1,23 @@
+.sort_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+}
+
+@media screen and (max-width: 872px) {
+    .sort_container {
+        justify-content: space-between;
+
+    }
+}
+
+@media screen and (max-width: 638px) {
+    .sort_container {
+        gap: 0.5em;
+
+        justify-content: center;
+
+    }
+}

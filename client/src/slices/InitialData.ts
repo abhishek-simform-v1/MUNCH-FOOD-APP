@@ -26,7 +26,7 @@ export interface RecipeInterface {
   };
 
   // };
-  category: string[];
+  category: string;
 
   created_at: string;
 

@@ -42,6 +42,7 @@ export const getRecipes = createAsyncThunk('recipe/GET_RECIPES', async () => {
 
 const initialState = {
   recipes: <RecipeInterface[]>[],
+  filtered_recipe: <RecipeInterface[]>[],
   current_recipe: <RecipeInterface | null>null,
   loading: true,
 };
@@ -56,6 +57,9 @@ export const RecipeSlice = createSlice({
         updated_recipe.id,
         updated_recipe.updated_recipe
       );
+    },
+    ADD_FILTERED_RECIPE: (state, action) => {
+      state.filtered_recipe = action.payload
     },
     ADD_CURRENT_RECIPE: (state, action) => {
       state.current_recipe = action.payload;
@@ -77,7 +81,8 @@ export const RecipeSlice = createSlice({
 });
 
 export default RecipeSlice.reducer;
-export const { ADD_CURRENT_RECIPE, UPDATE_RECIPE } = RecipeSlice.actions;
+export const { ADD_CURRENT_RECIPE, UPDATE_RECIPE, ADD_FILTERED_RECIPE } = RecipeSlice.actions;
 export const selectRecipes = (state: any) => state.recipe.recipes;
+export const selectFilteredRecipes = (state: any) => state.recipe.filtered_recipe;
 export const selectCurrentRecipe = (state: any) => state.recipe.current_recipe;
 export const selectLoading = (state: any) => state.recipe.loading;

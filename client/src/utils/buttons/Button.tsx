@@ -15,7 +15,7 @@ const Button = ({
   onClick,
 }: props) => {
   const Button = styled.button`
-    background: var(--accent_color);
+    background: var(--accent_lite);
     color: var(--first_color);
     padding: ${padding ? padding : "0.8rem 0.8rem"};
     font-weight: 700;

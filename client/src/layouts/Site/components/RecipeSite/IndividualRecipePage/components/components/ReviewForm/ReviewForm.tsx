@@ -1,37 +1,37 @@
-import { useState, useEffect } from 'react';
-import { ConfigProvider } from 'antd';
+import { useState, useEffect } from "react";
+import { ConfigProvider } from "antd";
 
-import { getDownloadURL, ref, uploadString } from 'firebase/storage';
-import { v4 } from 'uuid';
-import { useNavigate } from 'react-router-dom';
-import { Form } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import { MinusCircleOutlined } from '@ant-design/icons';
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { Form } from "antd";
+import { useForm } from "antd/es/form/Form";
+import { MinusCircleOutlined } from "@ant-design/icons";
 
-import ButtonOutLine from '../../../../../../../../utils/buttons/ButtonOutLine';
-import style from './ReviewFormStyle.module.css';
-import TextArea from 'antd/es/input/TextArea';
-import FormItem from 'antd/es/form/FormItem';
-import Button from '../../../../../../../../utils/buttons/Button';
-import like from './../../../../../../../../assets/icons/likeIcon.svg';
-import dislike from './../../../../../../../../assets/icons/dislikeIcon.svg';
+import ButtonOutLine from "../../../../../../../../utils/buttons/ButtonOutLine";
+import style from "./ReviewFormStyle.module.css";
+import TextArea from "antd/es/input/TextArea";
+import FormItem from "antd/es/form/FormItem";
+import Button from "../../../../../../../../utils/buttons/Button";
+import like from "./../../../../../../../../assets/icons/likeIcon.svg";
+import dislike from "./../../../../../../../../assets/icons/dislikeIcon.svg";
 
-import { RecipeInterface } from '../../../../../../../../slices/InitialData';
+import { RecipeInterface } from "../../../../../../../../slices/InitialData";
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../../../../../../hooks/hooks';
-import { selectUser } from '../../../../../../../../slices/userSlice';
-import { UPDATE_RECIPE } from '../../../../../../../../slices/recipeSlice';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../../../../../../../../database/firebase-config';
+} from "../../../../../../../../hooks/hooks";
+import { selectUser } from "../../../../../../../../slices/userSlice";
+import { UPDATE_RECIPE } from "../../../../../../../../slices/recipeSlice";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../../../../../database/firebase-config";
 import {
   getReviews,
   selectReview,
   selectReviewLoading,
-} from '../../../../../../../../slices/reviewSlice';
-import deleteIcon from './../../../../../../../../assets/icons/deleteIcon.svg';
-import editIcon from './../../../../../../../../assets/icons/editIcon.svg';
+} from "../../../../../../../../slices/reviewSlice";
+import deleteIcon from "./../../../../../../../../assets/icons/deleteIcon.svg";
+import editIcon from "./../../../../../../../../assets/icons/editIcon.svg";
 export default function ReviewForm({ recipe }: any) {
   const user = useAppSelector(selectUser);
 
@@ -45,7 +45,9 @@ export default function ReviewForm({ recipe }: any) {
       // setReviews([]);
       return [];
     } else {
-      const recipeReviews = oldReviews.find((item) => item.id === recipe.id);
+      const recipeReviews = oldReviews.find(
+        (item: RecipeInterface) => item.id === recipe.id
+      );
       return recipeReviews ? recipeReviews.reviews : [];
     }
   }
@@ -54,26 +56,26 @@ export default function ReviewForm({ recipe }: any) {
     return {
       review_id: v4(),
       review_user: user,
-      recipe_review: '',
+      recipe_review: "",
     };
   }
   const [newReview, setNewReview] = useState(initialState());
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     setNewReview({
       ...newReview,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const trimmedReview = newReview.recipe_review.trim();
 
     // Check if the trimmed review is empty or contains only spaces
-    if (trimmedReview === '' || /^\s*$/.test(trimmedReview)) {
+    if (trimmedReview === "" || /^\s*$/.test(trimmedReview)) {
       // Display an error message or handle the validation error in your desired way
-      alert('Review cannot be empty');
+      alert("Review cannot be empty");
       return;
     }
     setReviews((prev: any) => [...prev, newReview]);
@@ -83,13 +85,13 @@ export default function ReviewForm({ recipe }: any) {
 
   useEffect(() => {
     dispatch(getReviews());
-    setDoc(doc(db, 'reviews', recipe.id), {
+    setDoc(doc(db, "reviews", recipe.id), {
       reviews,
     });
   }, [reviews]);
-  const deleteReview = async (docId, reviewId) => {
+  const deleteReview = async (docId: string, reviewId: string) => {
     try {
-      const docRef = doc(db, 'reviews', docId);
+      const docRef = doc(db, "reviews", docId);
 
       // Fetch the document data
       const docSnap = await getDoc(docRef);
@@ -98,7 +100,7 @@ export default function ReviewForm({ recipe }: any) {
 
         // Find the index of the review to delete
         const reviewIndex = reviewsData.findIndex(
-          (review) => review.review_id === reviewId
+          (review: { review_id: string }) => review.review_id === reviewId
         );
 
         if (reviewIndex > -1) {
@@ -110,24 +112,27 @@ export default function ReviewForm({ recipe }: any) {
           setReviews(reviewsData);
           dispatch(getReviews());
 
-          console.log('Review deleted successfully.');
+          console.log("Review deleted successfully.");
         } else {
-          console.log('Review not found.');
+          console.log("Review not found.");
         }
       } else {
-        console.log('Document does not exist.');
+        console.log("Document does not exist.");
       }
     } catch (error) {
-      console.error('Error deleting review:', error);
+      console.error("Error deleting review:", error);
     }
   };
-
+  const DeleteReview = (recipe, review) => {
+    console.log(review);
+    // deleteReview(recipe.id, review.review_id);
+  };
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: 'hsl(186.38297872340422, 21.86046511627907%, 66%)',
-          fontFamily: 'f_regular',
+          colorPrimary: "hsl(186.38297872340422, 21.86046511627907%, 66%)",
+          fontFamily: "f_regular",
         },
       }}
     >
@@ -138,7 +143,7 @@ export default function ReviewForm({ recipe }: any) {
           ) : (
             <>
               <div className={style.review_list}>
-                {reviews?.map((review) => (
+                {reviews?.map((review: any) => (
                   <div className={style.review_container}>
                     <div className={style.review_content}>
                       <img
@@ -149,9 +154,7 @@ export default function ReviewForm({ recipe }: any) {
                     </div>
                     <button
                       className={style.delete_btn}
-                      onClick={() =>
-                        deleteReview(recipe.recipe.id, review.review_id)
-                      }
+                      onClick={() => DeleteReview(recipe, review)}
                     >
                       <img src={deleteIcon} />
                     </button>
@@ -162,7 +165,7 @@ export default function ReviewForm({ recipe }: any) {
                           ...newReview,
                           recipe_review: review.recipe_review,
                         });
-                        deleteReview(recipe.recipe.id, review.review_id);
+                        // deleteReview(recipe.id, review.review_id);
                       }}
                     >
                       <img src={editIcon} />

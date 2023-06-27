@@ -11,7 +11,7 @@ import Button from "../../../../../utils/buttons/Button";
 import Paragraph from "../../../../../utils/Typography/Paragraph";
 const Categories = () => {
   return (
-    <MainContainer padding="4em">
+    <MainContainer>
       <div className={"Title"}>
         <SubTitle>Categories</SubTitle>
         <Button border="var(--accent_color)">More Categories</Button>
