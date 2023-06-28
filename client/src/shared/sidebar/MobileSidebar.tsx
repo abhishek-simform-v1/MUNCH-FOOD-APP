@@ -34,7 +34,9 @@ const MobileSidebar = () => {
           <img src={createRecipe} alt="profileImg" />
         </div>
       </NavLink>
-      <NavLink
+      {/* WILL BE ADDED ON SECON RUN */}
+
+      {/* <NavLink
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
@@ -54,7 +56,7 @@ const MobileSidebar = () => {
         <div className={style.mobilenavItems}>
           <img src={myBlogImg} alt="profileImg" />
         </div>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to={"/myrecipes"}
         className={({ isActive }) =>

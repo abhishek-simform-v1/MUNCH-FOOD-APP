@@ -21,7 +21,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../../../../hooks/hooks";
-import { selectUser } from "../../../../../../../../slices/userSlice";
+import {
+  UPDATE_USER,
+  getUser,
+  selectUser,
+} from "../../../../../../../../slices/userSlice";
 import { UPDATE_RECIPE } from "../../../../../../../../slices/recipeSlice";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../../../../database/firebase-config";
@@ -54,7 +58,7 @@ export default function ReviewForm({ recipe }: any) {
   const [reviews, setReviews] = useState<any>(init() || []);
   function initialState() {
     return {
-      review_id: v4(),
+      review_id: user.id,
       review_user: user,
       recipe_review: "",
     };
@@ -67,6 +71,17 @@ export default function ReviewForm({ recipe }: any) {
       [e.target.name]: e.target.value,
     });
   };
+  useEffect(() => {
+    dispatch(getReviews());
+  }, []);
+
+  useEffect(() => {
+    const recipeReviews = oldReviews?.find(
+      (item: RecipeInterface) => item.id === recipe.id
+    );
+
+    setReviews(recipeReviews?.reviews || []);
+  }, [oldReviews]);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -78,17 +93,33 @@ export default function ReviewForm({ recipe }: any) {
       alert("Review cannot be empty");
       return;
     }
-    setReviews((prev: any) => [...prev, newReview]);
+
+    const existingReviewIndex = reviews.findIndex(
+      (review: { review_user: any }) =>
+        review.review_user.id === newReview.review_user.id
+    );
+
+    if (existingReviewIndex > -1) {
+      // Update the existing review
+      const updatedReviews = [...reviews];
+      updatedReviews[existingReviewIndex] = newReview;
+      setReviews(updatedReviews);
+    } else {
+      // Add the new review
+      setReviews((prev: any) => [...prev, newReview]);
+    }
+
     setNewReview(initialState());
-    // Handle form submission
   };
 
   useEffect(() => {
-    dispatch(getReviews());
-    setDoc(doc(db, "reviews", recipe.id), {
-      reviews,
-    });
+    if (reviews.length > 0) {
+      setDoc(doc(db, "reviews", recipe.id), {
+        reviews,
+      });
+    }
   }, [reviews]);
+
   const deleteReview = async (docId: string, reviewId: string) => {
     try {
       const docRef = doc(db, "reviews", docId);
@@ -123,9 +154,8 @@ export default function ReviewForm({ recipe }: any) {
       console.error("Error deleting review:", error);
     }
   };
-  const DeleteReview = (recipe, review) => {
-    console.log(review);
-    // deleteReview(recipe.id, review.review_id);
+  const DeleteReview = (recipe: any, review: any) => {
+    deleteReview(recipe.id, review.review_id);
   };
   return (
     <ConfigProvider
@@ -150,26 +180,35 @@ export default function ReviewForm({ recipe }: any) {
                         src={review.review_user.user_image}
                         className={style.reviewer_profile}
                       />
+
                       <p>{review.recipe_review}</p>
                     </div>
-                    <button
-                      className={style.delete_btn}
-                      onClick={() => DeleteReview(recipe, review)}
-                    >
-                      <img src={deleteIcon} />
-                    </button>
-                    <button
-                      className={style.delete_btn}
-                      onClick={() => {
-                        setNewReview({
-                          ...newReview,
-                          recipe_review: review.recipe_review,
-                        });
-                        // deleteReview(recipe.id, review.review_id);
-                      }}
-                    >
-                      <img src={editIcon} />
-                    </button>
+                    {review.review_id === user.id ? (
+                      <button
+                        className={style.delete_btn}
+                        onClick={() => DeleteReview(recipe, review)}
+                      >
+                        <img src={deleteIcon} />
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                    {review.review_id === user.id ? (
+                      <button
+                        className={style.delete_btn}
+                        onClick={() => {
+                          setNewReview({
+                            ...newReview,
+                            recipe_review: review.recipe_review,
+                          });
+                          // deleteReview(recipe.id, review.review_id);
+                        }}
+                      >
+                        <img src={editIcon} />
+                      </button>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 ))}
               </div>

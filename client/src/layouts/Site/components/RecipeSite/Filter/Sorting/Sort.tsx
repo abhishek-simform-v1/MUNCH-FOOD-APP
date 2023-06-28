@@ -8,10 +8,40 @@ import {
 import { RecipeInterface } from "../../../../../../slices/InitialData";
 import { selectReview } from "../../../../../../slices/reviewSlice";
 import { selectRatings } from "../../../../../../slices/ratingSlice";
-
-const Sort: React.FC = () => {
-  const recipes = useAppSelector(selectRecipes);
+type props = {
+  recipes: RecipeInterface[];
+};
+const Sort = ({ recipes }: props) => {
+  const reviews = useAppSelector(selectReview);
+  const ratings = useAppSelector(selectRatings);
   const dispatch = useAppDispatch();
+  function FindReview(recipe: RecipeInterface) {
+    const [recipeReview] = reviews.filter((review) => review.id === recipe.id);
+
+    if (recipeReview == undefined) {
+      return 0;
+    } else {
+      const review = recipeReview.reviews.length;
+      return review;
+    }
+  }
+  function FindRating(recipe: RecipeInterface) {
+    const [recipeRating] = ratings.filter((rating) => rating.id === recipe.id);
+    if (recipeRating == undefined) {
+      return 0;
+    } else {
+      const rating = recipeRating.allRatings.map((ratingRate) => {
+        return ratingRate.rating_count;
+      });
+
+      const sum = rating.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
+
+      return sum;
+    }
+  }
   function lettestArray() {
     const reversedArray = [];
     for (let i = recipes.length - 1; i >= 0; i--) {
@@ -19,39 +49,18 @@ const Sort: React.FC = () => {
     }
     return reversedArray;
   }
-  const reviews = useAppSelector(selectReview);
-  const ratings = useAppSelector(selectRatings);
-  function FindReview(recipe: RecipeInterface) {
-    const [recipeReview] = reviews.filter((review) => review.id === recipe.id);
-    const review = recipeReview.reviews.length;
-    return review;
-  }
-  function FindRating(recipe: RecipeInterface) {
-    const [recipeRating] = ratings.filter((rating) => rating.id === recipe.id);
-    const rating = recipeRating.allRatings.map((ratingRate) => {
-      return ratingRate.rating_count;
-    });
-
-    const sum = rating.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-
-    return sum;
-  }
   const Capture = (values: any) => {
     const { sort_field } = values;
 
     let sortedRecipes = recipes;
-
     switch (sort_field) {
       case "all":
         sortedRecipes = recipes;
         break;
       case "1":
-        sortedRecipes = recipes.filter(
-          (recipe: RecipeInterface) => FindReview(recipe) >= 1
-        ); // Example criteria
+        sortedRecipes = recipes.filter((recipe: RecipeInterface) => {
+          return FindReview(recipe) >= 1;
+        }); // Example criteria
         break;
       case "2":
         sortedRecipes = lettestArray(); // Example criteria
@@ -67,13 +76,12 @@ const Sort: React.FC = () => {
         break;
       case "4":
         sortedRecipes = recipes.filter(
-          (recipe: RecipeInterface) => FindRating(recipe) >= 5
+          (recipe: RecipeInterface) => FindRating(recipe) >= 2
         ); // Example criteria
         break;
       default:
         break;
     }
-
     dispatch(ADD_FILTERED_RECIPE(sortedRecipes));
   };
   return (

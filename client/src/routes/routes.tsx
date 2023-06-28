@@ -17,14 +17,21 @@ import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../database/firebase-config";
-import { getUser, selectLoadingUser, selectUser } from "../slices/userSlice";
+import {
+  ADD_RATED_RECIPE,
+  getUser,
+  selectLoadingUser,
+  selectUser,
+} from "../slices/userSlice";
 import { getReviews } from "../slices/reviewSlice";
 import { getRatings } from "../slices/ratingSlice";
+import MyRecipe from "../layouts/Dashboard/pages/RecipePageFolder/MyRecipe/MyRecipe";
 
 function AppRoutes() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const dispatch = useAppDispatch();
   const current_user = useAppSelector(selectUser);
+
   function get_current_user() {
     if (current_user) {
       return true;
@@ -71,9 +78,14 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/recipe/:id" element={<Recipe />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/blog" element={<Blog />} />
+        <Route
+          path="/recipe/:id"
+          element={
+            isAuthenticated ? <Recipe /> : <Navigate to="/signup" replace />
+          }
+        />
 
         <Route
           path="/profile"
@@ -100,14 +112,15 @@ function AppRoutes() {
           }
         />
         <Route path="*" element={<h1>pagenotfound</h1>} />
-        <Route
+        {/* WILL BE ADDED IN SECOND RUN */}
+        {/* <Route
           path="/myblogs"
           element={
             <DashboardLayout>
               <MyBlog />
             </DashboardLayout>
           }
-        />
+        /> 
         <Route
           path="/createblog"
           element={
@@ -119,13 +132,25 @@ function AppRoutes() {
               <Navigate to="/signup" replace />
             )
           }
-        />
+        />*/}
         <Route
           path="/favorites"
           element={
             isAuthenticated ? (
               <DashboardLayout>
                 <Favorite />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/signup" replace />
+            )
+          }
+        />
+        <Route
+          path="/myrecipes"
+          element={
+            isAuthenticated ? (
+              <DashboardLayout>
+                <MyRecipe />
               </DashboardLayout>
             ) : (
               <Navigate to="/signup" replace />

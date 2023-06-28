@@ -5,8 +5,14 @@ import { Form } from "antd";
 import { imageStore } from "../../../../../database/firebase-config";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { v4 } from "uuid";
-const ImageUpload = ({ setImages, images, form, current_img }: any) => {
-  const [imageUrl, setImageUrl] = useState<string>();
+const ImageUpload = ({
+  setImages,
+  images,
+  form,
+  current_img,
+  setImageUrl,
+  imageUrl,
+}: any) => {
   function convertToBase64(file: File) {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -39,6 +45,8 @@ const ImageUpload = ({ setImages, images, form, current_img }: any) => {
       )
       .catch(() => console.log("first"));
   };
+  console.log(current_img);
+  console.log(imageUrl);
   return (
     <div className={style.form_header_Img}>
       <Form.Item

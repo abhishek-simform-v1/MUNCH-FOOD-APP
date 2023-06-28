@@ -25,19 +25,22 @@ export function RatingContainer({ recipe }: any) {
       const recipeRating = oldRating.find((item: allRatingType) => {
         return item.id === recipe.id;
       });
-
-      const rate = recipeRating?.allRatings.map(
-        (rating: singleRate) => rating.rating_count
-      );
-      if (rate.length == 0) {
+      if (recipeRating === undefined) {
         return 0;
+      } else {
+        const rate = recipeRating?.allRatings.map(
+          (rating: singleRate) => rating.rating_count
+        );
+        if (rate.length == 0) {
+          return 0;
+        }
+        const average = (rate: number[]) =>
+          rate.reduce((p, c) => p + c, 0) / rate.length;
+
+        const result = rate ? average(rate) : undefined;
+
+        return result;
       }
-      const average = (rate: number[]) =>
-        rate.reduce((p, c) => p + c, 0) / rate.length;
-
-      const result = rate ? average(rate) : undefined;
-
-      return result;
     }
   }
   return (

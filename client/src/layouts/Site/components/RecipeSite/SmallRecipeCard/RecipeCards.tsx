@@ -10,18 +10,15 @@ import {
   selectRecipes,
 } from "../../../../../slices/recipeSlice";
 import { RecipeInterface } from "../../../../../slices/InitialData";
-const RecipeCards = () => {
-  const recipe = useAppSelector(selectRecipes);
-  const filtered_recipes = useAppSelector(selectFilteredRecipes);
+
+const RecipeCards = ({ recipes }: any) => {
   return (
     <div className={style.recipe_card_cntainer}>
-      {(filtered_recipes.length > 0 ? filtered_recipes : recipe).map(
-        (recipe: RecipeInterface, index: number) => (
-          <div key={index}>
-            <RecipeCard recipe={recipe} />
-          </div>
-        )
-      )}
+      {recipes.map((recipe: RecipeInterface, index: number) => (
+        <div key={index}>
+          <RecipeCard recipe={recipe} />
+        </div>
+      ))}
     </div>
   );
 };

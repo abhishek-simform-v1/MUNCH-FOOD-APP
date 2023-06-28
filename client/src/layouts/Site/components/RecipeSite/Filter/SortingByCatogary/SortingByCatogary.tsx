@@ -6,16 +6,22 @@ import {
   selectRecipes,
 } from "../../../../../../slices/recipeSlice";
 import { RecipeInterface } from "../../../../../../slices/InitialData";
-import { selectReview } from "../../../../../../slices/reviewSlice";
-import { selectRatings } from "../../../../../../slices/ratingSlice";
-
-const SortingByCatogary: React.FC = () => {
-  const recipes = useAppSelector(selectRecipes);
+import {
+  selectCreatedRecipes,
+  selectRatedRecipes,
+} from "../../../../../../slices/userSlice";
+type props = {
+  recipes: RecipeInterface[];
+  likedRecipes?: boolean;
+  myRecipes?: boolean;
+};
+const SortingByCatogary = ({ recipes, likedRecipes, myRecipes }: props) => {
   const dispatch = useAppDispatch();
+  const rated_recipes = useAppSelector(selectRatedRecipes);
+  const my_recipes = useAppSelector(selectCreatedRecipes);
 
   const Capture = (values: any) => {
     const { sort_catogary } = values;
-    console.log(typeof sort_catogary);
     let sortedRecipes = recipes;
 
     switch (sort_catogary) {
@@ -52,7 +58,26 @@ const SortingByCatogary: React.FC = () => {
       default:
         break;
     }
-    dispatch(ADD_FILTERED_RECIPE(sortedRecipes));
+
+    const user_favorute = rated_recipes.map((rated_recipe) => {
+      const [rated] = sortedRecipes.filter((recipe) => {
+        return recipe.id === rated_recipe;
+      });
+      return rated;
+    });
+    const made_by_user = my_recipes.map((rated_recipe) => {
+      const [rated] = sortedRecipes.filter((recipe) => {
+        return recipe.id === rated_recipe;
+      });
+      return rated;
+    });
+    if (likedRecipes) {
+      dispatch(ADD_FILTERED_RECIPE(user_favorute));
+    } else if (myRecipes) {
+      dispatch(ADD_FILTERED_RECIPE(made_by_user));
+    } else {
+      dispatch(ADD_FILTERED_RECIPE(sortedRecipes));
+    }
   };
   return (
     <ConfigProvider

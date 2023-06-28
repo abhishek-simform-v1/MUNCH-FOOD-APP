@@ -38,7 +38,8 @@ const DesktopSidebar = () => {
           <span> Create Recipe</span>
         </div>
       </NavLink>
-      <NavLink
+      {/* WILL BE ADDED ON SECON RUN */}
+      {/* <NavLink
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
@@ -60,7 +61,7 @@ const DesktopSidebar = () => {
           <img src={myBlogImg} alt="myBlogImg" />
           <span>My Blogs</span>
         </div>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to={"/myrecipes"}
         className={({ isActive }) =>

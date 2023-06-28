@@ -18,10 +18,10 @@ import {
   selectRecipes,
 } from "../../../../../../slices/recipeSlice";
 import Loader from "../../../../../../utils/loader/Loader";
-import ReviewForm from "./components/ReviewForm/ReviewForm";
 import { selectReview } from "../../../../../../slices/reviewSlice";
 import Paragraph from "../../../../../../utils/Typography/Paragraph";
 import RatingComponent from "./components/ReviewForm/RatingComponent";
+import ReviewForm from "./components/ReviewForm/ReviewForm";
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();

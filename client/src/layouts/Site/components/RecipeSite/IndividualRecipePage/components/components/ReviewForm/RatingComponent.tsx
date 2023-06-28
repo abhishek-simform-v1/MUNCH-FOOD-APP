@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
-import { selectUser } from "../../../../../../../../slices/userSlice";
+import {
+  UPDATE_USER,
+  getUser,
+  selectUser,
+} from "../../../../../../../../slices/userSlice";
 import {
   getRatings,
   selectRatingLoading,
@@ -107,6 +111,23 @@ const RatingComponent = ({ recipe }: any) => {
     if (!ratingLoading) {
       dispatch(setNewRating(newRating));
     }
+    if (
+      user.rated_recipes.length === 0 ||
+      !user.rated_recipes.includes(recipe.id)
+    ) {
+      const updatedUser = {
+        ...user,
+        rated_recipes: [...user.rated_recipes, recipe.id],
+      };
+
+      console.log("updatedUser:", updatedUser);
+      dispatch(UPDATE_USER(updatedUser));
+      dispatch(getUser());
+    } else {
+      return;
+    }
+
+    console.log(user);
   }, [rating, recipe.id, user, dispatch]);
 
   return (

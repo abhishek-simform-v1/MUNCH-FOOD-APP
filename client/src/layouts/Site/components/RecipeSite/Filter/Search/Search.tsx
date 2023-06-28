@@ -9,22 +9,14 @@ import {
 import { current } from "@reduxjs/toolkit";
 import { RecipeInterface } from "../../../../../../slices/InitialData";
 import { useAppDispatch, useAppSelector } from "../../../../../../hooks/hooks";
-
-const Search: React.FC = () => {
-  const [recipeName, setRecipeName] = useState("");
-  const dispatch = useAppDispatch();
-  const recipes = useAppSelector(selectRecipes);
-  const filteredRecipes = recipes.filter((recipe: RecipeInterface) =>
-    recipe.recipe_name.toLowerCase().includes(recipeName.toLowerCase())
-  );
-
+type props = {
+  setRecipeName: any;
+};
+const Search = ({ setRecipeName }: props) => {
   const Capture = (values: any) => {
     setRecipeName(values.search_field.toUpperCase());
   };
 
-  useEffect(() => {
-    dispatch(ADD_FILTERED_RECIPE(filteredRecipes));
-  }, [filteredRecipes]);
   return (
     <ConfigProvider
       theme={{
