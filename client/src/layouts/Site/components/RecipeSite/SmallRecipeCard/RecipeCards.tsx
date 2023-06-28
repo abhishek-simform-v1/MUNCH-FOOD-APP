@@ -1,15 +1,8 @@
-import style from "./RecipeCards.module.css";
-import dish from "./../../../../../assets/dish_02.jpg";
-import dish3 from "./../../../../../assets/dish_03.jpg";
-import dish4 from "./../../../../../assets/dish_04.jpg";
-import dish5 from "./../../../../../assets/dish_05.jpg";
-import RecipeCard from "./RecipeCard";
-import { useAppSelector } from "../../../../../hooks/hooks";
-import {
-  selectFilteredRecipes,
-  selectRecipes,
-} from "../../../../../slices/recipeSlice";
-import { RecipeInterface } from "../../../../../slices/InitialData";
+import style from './RecipeCards.module.css';
+
+import RecipeCard from './RecipeCard';
+
+import { RecipeInterface } from '../../../../../slices/InitialData';
 
 const RecipeCards = ({ recipes }: any) => {
   return (

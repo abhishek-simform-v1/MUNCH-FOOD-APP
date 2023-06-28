@@ -1,11 +1,11 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import style from "./style.module.css";
-import profileImg from "./../../assets/icons/signinprofile.svg";
-import createRecipe from "./../../assets/icons/create.svg";
-import createBlog from "./../../assets/icons/createBlog.svg";
-import favImg from "./../../assets/icons/favoriteRecipe.svg";
-import myRecipeImg from "./../../assets/icons/myRecipe.svg";
-import myBlogImg from "./../../assets/icons/myblog.svg";
+import { NavLink, useNavigate } from 'react-router-dom';
+import style from './style.module.css';
+import profileImg from './../../assets/icons/signinprofile.svg';
+import createRecipe from './../../assets/icons/create.svg';
+import bookMark from './../../assets/icons/bookMarkStroke.svg';
+import favImg from './../../assets/icons/favoriteRecipe.svg';
+import myRecipeImg from './../../assets/icons/myRecipe.svg';
+import myBlogImg from './../../assets/icons/myblog.svg';
 const DesktopSidebar = () => {
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const DesktopSidebar = () => {
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
-        to={"/profile"}
+        to={'/profile'}
       >
         <div className={style.navItems}>
           <img
@@ -31,7 +31,7 @@ const DesktopSidebar = () => {
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
-        to={"/createrecipe"}
+        to={'/createrecipe'}
       >
         <div className={style.navItems}>
           <img src={createRecipe} alt="createRecipe" />
@@ -63,7 +63,7 @@ const DesktopSidebar = () => {
         </div>
       </NavLink> */}
       <NavLink
-        to={"/myrecipes"}
+        to={'/myrecipes'}
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }
@@ -73,9 +73,20 @@ const DesktopSidebar = () => {
           <span>My Recipe</span>
         </div>
       </NavLink>
+      <NavLink
+        to={'/savedrecipes'}
+        className={({ isActive }) =>
+          isActive ? style.activeDash : style.inactiveDash
+        }
+      >
+        <div className={style.navItems}>
+          <img src={bookMark} alt="bookMark" />
+          <span>saved</span>
+        </div>
+      </NavLink>
 
       <NavLink
-        to={"/favorites"}
+        to={'/favorites'}
         className={({ isActive }) =>
           isActive ? style.activeDash : style.inactiveDash
         }

@@ -1,31 +1,33 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import DashboardLayout from "../shared/sidebar/DashboardLayout";
-import Home from "../layouts/Site/pages/Home";
-import About from "../layouts/Site/pages/About";
-import Recipe from "../layouts/Site/pages/Recipe";
-import Blog from "../layouts/Site/pages/Blog";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { getRecipes } from "../slices/recipeSlice";
-import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
-import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
-import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
-import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
-import Profile from "../layouts/Dashboard/pages/Profile/Profile";
-import Recipes from "../layouts/Site/pages/Recipes";
-import SignIn from "../Authentication/SignIn";
-import SignUp from "../Authentication/SignUp";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../database/firebase-config";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import DashboardLayout from '../shared/sidebar/DashboardLayout';
+import Home from '../layouts/Site/pages/Home';
+import About from '../layouts/Site/pages/About';
+import Recipe from '../layouts/Site/pages/Recipe';
+import Blog from '../layouts/Site/pages/Blog';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { getRecipes } from '../slices/recipeSlice';
+import CreateRecipe from '../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe';
+import Favorite from '../layouts/Dashboard/pages/favorites/Favorite';
+import CreateBlog from '../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog';
+import MyBlog from '../layouts/Dashboard/pages/Blog/MyBlog/MyBlog';
+import Profile from '../layouts/Dashboard/pages/Profile/Profile';
+import Recipes from '../layouts/Site/pages/Recipes';
+import SignIn from '../Authentication/SignIn';
+import SignUp from '../Authentication/SignUp';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../database/firebase-config';
 import {
   ADD_RATED_RECIPE,
+  LOG_OUT,
   getUser,
   selectLoadingUser,
   selectUser,
-} from "../slices/userSlice";
-import { getReviews } from "../slices/reviewSlice";
-import { getRatings } from "../slices/ratingSlice";
-import MyRecipe from "../layouts/Dashboard/pages/RecipePageFolder/MyRecipe/MyRecipe";
+} from '../slices/userSlice';
+import { getReviews } from '../slices/reviewSlice';
+import { getRatings } from '../slices/ratingSlice';
+import MyRecipe from '../layouts/Dashboard/pages/RecipePageFolder/MyRecipe/MyRecipe';
+import SavedRecipes from '../layouts/Dashboard/pages/RecipePageFolder/SavedRecipes/SavedRecipes';
 
 function AppRoutes() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -39,9 +41,9 @@ function AppRoutes() {
       return false;
     }
   }
-  const iscurrentUser = get_current_user();
+  const is_currentUser = get_current_user();
   const isLoading = useAppSelector(selectLoadingUser);
-  const [isAuthenticated, setIsAuthenticated] = useState(iscurrentUser);
+  const [isAuthenticated, setIsAuthenticated] = useState(is_currentUser);
 
   useEffect(() => {
     setIsLoadingAuth(true);
@@ -61,6 +63,9 @@ function AppRoutes() {
       dispatch(getReviews());
       dispatch(getRatings());
       dispatch(getUser());
+    }
+    if (current_user === undefined) {
+      dispatch(LOG_OUT());
     }
     const fetchData = async () => {
       try {
@@ -93,6 +98,18 @@ function AppRoutes() {
             isAuthenticated ? (
               <DashboardLayout>
                 <Profile />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/signup" replace />
+            )
+          }
+        />
+        <Route
+          path="/savedrecipes"
+          element={
+            isAuthenticated ? (
+              <DashboardLayout>
+                <SavedRecipes />
               </DashboardLayout>
             ) : (
               <Navigate to="/signup" replace />

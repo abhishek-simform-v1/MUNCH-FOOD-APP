@@ -77,13 +77,12 @@
   align-items: left;
   padding-bottom: 2rem;
 
-  gap: 1.5rem;
+  gap: 1rem;
   border-bottom: 2px solid var(--accent_lite);
 }
-
-.pill_container {
-  display: flex;
-  gap: 1rem;
+.book_mark_icon {
+  width: var(--step-3);
+  cursor: pointer;
 }
 
 .cook_time_container {
@@ -182,8 +181,6 @@
   align-items: center;
   gap: 0.4em;
 }
-
-
 
 @media only screen and (max-width: 1270px) {
   .nutrition_card_container {

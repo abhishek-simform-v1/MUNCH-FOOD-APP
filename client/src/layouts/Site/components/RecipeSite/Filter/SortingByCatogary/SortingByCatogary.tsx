@@ -1,57 +1,65 @@
-import React from "react";
-import { ConfigProvider, Form, Select } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../../../../hooks/hooks";
+import React from 'react';
+import { ConfigProvider, Form, Select } from 'antd';
+import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
 import {
   ADD_FILTERED_RECIPE,
   selectRecipes,
-} from "../../../../../../slices/recipeSlice";
-import { RecipeInterface } from "../../../../../../slices/InitialData";
+} from '../../../../../../slices/recipeSlice';
+import { RecipeInterface } from '../../../../../../slices/InitialData';
 import {
   selectCreatedRecipes,
   selectRatedRecipes,
-} from "../../../../../../slices/userSlice";
+  selectSavedRecipes,
+} from '../../../../../../slices/userSlice';
 type props = {
   recipes: RecipeInterface[];
   likedRecipes?: boolean;
   myRecipes?: boolean;
+  savedRecipes?: boolean;
 };
-const SortingByCatogary = ({ recipes, likedRecipes, myRecipes }: props) => {
+const SortingByCatogary = ({
+  recipes,
+  likedRecipes,
+  myRecipes,
+  savedRecipes,
+}: props) => {
   const dispatch = useAppDispatch();
   const rated_recipes = useAppSelector(selectRatedRecipes);
   const my_recipes = useAppSelector(selectCreatedRecipes);
+  const saved_recipes = useAppSelector(selectSavedRecipes);
 
   const Capture = (values: any) => {
     const { sort_catogary } = values;
     let sortedRecipes = recipes;
 
     switch (sort_catogary) {
-      case "break-fast":
+      case 'break-fast':
         sortedRecipes = recipes.filter(
-          (recipe: RecipeInterface) => recipe.category === "break-fast"
+          (recipe: RecipeInterface) => recipe.category === 'break-fast'
         );
         break;
-      case "all":
+      case 'all':
         sortedRecipes = recipes;
         break;
-      case "lunch":
+      case 'lunch':
         sortedRecipes = recipes.filter(
-          (recipe: RecipeInterface) => recipe.category === "lunch"
+          (recipe: RecipeInterface) => recipe.category === 'lunch'
         );
         break;
-      case "snack":
+      case 'snack':
         sortedRecipes = recipes.filter(
-          (recipe: RecipeInterface) => recipe.category === "snack"
+          (recipe: RecipeInterface) => recipe.category === 'snack'
         );
         break;
-      case "soup":
+      case 'soup':
         sortedRecipes = recipes.filter(
-          (recipe: RecipeInterface) => recipe.category === "soup"
+          (recipe: RecipeInterface) => recipe.category === 'soup'
         );
         break;
-      case "soup":
+      case 'dinner':
         sortedRecipes = recipes.filter((recipe: RecipeInterface) => {
-          console.log(recipe.category === "dinner");
-          return recipe.category === "dinner";
+          console.log(recipe.category === 'dinner');
+          return recipe.category === 'dinner';
         });
 
         break;
@@ -71,10 +79,18 @@ const SortingByCatogary = ({ recipes, likedRecipes, myRecipes }: props) => {
       });
       return rated;
     });
+    const saved_by_user = saved_recipes.map((rated_recipe) => {
+      const [rated] = sortedRecipes.filter((recipe) => {
+        return recipe.id === rated_recipe;
+      });
+      return rated;
+    });
     if (likedRecipes) {
       dispatch(ADD_FILTERED_RECIPE(user_favorute));
     } else if (myRecipes) {
       dispatch(ADD_FILTERED_RECIPE(made_by_user));
+    } else if (savedRecipes) {
+      dispatch(ADD_FILTERED_RECIPE(saved_by_user));
     } else {
       dispatch(ADD_FILTERED_RECIPE(sortedRecipes));
     }
@@ -83,8 +99,8 @@ const SortingByCatogary = ({ recipes, likedRecipes, myRecipes }: props) => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "hsl(186.38297872340422, 21.86046511627907%, 66%)",
-          fontFamily: "f_regular",
+          colorPrimary: 'hsl(186.38297872340422, 21.86046511627907%, 66%)',
+          fontFamily: 'f_regular',
         },
       }}
     >
@@ -97,37 +113,37 @@ const SortingByCatogary = ({ recipes, likedRecipes, myRecipes }: props) => {
             placeholder="Search to Select"
             optionFilterProp="children"
             filterOption={(input, option) =>
-              (option?.label ?? "").includes(input)
+              (option?.label ?? '').includes(input)
             }
             filterSort={(optionA, optionB) =>
-              (optionA?.label ?? "")
+              (optionA?.label ?? '')
                 .toLowerCase()
-                .localeCompare((optionB?.label ?? "").toLowerCase())
+                .localeCompare((optionB?.label ?? '').toLowerCase())
             }
             options={[
               {
-                label: "all",
-                value: "all",
+                label: 'all',
+                value: 'all',
               },
               {
-                label: "break-fast",
-                value: "break-fast",
+                label: 'break-fast',
+                value: 'break-fast',
               },
               {
-                label: "lunch",
-                value: "lunch",
+                label: 'lunch',
+                value: 'lunch',
               },
               {
-                label: "snack",
-                value: "snack",
+                label: 'snack',
+                value: 'snack',
               },
               {
-                label: "soup",
-                value: "soup",
+                label: 'soup',
+                value: 'soup',
               },
               {
-                label: "dinner",
-                value: "dinner",
+                label: 'dinner',
+                value: 'dinner',
               },
             ]}
           />

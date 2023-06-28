@@ -38,6 +38,7 @@ const initialState = {
   current_user: <UserInterface | null>null,
   rated_recipes: <string[]>[],
   created_recipes: <string[]>[],
+  saved_recipes: <string[]>[],
   auth: false,
   loading: false,
 };
@@ -48,7 +49,7 @@ export const UserSlice = createSlice({
   reducers: {
     UPDATE_USER: (state, action) => {
       const update_user = action.payload;
-      console.log(update_user)
+      console.log(update_user);
       UserDataService.updateUsers(update_user.id, update_user);
     },
     ADD_RATED_RECIPE: (state, action) => {
@@ -57,12 +58,15 @@ export const UserSlice = createSlice({
     ADD_CREATED_RECIPE: (state, action) => {
       state.created_recipes = action.payload;
     },
+    ADD_SAVED_RECIPE: (state, action) => {
+      state.saved_recipes = action.payload;
+    },
     LOG_IN: (state) => {
       state.auth = true;
     },
     LOG_OUT: (state) => {
       signOut(auth)
-        .then(() => { })
+        .then(() => {})
         .catch((error) => {
           // An error happened.
         });
@@ -86,9 +90,17 @@ export const UserSlice = createSlice({
 });
 
 export default UserSlice.reducer;
-export const { LOG_IN, LOG_OUT, UPDATE_USER, ADD_RATED_RECIPE, ADD_CREATED_RECIPE } = UserSlice.actions;
+export const {
+  LOG_IN,
+  LOG_OUT,
+  UPDATE_USER,
+  ADD_RATED_RECIPE,
+  ADD_SAVED_RECIPE,
+  ADD_CREATED_RECIPE,
+} = UserSlice.actions;
 export const selectUser = (state: any) => state.user.current_user;
 export const selectRatedRecipes = (state: any) => state.user.rated_recipes;
 export const selectCreatedRecipes = (state: any) => state.user.created_recipes;
+export const selectSavedRecipes = (state: any) => state.user.saved_recipes;
 export const selectLoadingUser = (state: any) => state.user.loading;
 export const selectAuth = (state: any) => state.user.auth;
