@@ -1,8 +1,8 @@
-import style from './RecipeCards.module.css';
+import style from "./RecipeCards.module.css";
 
-import RecipeCard from './RecipeCard';
+import RecipeCard from "./RecipeCard";
 
-import { RecipeInterface } from '../../../../../slices/InitialData';
+import { RecipeInterface } from "../../../../../slices/InitialData";
 
 const RecipeCards = ({ recipes }: any) => {
   return (

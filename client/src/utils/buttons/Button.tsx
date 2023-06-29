@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 type props = {
   border?: string;
+  disable?: boolean;
   padding?: string;
   border_radius?: string;
   children?: ReactNode;
@@ -10,6 +11,7 @@ type props = {
 const Button = ({
   border,
   padding,
+  disable,
   border_radius,
   children,
   onClick,
@@ -36,7 +38,7 @@ const Button = ({
     }
   `;
   return (
-    <Button type="submit" onClick={onClick}>
+    <Button type="submit" disabled={disable ?? false} onClick={onClick}>
       {children}
     </Button>
   );

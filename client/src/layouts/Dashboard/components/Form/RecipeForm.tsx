@@ -45,10 +45,6 @@ export default function RecipeForm() {
   const current_recipe = useAppSelector(selectCurrentRecipe);
   const navigate = useNavigate();
   const onFinish = (values: RecipeInterface) => {
-    // if (images !== undefined) {
-
-    // }
-
     values.creator = user;
 
     values.ingredient_info.map((ing) => {
