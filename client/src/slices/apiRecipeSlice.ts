@@ -3,7 +3,7 @@ import data from '../database/db';
 
 export const searchApiRecipe = createAsyncThunk(
   'api_recipe/searchRecipes',
-  async (query) => {
+  async () => {
     // const myHeaders = new Headers();
     // myHeaders.append("apikey", "D12ZmowWRZ8hn92Sxoaw3kRuYFAB19Jl");
 
@@ -15,7 +15,7 @@ export const searchApiRecipe = createAsyncThunk(
     // const url = `https://api.apilayer.com/spoonacular/recipes/complexSearch?query=${query}`;
     // const response = await fetch(url, requestOptions);
     // const result = await response.text();
-
+    console.log(data);
     return data;
   }
 );

@@ -1,154 +1,162 @@
 .profile_page {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 1000px;
 }
 
 .profile_bg_image {
-    width: 100%;
-    height: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: var(--lg_border_radius);
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: var(--lg_border_radius);
+}
+.user_bg_image {
+  width: 100%;
+  height: 300px;
+  max-height: 300px;
+  position: relative;
+  object-fit: cover;
+  border-radius: var(--lg_border_radius);
 }
 
 .decoy_image {
-    width: 100%;
-    height: 100%;
-    max-height: 300px;
-    position: absolute;
-    border-radius: var(--lg_border_radius);
-    background: rgb(238, 174, 202);
-    background: linear-gradient(45deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  border-radius: var(--lg_border_radius);
+  background: rgb(238, 174, 202);
+  background: linear-gradient(
+    45deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
 }
 
 .profile_image {
-    width: calc(var(--step-4)*3);
-    height: calc(var(--step-4)*2.5);
-    border-radius: 50rem;
-    border: 5px solid var(--secondary_color);
-    object-fit: cover;
+  width: calc(var(--step-4) * 3);
+  height: calc(var(--step-4) * 2.5);
+  border-radius: 50rem;
+  border: 5px solid var(--secondary_color);
+  object-fit: cover;
 }
 
 .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
-.inputfile+label {
-    font-weight: 700;
-    color: var(--secondary_color);
-    border-radius: 50%;
-    padding: 0.5rem 0.5rem;
-    background-color: var(--secondary_transparent);
-    display: inline-block;
+.inputfile + label {
+  font-weight: 700;
+  color: var(--secondary_color);
+  border-radius: 50%;
+  padding: 0.5rem 0.5rem;
+  background-color: var(--secondary_transparent);
+  display: inline-block;
 }
 
-.inputfile+label>img {
-    width: var(--step-3);
-    height: var(--step-3);
+.inputfile + label > img {
+  width: var(--step-3);
+  height: var(--step-3);
 }
 
-.inputfile:focus+label,
-.inputfile+label:hover {
-    background-color: var(--secondary_color);
-    color: var(--accent_color);
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: var(--secondary_color);
+  color: var(--accent_color);
 }
 
-.inputfile+label {
-    cursor: pointer;
-    /* "hand" cursor */
-    cursor: pointer;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
+.inputfile + label {
+  cursor: pointer;
+  /* "hand" cursor */
+  cursor: pointer;
+  position: absolute;
+  bottom: -270px;
+  right: 15px;
 }
 
-.inputfile:focus+label {
-    outline: 1px dotted #000;
-    outline: -webkit-focus-ring-color auto 5px;
+.inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
-.inputfile+label * {
-    pointer-events: none;
+.inputfile + label * {
+  pointer-events: none;
 }
 
 .input_file {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
-.input_file+label {
-    font-weight: 700;
-    color: var(--secondary_color);
-    padding: 0.5rem 0.5rem;
-    border-radius: var(--lg_border_radius);
-    background-color: var(--accent_color);
-    display: inline-block;
+.input_file + label {
+  font-weight: 700;
+  color: var(--secondary_color);
+  padding: 0.5rem 0.5rem;
+  border-radius: var(--lg_border_radius);
+  background-color: var(--accent_color);
+  display: inline-block;
 }
 
-.input_file+label>img {
-    width: var(--step-3);
-    height: var(--step-3);
+.input_file + label > img {
+  width: var(--step-3);
+  height: var(--step-3);
 }
 
-.input_file:focus+label,
-.input_file+label:hover {
-    background-color: var(--secondary_color);
-    color: var(--accent_color);
+.input_file:focus + label,
+.input_file + label:hover {
+  background-color: var(--secondary_color);
+  color: var(--accent_color);
 }
 
-.input_file+label {
-    cursor: pointer;
-    /* "hand" cursor */
-    cursor: pointer;
-    bottom: 15px;
-    right: 15px;
+.input_file + label {
+  cursor: pointer;
+  /* "hand" cursor */
+  cursor: pointer;
+  bottom: 15px;
+  right: 15px;
 }
 
-.input_file:focus+label {
-    outline: 1px dotted #000;
-    outline: -webkit-focus-ring-color auto 5px;
+.input_file:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
-.input_file+label * {
-    pointer-events: none;
+.input_file + label * {
+  pointer-events: none;
 }
 
 .user_image {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* flex-direction: column; */
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction: column; */
 }
 
 .user_image_desc {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: end;
-    gap: 1em;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: end;
+  gap: 1em;
 }
 
-@media only screen and (max-width:576px) {
-    .user_image {
-        flex-direction: column;
+@media only screen and (max-width: 576px) {
+  .user_image {
+    flex-direction: column;
+  }
 
-    }
-
-    .user_image_desc {
-        align-items: center;
-    }
-
+  .user_image_desc {
+    align-items: center;
+  }
 }

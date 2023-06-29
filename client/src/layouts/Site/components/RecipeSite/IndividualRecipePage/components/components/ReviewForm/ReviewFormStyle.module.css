@@ -3,7 +3,12 @@
   flex-direction: column;
   gap: 2em;
 }
-
+.star_rating {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.5em;
+}
 .review_form {
   display: flex;
   flex-direction: column;
@@ -31,7 +36,6 @@
   align-items: center;
   gap: 1em;
   width: 100%;
-
 }
 
 .review_action {

@@ -1,4 +1,4 @@
-import { Form, InputNumber } from 'antd';
+import { Form, Input } from 'antd';
 import style from './../../style.module.css';
 
 const Nutritions = () => {
@@ -16,7 +16,7 @@ const Nutritions = () => {
             },
           ]}
         >
-          <InputNumber placeholder="1200" className={style.input_field} />
+          <Input placeholder="1200" className={style.input_field} />
         </Form.Item>
         <Form.Item
           label="fiber"
@@ -24,7 +24,7 @@ const Nutritions = () => {
           validateTrigger={['onChange', 'onBlur']}
           rules={[{ required: true, message: 'Missing fiber' }]}
         >
-          <InputNumber placeholder="110" className={style.input_field} />
+          <Input placeholder="110" className={style.input_field} />
         </Form.Item>
         <Form.Item
           label="protein"
@@ -32,7 +32,7 @@ const Nutritions = () => {
           validateTrigger={['onChange', 'onBlur']}
           rules={[{ required: true, message: 'Missing protein' }]}
         >
-          <InputNumber placeholder="156" className={style.input_field} />
+          <Input placeholder="156" className={style.input_field} />
         </Form.Item>
       </div>
       <div className={style.select_items}>
@@ -42,7 +42,7 @@ const Nutritions = () => {
           name={['nutritions', 'carbs']}
           rules={[{ required: true, message: 'Missing carbs' }]}
         >
-          <InputNumber placeholder="196" className={style.input_field} />
+          <Input placeholder="196" className={style.input_field} />
         </Form.Item>
         <Form.Item
           label="fats %"
@@ -50,7 +50,7 @@ const Nutritions = () => {
           validateTrigger={['onChange', 'onBlur']}
           rules={[{ required: true, message: 'Missing fats' }]}
         >
-          <InputNumber placeholder="56" className={style.input_field} />
+          <Input placeholder="56" className={style.input_field} />
         </Form.Item>
         <Form.Item
           label="sugar"
@@ -58,7 +58,7 @@ const Nutritions = () => {
           validateTrigger={['onChange', 'onBlur']}
           rules={[{ required: true, message: 'Missing sugar' }]}
         >
-          <InputNumber placeholder="156" className={style.input_field} />
+          <Input placeholder="156" className={style.input_field} />
         </Form.Item>
       </div>
     </div>

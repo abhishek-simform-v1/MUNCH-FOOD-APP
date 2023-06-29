@@ -3,7 +3,6 @@ import DashboardLayout from '../shared/sidebar/DashboardLayout';
 import Home from '../layouts/Site/pages/Home';
 import About from '../layouts/Site/pages/About';
 import Recipe from '../layouts/Site/pages/Recipe';
-import Blog from '../layouts/Site/pages/Blog';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { getRecipes } from '../slices/recipeSlice';
@@ -84,7 +83,8 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/recipes" element={<Recipes />} />
-        <Route path="/blog" element={<Blog />} />
+
+        {/* <Route path="/blog" element={<Blog />} /> */}
         <Route
           path="/recipe/:id"
           element={

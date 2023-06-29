@@ -81,7 +81,11 @@
   border-bottom: 2px solid var(--accent_lite);
 }
 .book_mark_icon {
-  width: var(--step-3);
+  width: var(--step-2);
+  cursor: pointer;
+}
+.share_icon {
+  width: var(--step-2);
   cursor: pointer;
 }
 

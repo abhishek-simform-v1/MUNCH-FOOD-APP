@@ -23,6 +23,7 @@ const Instructions = () => {
                     <Form.Item
                       {...field}
                       validateTrigger={['onChange', 'onBlur']}
+                      className={style.instructions_field}
                       rules={[
                         {
                           required: true,

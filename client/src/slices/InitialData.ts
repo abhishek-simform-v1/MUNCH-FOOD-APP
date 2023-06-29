@@ -17,12 +17,12 @@ export interface RecipeInterface {
     cook_time: number;
   };
   nutritions: {
-    calories: number;
-    fiber: number;
-    protein: number;
-    carbs: number;
-    fats: number;
-    sugar: number;
+    calories: string;
+    fiber: string;
+    protein: string;
+    carbs: string;
+    fats: string;
+    sugar: string;
   };
 
   // };

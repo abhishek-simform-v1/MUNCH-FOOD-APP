@@ -27,9 +27,11 @@
   display: flex;
   width: 100%;
   gap: 1rem;
-  align-items: center;
+  align-items: baseline;
 }
-
+.instructions_field {
+  width: 100%;
+}
 .form_style {
   display: flex;
   align-items: flex-end;
@@ -45,7 +47,10 @@
   align-items: center;
   flex-direction: column;
 }
-
+.btn_container {
+  display: flex;
+  justify-content: space-between;
+}
 /* image upload css */
 
 .form_header {

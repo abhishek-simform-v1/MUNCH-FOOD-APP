@@ -1,30 +1,31 @@
-import { useState, useEffect } from "react";
-import { ConfigProvider } from "antd";
-import Button from "../../../../utils/buttons/Button";
-import { Form } from "antd";
-import style from "./../style.module.css";
-import SubTitle from "../../../../utils/Typography/SubTitle";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { useState, useEffect } from 'react';
+import { ConfigProvider } from 'antd';
+import Button from '../../../../utils/buttons/Button';
+import { Form } from 'antd';
+import style from './../style.module.css';
+import SubTitle from '../../../../utils/Typography/SubTitle';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   ADD_CURRENT_RECIPE,
   CREATE_RECIPE,
   UPDATE_RECIPE,
   getRecipes,
   selectCurrentRecipe,
-} from "../../../../slices/recipeSlice";
-import ImageUpload from "./RecipeFormComponents/ImageUpload";
-import Ingredients from "./RecipeFormComponents/Ingredients";
-import Instructions from "./RecipeFormComponents/Instructions";
-import Nutritions from "./RecipeFormComponents/Nutritions";
-import PrepTime from "./RecipeFormComponents/PrepTime";
-import RecipeName from "./RecipeFormComponents/RecipeName";
-import RecipeCat from "./RecipeFormComponents/RecipeCat";
-import { RecipeInterface } from "../../../../slices/InitialData";
-import RecipeTitle from "./RecipeFormComponents/RecipeTag";
-import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
-
-import { selectUser } from "../../../../slices/userSlice";
-import { useNavigate } from "react-router-dom";
+} from '../../../../slices/recipeSlice';
+import ImageUpload from './RecipeFormComponents/ImageUpload';
+import Ingredients from './RecipeFormComponents/Ingredients';
+import Instructions from './RecipeFormComponents/Instructions';
+import Nutritions from './RecipeFormComponents/Nutritions';
+import PrepTime from './RecipeFormComponents/PrepTime';
+import RecipeName from './RecipeFormComponents/RecipeName';
+import RecipeCat from './RecipeFormComponents/RecipeCat';
+import { RecipeInterface } from '../../../../slices/InitialData';
+import RecipeTitle from './RecipeFormComponents/RecipeTag';
+import ButtonOutLine from '../../../../utils/buttons/ButtonOutLine';
+import nextIcon from './../../../../assets/icons/goNext.svg';
+import prevIcon from './../../../../assets/icons/goBack.svg';
+import { selectUser } from '../../../../slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecipeForm() {
   // const [imageUrl, setImageUrl] = useState<string>();
@@ -42,7 +43,7 @@ export default function RecipeForm() {
 
     values.ingredient_info.map((ing) => {
       if (ing.ingredient_operation == undefined) {
-        return (ing.ingredient_operation = "");
+        return (ing.ingredient_operation = '');
       }
     });
     console.log(values);
@@ -53,7 +54,7 @@ export default function RecipeForm() {
       };
       dispatch(UPDATE_RECIPE(update_recipe));
       dispatch(getRecipes());
-      navigate("/recipes", { replace: true });
+      navigate('/recipes', { replace: true });
     } else {
       dispatch(CREATE_RECIPE(values));
       dispatch(getRecipes());
@@ -80,8 +81,8 @@ export default function RecipeForm() {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "hsl(186.38297872340422, 21.86046511627907%, 66%)",
-          fontFamily: "f_regular",
+          colorPrimary: 'hsl(186.38297872340422, 21.86046511627907%, 66%)',
+          fontFamily: 'f_regular',
         },
       }}
     >
@@ -96,10 +97,10 @@ export default function RecipeForm() {
           initialValues={
             current_recipe
               ? current_recipe
-              : { ingredient_info: [""], instructions: [""] }
+              : { ingredient_info: [''], instructions: [''] }
           }
           className={style.form_style}
-          size={"large"}
+          size={'large'}
           autoComplete="off"
         >
           <div
@@ -120,7 +121,9 @@ export default function RecipeForm() {
               <RecipeTitle />
               <RecipeCat />
               <PrepTime />
-              <Button onClick={() => onNext()}>next</Button>
+              <ButtonOutLine padding="0.5rem 0.5rem" onClick={() => onNext()}>
+                <img src={nextIcon} />
+              </ButtonOutLine>
             </div>
           </div>
           <div
@@ -131,10 +134,12 @@ export default function RecipeForm() {
             <Nutritions />
             <Ingredients />
             <Instructions />
-            <div>
-              <ButtonOutLine onClick={onPrev}>prev</ButtonOutLine>
+            <div className={style.btn_container}>
+              <ButtonOutLine padding="0.5rem 0.5rem" onClick={onPrev}>
+                <img src={prevIcon} />
+              </ButtonOutLine>
               <Button>
-                {current_recipe ? "Update Recipe" : "Create Recipe"}
+                {current_recipe ? 'Update Recipe' : 'Create Recipe'}
               </Button>
             </div>
           </div>
