@@ -1,3 +1,4 @@
+// BgUpload.jsx
 import { useState } from "react";
 import { Form } from "antd";
 import style from "./style.module.css";
@@ -7,8 +8,9 @@ import { auth, db, imageStore } from "../../../../database/firebase-config";
 import { ToastContainer, toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
 import { useAppSelector } from "../../../../hooks/hooks";
-import { getUser, selectUser } from "../../../../slices/userSlice";
+import { selectUser } from "../../../../slices/userSlice";
 import uploadIcon from "./../../../../assets/icons/upload.svg";
+
 const BgUpload = ({
   setProfileBg,
   profileBg,
@@ -16,7 +18,7 @@ const BgUpload = ({
   current_img,
   setProfileBgUrl,
   profileBgUrl,
-}: any) => {
+}) => {
   function convertToBase64(file: File) {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -30,61 +32,80 @@ const BgUpload = ({
     });
   }
 
-  const onUpload = async (e: any) => {
-    const base64: any = await convertToBase64(e.target.files[0]);
-    const imageRef = ref(imageStore, `users/userImage${v4()}`);
-    uploadString(imageRef, base64, "data_url")
-      .then(() =>
-        getDownloadURL(imageRef).then((downloadURL) => {
-          const user = auth.currentUser;
-          if (user) {
-            setDoc(
-              doc(db, "users", user.uid),
-              {
-                user_bg_image: downloadURL,
-              },
-              { merge: true }
-            )
-              .then(() => {
-                setProfileBgUrl(downloadURL);
-                setProfileBg(downloadURL);
-                toast.success("Background image updated", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
+  const onUpload = async (e) => {
+    const file = e.target.files[0];
+    const allowedFileTypes = ["image/jpeg", "image/png", "image/jpg"];
+    const allowedFileSize = 3 * 1024 * 1024; // 3MB
+    if (
+      file &&
+      allowedFileTypes.includes(file.type) &&
+      file.size <= allowedFileSize
+    ) {
+      const base64 = await convertToBase64(file);
+      const imageRef = ref(imageStore, `users/userImage${v4()}`);
+      uploadString(imageRef, base64, "data_url")
+        .then(() =>
+          getDownloadURL(imageRef).then((downloadURL) => {
+            const user = auth.currentUser;
+            if (user) {
+              setDoc(
+                doc(db, "users", user.uid),
+                {
+                  user_image: downloadURL,
+                },
+                { merge: true }
+              )
+                .then(() => {
+                  setProfileBgUrl(downloadURL);
+                  setProfileBg(downloadURL);
+                  toast.success("Profile image updated", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                })
+                .catch(() => {
+                  toast.error("Failed to update profile image", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
                 });
-              })
-              .catch(() => {
-                toast.error("Failed to update background image", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
-              });
-          }
-        })
-      )
-      .catch(() => console.log("first"));
+            }
+          })
+        )
+        .catch(() => console.log("first"));
+    } else {
+      toast.error(
+        "Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    }
   };
+
   return (
     <div>
       <Form.Item name="user_bg_image" className={style.user_bg_image}>
-        <div
-          style={{
-            height: "300px",
-            position: "relative",
-          }}
-        >
+        <div className={style.profile_bg_image_wrapper}>
           <ToastContainer />
           {profileBg || current_img ? (
             <img

@@ -1,14 +1,14 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
-import useWindowSize from '../../../../../../hooks/useWindowSize';
-import ImageContainer from './components/ImageContainer';
-import IngredientsContainer from './components/IngredientsContainer';
-import InstructionContainer from './components/InstructionContainer';
-import NutritionContainer from './components/NutritionContainer';
-import TitleContainer from './components/TitleContainer';
-import style from './style.module.css';
-import { Button } from 'antd';
-import ButtonOutLine from '../../../../../../utils/buttons/ButtonOutLine';
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../../../hooks/hooks";
+import useWindowSize from "../../../../../../hooks/useWindowSize";
+import ImageContainer from "./components/ImageContainer";
+import IngredientsContainer from "./components/IngredientsContainer";
+import InstructionContainer from "./components/InstructionContainer";
+import NutritionContainer from "./components/NutritionContainer";
+import TitleContainer from "./components/TitleContainer";
+import style from "./style.module.css";
+import { Button } from "antd";
+import ButtonOutLine from "../../../../../../utils/buttons/ButtonOutLine";
 import {
   ADD_CURRENT_RECIPE,
   DELETE_RECIPE,
@@ -16,16 +16,18 @@ import {
   getRecipes,
   selectLoading,
   selectRecipes,
-} from '../../../../../../slices/recipeSlice';
-import Loader from '../../../../../../utils/loader/Loader';
-import { selectReview } from '../../../../../../slices/reviewSlice';
-import Paragraph from '../../../../../../utils/Typography/Paragraph';
-import RatingComponent from './components/ReviewForm/RatingComponent';
-import ReviewForm from './components/ReviewForm/ReviewForm';
+} from "../../../../../../slices/recipeSlice";
+import Loader from "../../../../../../utils/loader/Loader";
+import { selectReview } from "../../../../../../slices/reviewSlice";
+import Paragraph from "../../../../../../utils/Typography/Paragraph";
+import RatingComponent from "./components/ReviewForm/RatingComponent";
+import ReviewForm from "./components/ReviewForm/ReviewForm";
+import { selectUser } from "../../../../../../slices/userSlice";
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
   const params = useParams();
   const state = useAppSelector(selectLoading);
   const data = useAppSelector(selectRecipes);
@@ -44,11 +46,16 @@ const RecipeUiCard = () => {
                   <IngredientsContainer recipe={recipe} />
                 </div>
                 <div className={style.right_side}>
+                  <ButtonOutLine
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    go back
+                  </ButtonOutLine>
                   <TitleContainer recipe={recipe} />
                   <NutritionContainer recipe={recipe} />
                   <InstructionContainer recipe={recipe} />
-                  <RatingComponent recipe={recipe} />
-                  <ReviewForm recipe={recipe} />
                 </div>
               </div>
             ) : (
@@ -61,39 +68,42 @@ const RecipeUiCard = () => {
                 <div className={style.right_side}>
                   <IngredientsContainer recipe={recipe} />
                   <InstructionContainer recipe={recipe} />
-                  <RatingComponent recipe={recipe} />
                 </div>
               </div>
               // <>dfdf</>
             )}
           </>
+          <RatingComponent recipe={recipe} />
 
-          <ButtonOutLine
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            go back
-          </ButtonOutLine>
-          <Button
-            onClick={() => {
-              dispatch(ADD_CURRENT_RECIPE(recipe));
+          <ReviewForm recipe={recipe} />
 
-              navigate('/createrecipe');
-            }}
-          >
-            Update
-          </Button>
-          <Button
-            onClick={() => {
-              navigate(-1);
+          {recipe.creator.id === user.id ? (
+            <Button
+              onClick={() => {
+                dispatch(ADD_CURRENT_RECIPE(recipe));
 
-              dispatch(DELETE_RECIPE(id));
-              dispatch(getRecipes());
-            }}
-          >
-            Delete{' '}
-          </Button>
+                navigate("/createrecipe");
+              }}
+            >
+              Update
+            </Button>
+          ) : (
+            <></>
+          )}
+          {recipe.creator.id === user.id ? (
+            <Button
+              onClick={() => {
+                navigate(-1);
+
+                dispatch(DELETE_RECIPE(id));
+                dispatch(getRecipes());
+              }}
+            >
+              Delete{" "}
+            </Button>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <Loader />

@@ -22,15 +22,8 @@ import RecipeCat from "./RecipeFormComponents/RecipeCat";
 import { RecipeInterface } from "../../../../slices/InitialData";
 import RecipeTitle from "./RecipeFormComponents/RecipeTag";
 import ButtonOutLine from "../../../../utils/buttons/ButtonOutLine";
-import { imageStore } from "../../../../database/firebase-config";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { v4 } from "uuid";
-import { useForm } from "antd/es/form/Form";
-import {
-  ADD_CREATED_RECIPE,
-  LOG_OUT,
-  selectUser,
-} from "../../../../slices/userSlice";
+
+import { selectUser } from "../../../../slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function RecipeForm() {

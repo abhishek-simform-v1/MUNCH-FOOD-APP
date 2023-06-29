@@ -166,7 +166,7 @@ export default function ReviewForm({ recipe }: any) {
         },
       }}
     >
-      <div>
+      <div className={style.review_form_container}>
         <div>
           {reviewLoading ? (
             <h2>loading ....</h2>
@@ -183,32 +183,34 @@ export default function ReviewForm({ recipe }: any) {
 
                       <p>{review.recipe_review}</p>
                     </div>
-                    {review.review_id === user.id ? (
-                      <button
-                        className={style.delete_btn}
-                        onClick={() => DeleteReview(recipe, review)}
-                      >
-                        <img src={deleteIcon} />
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-                    {review.review_id === user.id ? (
-                      <button
-                        className={style.delete_btn}
-                        onClick={() => {
-                          setNewReview({
-                            ...newReview,
-                            recipe_review: review.recipe_review,
-                          });
-                          // deleteReview(recipe.id, review.review_id);
-                        }}
-                      >
-                        <img src={editIcon} />
-                      </button>
-                    ) : (
-                      <></>
-                    )}
+                    <div className={style.review_action}>
+                      {review.review_id === user.id ? (
+                        <button
+                          className={style.delete_btn}
+                          onClick={() => DeleteReview(recipe, review)}
+                        >
+                          <img src={deleteIcon} />
+                        </button>
+                      ) : (
+                        <></>
+                      )}
+                      {review.review_id === user.id ? (
+                        <button
+                          className={style.delete_btn}
+                          onClick={() => {
+                            setNewReview({
+                              ...newReview,
+                              recipe_review: review.recipe_review,
+                            });
+                            // deleteReview(recipe.id, review.review_id);
+                          }}
+                        >
+                          <img src={editIcon} />
+                        </button>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -216,8 +218,8 @@ export default function ReviewForm({ recipe }: any) {
           )}
         </div>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="recipe_review">Reviews:</label>
+          <div className={style.review_form}>
+            <label htmlFor="recipe_review">Give Your Feedback</label>
             <textarea
               id="recipe_review"
               name="recipe_review"
@@ -227,8 +229,8 @@ export default function ReviewForm({ recipe }: any) {
               placeholder="Enter Your Review"
               rows={4}
             />
+            <Button>Add Review</Button>
           </div>
-          <button type="submit">Add Review</button>
         </form>
       </div>
     </ConfigProvider>

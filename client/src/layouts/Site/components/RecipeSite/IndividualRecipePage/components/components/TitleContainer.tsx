@@ -1,30 +1,33 @@
-import { RecipeInterface } from '../../../../../../../slices/InitialData';
-import Paragraph from '../../../../../../../utils/Typography/Paragraph';
-import Tag from '../../../../../../../utils/Typography/Tag';
-import Title from '../../../../../../../utils/Typography/Title';
-import Pill from '../../../../../../../utils/buttons/Pill';
-import { RatingContainer } from './RatingContainer';
-import style from './style.module.css';
-import bookMarkStroke from './../../../../../../../assets/icons/bookMarkStroke.svg';
-import bookMarkFill from './../../../../../../../assets/icons/bookMarkFill.svg';
-import { useEffect, useState } from 'react';
-import ButtonOutLine from '../../../../../../../utils/buttons/ButtonOutLine';
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
+import Paragraph from "../../../../../../../utils/Typography/Paragraph";
+import Tag from "../../../../../../../utils/Typography/Tag";
+import Title from "../../../../../../../utils/Typography/Title";
+import Pill from "../../../../../../../utils/buttons/Pill";
+import { RatingContainer } from "./RatingContainer";
+import style from "./style.module.css";
+import bookMarkStroke from "./../../../../../../../assets/icons/bookMarkStroke.svg";
+import share from "./../../../../../../../assets/icons/share.svg";
+import bookMarkFill from "./../../../../../../../assets/icons/bookMarkFill.svg";
+import { useState } from "react";
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../../../../../hooks/hooks';
+} from "../../../../../../../hooks/hooks";
 import {
-  ADD_SAVED_RECIPE,
   UPDATE_USER,
   getUser,
-  selectLoadingUser,
   selectUser,
-} from '../../../../../../../slices/userSlice';
+} from "../../../../../../../slices/userSlice";
+import ButtonOutLine from "../../../../../../../utils/buttons/ButtonOutLine";
+import { ToastContainer, toast } from "react-toastify";
+
 type props = {
   recipe: RecipeInterface;
 };
+
 const TitleContainer = ({ recipe }: props) => {
   const user = useAppSelector(selectUser);
+
   function isBookMarked() {
     if (user.saved_recipes.includes(recipe.id)) {
       return true;
@@ -32,8 +35,11 @@ const TitleContainer = ({ recipe }: props) => {
       return false;
     }
   }
+
   const [bookmarked, setBookMarked] = useState(isBookMarked());
+  const [sharedLink, setSharedLink] = useState("");
   const dispatch = useAppDispatch();
+
   function handlebookMarkClicked() {
     let is_saved;
     if (
@@ -44,7 +50,6 @@ const TitleContainer = ({ recipe }: props) => {
       is_saved = [...user.saved_recipes, recipe.id];
     } else {
       setBookMarked(false);
-
       is_saved = user.saved_recipes.filter((id) => id !== recipe.id);
     }
     const updatedUser = {
@@ -55,29 +60,87 @@ const TitleContainer = ({ recipe }: props) => {
     dispatch(getUser());
   }
 
-  // console.log(bookmarked);
+  async function shareLinkFunction() {
+    const currentUrl = window.location.href;
+
+    if (navigator.share) {
+      // Web Share API is supported
+      const shareData = {
+        title: "MDN",
+        text: "Learn web development on MDN!",
+        url: currentUrl,
+      };
+
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        toast.success("Link Copied To Clip Board", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }),
+          navigator.clipboard.writeText(sharedLink);
+
+        console.log(err);
+      }
+    } else {
+      toast.success("Link Copied To Clip Board", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }),
+        navigator.clipboard.writeText(sharedLink);
+    }
+  }
   return (
     <div className={style.title_container}>
+      <ToastContainer />
+
+      <Title>{recipe.recipe_name}</Title>
+
       <div
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <Title>{recipe.recipe_name}</Title>
-        {bookmarked ? (
-          <ButtonOutLine onClick={handlebookMarkClicked}>
-            <img className={style.book_mark_icon} src={bookMarkFill} />
+        <div style={{ width: "100%" }}>
+          <Tag>{recipe.recipe_tagline}</Tag>
+        </div>
+        <div style={{ display: "flex", gap: "1em" }}>
+          <ButtonOutLine onClick={shareLinkFunction}>
+            <img className={style.book_mark_icon} src={share} alt="share" />
           </ButtonOutLine>
-        ) : (
-          <ButtonOutLine onClick={handlebookMarkClicked}>
-            <img className={style.book_mark_icon} src={bookMarkStroke} />
-          </ButtonOutLine>
-        )}
-      </div>
-      <div>
-        <Tag>{recipe.recipe_tagline}</Tag>
+
+          {bookmarked ? (
+            <ButtonOutLine onClick={handlebookMarkClicked}>
+              <img
+                className={style.book_mark_icon}
+                src={bookMarkFill}
+                alt="Bookmarked"
+              />
+            </ButtonOutLine>
+          ) : (
+            <ButtonOutLine onClick={handlebookMarkClicked}>
+              <img
+                className={style.book_mark_icon}
+                src={bookMarkStroke}
+                alt="Not Bookmarked"
+              />
+            </ButtonOutLine>
+          )}
+        </div>
       </div>
 
       <div className={style.pill_container}>
@@ -86,7 +149,7 @@ const TitleContainer = ({ recipe }: props) => {
       <RatingContainer recipe={recipe} />
       <div className={style.cook_time_container}>
         <Paragraph>
-          Total{' '}
+          Total{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.chill_time +
               recipe.cooking_time.cook_time +
@@ -95,19 +158,19 @@ const TitleContainer = ({ recipe }: props) => {
           </span>
         </Paragraph>
         <Paragraph>
-          Prep{' '}
+          Prep{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.preperation_time}m
           </span>
         </Paragraph>
         <Paragraph>
-          Chill{' '}
+          Chill{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.chill_time}m
           </span>
         </Paragraph>
         <Paragraph>
-          Cook{' '}
+          Cook{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.cook_time}m
           </span>

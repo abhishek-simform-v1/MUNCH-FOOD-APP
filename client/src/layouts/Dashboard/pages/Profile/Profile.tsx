@@ -52,7 +52,6 @@ export default function Profile() {
     const updatedUser = {
       ...user,
       user_name: values.user_name,
-      user_email: values.user_email,
       Web_site: values.Web_site,
       job_title: values.job_title,
       user_bio: values.user_bio,
@@ -81,7 +80,7 @@ export default function Profile() {
               setProfileBg={setProfileBg}
               setProfileBgUrl={setProfileBgUrl}
               profileBg={profileBg}
-              profileUrl={profileUrl}
+              profileBgUrl={profileBgUrl}
               form={form}
               current_img={user?.user_bg_image}
             />
@@ -97,7 +96,7 @@ export default function Profile() {
               checked={componentDisabled}
               onChange={(e) => setComponentDisabled(e.target.checked)}
             >
-              Form disabled
+              Enable Editing
             </Checkbox>
             <Form
               name="dynamic_form_nest_item"
@@ -113,9 +112,7 @@ export default function Profile() {
                 <Form.Item label="User name" name={"user_name"}>
                   <Input />
                 </Form.Item>
-                <Form.Item label="Email" name={"user_email"}>
-                  <Input />
-                </Form.Item>
+
                 <Form.Item label="Web Site" name={"Web_site"}>
                   <Input
                     addonBefore={selectBefore}

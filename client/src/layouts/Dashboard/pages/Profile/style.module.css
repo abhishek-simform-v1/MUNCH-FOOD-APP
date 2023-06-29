@@ -26,8 +26,8 @@
 
 .profile_image {
     width: calc(var(--step-4)*3);
-    height: calc(var(--step-4)*3);
-    border-radius: 50%;
+    height: calc(var(--step-4)*2.5);
+    border-radius: 50rem;
     border: 5px solid var(--secondary_color);
     object-fit: cover;
 }

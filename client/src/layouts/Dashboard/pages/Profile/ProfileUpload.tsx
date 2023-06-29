@@ -31,50 +31,73 @@ const ProfileUpload = ({
     });
   }
   const onUpload = async (e: any) => {
-    const base64: any = await convertToBase64(e.target.files[0]);
-    const imageRef = ref(imageStore, `users/userImage${v4()}`);
-    uploadString(imageRef, base64, "data_url")
-      .then(() =>
-        getDownloadURL(imageRef).then((downloadURL) => {
-          const user = auth.currentUser;
-          if (user) {
-            setDoc(
-              doc(db, "users", user.uid),
-              {
-                user_image: downloadURL,
-              },
-              { merge: true }
-            )
-              .then(() => {
-                setProfileUrl(downloadURL);
-                setProfile(downloadURL);
-                toast.success("Profile image updated", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
+    const file = e.target.files[0];
+    const allowedFileTypes = ["image/jpeg", "image/png", "image/jpg"];
+    const allowedFileSize = 3 * 1024 * 1024; // 3MB
+    if (
+      file &&
+      allowedFileTypes.includes(file.type) &&
+      file.size <= allowedFileSize
+    ) {
+      const base64: any = await convertToBase64(e.target.files[0]);
+      const imageRef = ref(imageStore, `users/userImage${v4()}`);
+      uploadString(imageRef, base64, "data_url")
+        .then(() =>
+          getDownloadURL(imageRef).then((downloadURL) => {
+            const user = auth.currentUser;
+            if (user) {
+              setDoc(
+                doc(db, "users", user.uid),
+                {
+                  user_image: downloadURL,
+                },
+                { merge: true }
+              )
+                .then(() => {
+                  setProfileUrl(downloadURL);
+                  setProfile(downloadURL);
+                  toast.success("Profile image updated", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                })
+                .catch(() => {
+                  toast.error("Failed to update profile image", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
                 });
-              })
-              .catch(() => {
-                toast.error("Failed to update profile image", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
-              });
-          }
-        })
-      )
-      .catch(() => console.log("first"));
+            }
+          })
+        )
+        .catch(() => console.log("first"));
+    } else {
+      toast.error(
+        "Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    }
   };
   return (
     <div>
@@ -93,10 +116,10 @@ const ProfileUpload = ({
               className={style.input_file}
               onChange={onUpload}
               type="file"
-              name="file"
-              id="file"
+              name="file_for_profile"
+              id="file_for_profile"
             />
-            <label htmlFor="file">
+            <label htmlFor="file_for_profile">
               {profile!?.length > 0 ? "Update Image" : "Upload Image"}
             </label>
           </div>
