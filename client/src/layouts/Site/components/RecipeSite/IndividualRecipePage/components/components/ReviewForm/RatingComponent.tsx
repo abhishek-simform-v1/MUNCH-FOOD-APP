@@ -1,22 +1,22 @@
-import { useEffect, useState } from 'react';
-import { Rating } from 'react-simple-star-rating';
+import { useEffect, useState } from "react";
+import { Rating } from "react-simple-star-rating";
 import {
   UPDATE_USER,
   getUser,
   selectUser,
-} from '../../../../../../../../slices/userSlice';
+} from "../../../../../../../../slices/userSlice";
 import {
   getRatings,
   selectRatingLoading,
   selectRatings,
   setNewRating,
-} from '../../../../../../../../slices/ratingSlice';
+} from "../../../../../../../../slices/ratingSlice";
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../../../../../../hooks/hooks';
-import style from './ReviewFormStyle.module.css';
-import Paragraph from '../../../../../../../../utils/Typography/Paragraph';
+} from "../../../../../../../../hooks/hooks";
+import style from "./ReviewFormStyle.module.css";
+import Paragraph from "../../../../../../../../utils/Typography/Paragraph";
 export type singleRate = {
   rating_count: 1;
   rating_id: string;
@@ -24,9 +24,9 @@ export type singleRate = {
     id: string;
     rated_recipes: [string];
 
-    user_email: 'loniqamub@mailinator.com';
-    user_image: '';
-    user_name: 'Unity Lambertscscsc';
+    user_email: "loniqamub@mailinator.com";
+    user_image: "";
+    user_name: "Unity Lambertscscsc";
   };
 };
 export type allRatingType = {
@@ -121,7 +121,7 @@ const RatingComponent = ({ recipe }: any) => {
         rated_recipes: [...user.rated_recipes, recipe.id],
       };
 
-      console.log('updatedUser:', updatedUser);
+      console.log("updatedUser:", updatedUser);
       dispatch(UPDATE_USER(updatedUser));
       dispatch(getUser());
     } else {
@@ -138,14 +138,16 @@ const RatingComponent = ({ recipe }: any) => {
       ) : (
         <>
           <Paragraph>Give This Recipe Rating !!!</Paragraph>
-          <Rating
-            SVGclassName="star_rating"
-            transition={true}
-            allowFraction={true}
-            showTooltip={true}
-            onClick={handleRating}
-            initialValue={rating}
-          />
+          <div className={style.rating_component}>
+            <Rating
+              SVGclassName="star_rating"
+              transition={true}
+              allowFraction={true}
+              showTooltip={true}
+              onClick={handleRating}
+              initialValue={rating}
+            />
+          </div>
         </>
       )}
     </div>

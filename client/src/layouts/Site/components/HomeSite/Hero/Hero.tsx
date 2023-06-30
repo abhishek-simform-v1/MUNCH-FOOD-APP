@@ -11,6 +11,7 @@ import style from "./Hero.module.css";
 import { getAuth } from "firebase/auth";
 import { useAppDispatch } from "../../../../../hooks/hooks";
 import { LOG_OUT } from "../../../../../slices/userSlice";
+import RecipeHero5 from "../RecipeHero5/RecipeHero5";
 
 const Hero = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const Hero = () => {
             A recipe is soulless. The essence of the recipe must come from you,
             the cook
           </TagLine>
+
           <div className={style.heroBtnContainer}>
             <Button
               onClick={() => {
@@ -36,6 +38,14 @@ const Hero = () => {
             >
               Go to Recipes
             </Button>
+            <ButtonOutLine
+              onClick={() => {
+                navigate("createrecipe", { replace: true });
+              }}
+              border="var(--accent_color)"
+            >
+              make Recipes!!!
+            </ButtonOutLine>
           </div>
         </div>
 

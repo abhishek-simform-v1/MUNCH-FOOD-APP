@@ -18,7 +18,20 @@ export const DELETE_USER = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk('recipe/GET_USERS', async () => {
+export const getUsers = createAsyncThunk('recipe/GET_USERS', async () => {
+  try {
+    const data = await UserDataService.getAllUsers();
+    const allUsers = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: `${doc.id}`,
+    }));
+    return allUsers;
+  } catch (error) {
+    // Handle error
+    return [];
+  }
+});
+export const getUser = createAsyncThunk('recipe/GET_USER', async () => {
   try {
     const data = await UserDataService.getAllUsers();
     const allUsers = data.docs.map((doc) => ({
@@ -37,6 +50,7 @@ export const getUser = createAsyncThunk('recipe/GET_USERS', async () => {
 const initialState = {
   current_user: <UserInterface | null>null,
   rated_recipes: <string[]>[],
+  all_users: <any>[],
   created_recipes: <string[]>[],
   saved_recipes: <string[]>[],
   auth: false,
@@ -66,7 +80,7 @@ export const UserSlice = createSlice({
     },
     LOG_OUT: (state) => {
       signOut(auth)
-        .then(() => {})
+        .then(() => { })
         .catch((error) => {
           // An error happened.
         });
@@ -85,6 +99,8 @@ export const UserSlice = createSlice({
       })
       .addCase(getUser.pending, (state) => {
         state.loading = true;
+      }).addCase(getUsers.fulfilled, (state, action) => {
+        state.all_users = action.payload
       });
   },
 });
@@ -99,6 +115,7 @@ export const {
   ADD_CREATED_RECIPE,
 } = UserSlice.actions;
 export const selectUser = (state: any) => state.user.current_user;
+export const selectUsers = (state: any) => state.user.all_users;
 export const selectRatedRecipes = (state: any) => state.user.rated_recipes;
 export const selectCreatedRecipes = (state: any) => state.user.created_recipes;
 export const selectSavedRecipes = (state: any) => state.user.saved_recipes;

@@ -105,6 +105,13 @@
   width: 24px;
 }
 
+.back_btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+
 @media only screen and (max-width: 1024px) {
   .desknav {
     display: none;

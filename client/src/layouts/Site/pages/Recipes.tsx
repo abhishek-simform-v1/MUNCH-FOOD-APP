@@ -14,6 +14,7 @@ import {
   selectRecipes,
 } from "../../../slices/recipeSlice";
 import Filter from "../components/RecipeSite/Filter/Filter";
+import BigRecipeCard from "../components/RecipeSite/BigRecipeCard/BigRecipeCard";
 const Recipes = () => {
   const dispatch = useAppDispatch();
 
@@ -35,6 +36,7 @@ const Recipes = () => {
         <>
           <Header />
           <MainContainer>
+            <BigRecipeCard />
             <Filter />
             <RecipeCards recipes={filtered_recipes} />
           </MainContainer>

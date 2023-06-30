@@ -66,17 +66,20 @@ legend {
   border: 0;
   text-decoration: none;
 }
+
 /* remember to define focus styles! */
 :focus {
   outline: 0;
 }
+
 body {
   background: white;
   line-height: 1;
   color: black;
 }
+
 body::-webkit-scrollbar {
-  width: 15px;
+  width: 5px;
 }
 
 body::-webkit-scrollbar-track {
@@ -89,27 +92,32 @@ body::-webkit-scrollbar-thumb {
 
   border-radius: var(--lg_border_radius);
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 /* tables still need cellspacing="0" in the markup */
 table {
   border-collapse: separate;
   border-spacing: 0;
 }
+
 caption,
 th,
 td {
   font-weight: normal;
   text-align: left;
 }
+
 button {
   background: none;
   border: none;
   padding: 0;
   margin: 0;
 }
+
 * {
   box-sizing: border-box !important;
   /* outline: 4px solid red !important; */

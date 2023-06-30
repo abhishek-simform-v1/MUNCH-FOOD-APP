@@ -3,17 +3,23 @@
   flex-direction: column;
   gap: 2em;
 }
+
 .star_rating {
   display: flex;
   flex-direction: column;
   align-items: end;
   gap: 0.5em;
 }
+
 .review_form {
   display: flex;
   flex-direction: column;
   align-items: end;
   gap: 1em;
+}
+
+.rating_component {
+  min-width: 225px;
 }
 
 .reviewer_profile {

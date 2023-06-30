@@ -13,8 +13,9 @@ import {
 import { allRatingType, singleRate } from "./ReviewForm/RatingComponent";
 import Paragraph from "../../../../../../../utils/Typography/Paragraph";
 
-export function RatingContainer({ recipe }: any) {
+export function RatingContainer({ recipe, className }: any) {
   const oldRating = useAppSelector(selectRatings);
+  console.log(className);
   const ratingLoading = useAppSelector(selectRatingLoading);
   function init(): number | undefined {
     if (ratingLoading) {
@@ -46,7 +47,7 @@ export function RatingContainer({ recipe }: any) {
   return (
     <div className={style.rating_component}>
       <Rating
-        SVGclassName={style.rating_experience_star}
+        SVGclassName={`${style.rating_experience_star} ${className}`}
         transition={true}
         allowFraction={true}
         readonly={true}

@@ -1,33 +1,34 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import DashboardLayout from '../shared/sidebar/DashboardLayout';
-import Home from '../layouts/Site/pages/Home';
-import About from '../layouts/Site/pages/About';
-import Recipe from '../layouts/Site/pages/Recipe';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { getRecipes } from '../slices/recipeSlice';
-import CreateRecipe from '../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe';
-import Favorite from '../layouts/Dashboard/pages/favorites/Favorite';
-import CreateBlog from '../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog';
-import MyBlog from '../layouts/Dashboard/pages/Blog/MyBlog/MyBlog';
-import Profile from '../layouts/Dashboard/pages/Profile/Profile';
-import Recipes from '../layouts/Site/pages/Recipes';
-import SignIn from '../Authentication/SignIn';
-import SignUp from '../Authentication/SignUp';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../database/firebase-config';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import DashboardLayout from "../shared/sidebar/DashboardLayout";
+import Home from "../layouts/Site/pages/Home";
+import About from "../layouts/Site/pages/About";
+import Recipe from "../layouts/Site/pages/Recipe";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { getRecipes } from "../slices/recipeSlice";
+import CreateRecipe from "../layouts/Dashboard/pages/RecipePageFolder/CreateRecipe/CreateRecipe";
+import Favorite from "../layouts/Dashboard/pages/favorites/Favorite";
+import CreateBlog from "../layouts/Dashboard/pages/Blog/CreateBlog/CreateBlog";
+import MyBlog from "../layouts/Dashboard/pages/Blog/MyBlog/MyBlog";
+import Profile from "../layouts/Dashboard/pages/Profile/Profile";
+import Recipes from "../layouts/Site/pages/Recipes";
+import SignIn from "../Authentication/SignIn";
+import SignUp from "../Authentication/SignUp";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../database/firebase-config";
 import {
   ADD_RATED_RECIPE,
   LOG_OUT,
   getUser,
+  getUsers,
   selectLoadingUser,
   selectUser,
-} from '../slices/userSlice';
-import { getReviews } from '../slices/reviewSlice';
-import { getRatings } from '../slices/ratingSlice';
-import MyRecipe from '../layouts/Dashboard/pages/RecipePageFolder/MyRecipe/MyRecipe';
-import SavedRecipes from '../layouts/Dashboard/pages/RecipePageFolder/SavedRecipes/SavedRecipes';
-
+} from "../slices/userSlice";
+import { getReviews } from "../slices/reviewSlice";
+import { getRatings } from "../slices/ratingSlice";
+import MyRecipe from "../layouts/Dashboard/pages/RecipePageFolder/MyRecipe/MyRecipe";
+import SavedRecipes from "../layouts/Dashboard/pages/RecipePageFolder/SavedRecipes/SavedRecipes";
+import process from "./../assets/icons/process_animate.svg";
 function AppRoutes() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const dispatch = useAppDispatch();
@@ -61,6 +62,7 @@ function AppRoutes() {
     if (isAuthenticated) {
       dispatch(getReviews());
       dispatch(getRatings());
+      dispatch(getUsers());
       dispatch(getUser());
     }
     if (current_user === undefined) {
@@ -75,7 +77,7 @@ function AppRoutes() {
   }, [isAuthenticated]);
 
   if (isLoading || isLoadingAuth) {
-    return <h1>Loading...</h1>;
+    return <img src={process} />;
   }
   return (
     <BrowserRouter>
