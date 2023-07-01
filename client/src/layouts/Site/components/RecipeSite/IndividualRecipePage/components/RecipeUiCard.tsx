@@ -24,9 +24,13 @@ import Paragraph from '../../../../../../utils/Typography/Paragraph';
 import RatingComponent from './components/ReviewForm/RatingComponent';
 import ReviewForm from './components/ReviewForm/ReviewForm';
 import { selectUser } from '../../../../../../slices/userSlice';
+import { Rating } from 'react-simple-star-rating';
+import { useState } from 'react';
+import SignupModal from '../../../../../../Authentication/signupModal';
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
+  const [rating, setRating] = useState(0);
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const params = useParams();
@@ -34,6 +38,7 @@ const RecipeUiCard = () => {
   const data = useAppSelector(selectRecipes);
   const [recipe] = data.filter((recipe: any) => recipe.id == params.id);
   let id: string = recipe?.id!;
+  console.log(rating);
   const navigate = useNavigate();
   return (
     <>
@@ -64,7 +69,7 @@ const RecipeUiCard = () => {
             ) : (
               <div className={style.main_container}>
                 <div className={style.left_side}>
-                  <TitleContainer recipe={recipe} />
+                  {/* <TitleContainer recipe={recipe} /> */}
                   <ImageContainer recipe={recipe} />
                   <NutritionContainer recipe={recipe} />
                 </div>
@@ -76,11 +81,11 @@ const RecipeUiCard = () => {
               // <>dfdf</>
             )}
           </>
-          <RatingComponent recipe={recipe} />
+          {user ? <RatingComponent recipe={recipe} /> : <></>}
 
           <ReviewForm recipe={recipe} />
 
-          {recipe.creator.id === user.id ? (
+          {user && recipe.creator.id === user.id ? (
             <Button
               onClick={() => {
                 dispatch(ADD_CURRENT_RECIPE(recipe));
@@ -93,7 +98,7 @@ const RecipeUiCard = () => {
           ) : (
             <></>
           )}
-          {recipe.creator.id === user.id ? (
+          {user && recipe.creator.id === user.id ? (
             <Button
               onClick={() => {
                 navigate(-1);

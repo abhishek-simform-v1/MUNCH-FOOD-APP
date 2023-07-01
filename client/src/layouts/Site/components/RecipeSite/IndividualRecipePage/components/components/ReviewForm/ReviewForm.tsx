@@ -1,44 +1,46 @@
-import { useState, useEffect } from "react";
-import { ConfigProvider } from "antd";
+import { useState, useEffect } from 'react';
+import { ConfigProvider, Modal } from 'antd';
 
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { Form } from "antd";
-import { useForm } from "antd/es/form/Form";
-import { MinusCircleOutlined } from "@ant-design/icons";
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+import { Form } from 'antd';
+import { useForm } from 'antd/es/form/Form';
+import { MinusCircleOutlined } from '@ant-design/icons';
 
-import ButtonOutLine from "../../../../../../../../utils/buttons/ButtonOutLine";
-import style from "./ReviewFormStyle.module.css";
-import TextArea from "antd/es/input/TextArea";
-import FormItem from "antd/es/form/FormItem";
-import Button from "../../../../../../../../utils/buttons/Button";
-import like from "./../../../../../../../../assets/icons/likeIcon.svg";
-import dislike from "./../../../../../../../../assets/icons/dislikeIcon.svg";
+import ButtonOutLine from '../../../../../../../../utils/buttons/ButtonOutLine';
+import style from './ReviewFormStyle.module.css';
+import TextArea from 'antd/es/input/TextArea';
+import FormItem from 'antd/es/form/FormItem';
+import Button from '../../../../../../../../utils/buttons/Button';
+import like from './../../../../../../../../assets/icons/likeIcon.svg';
+import dislike from './../../../../../../../../assets/icons/dislikeIcon.svg';
 
-import { RecipeInterface } from "../../../../../../../../slices/InitialData";
+import { RecipeInterface } from '../../../../../../../../slices/InitialData';
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../../../../../hooks/hooks";
+} from '../../../../../../../../hooks/hooks';
 import {
   UPDATE_USER,
   getUser,
   selectUser,
-} from "../../../../../../../../slices/userSlice";
-import { UPDATE_RECIPE } from "../../../../../../../../slices/recipeSlice";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../../../../../../database/firebase-config";
+} from '../../../../../../../../slices/userSlice';
+import { UPDATE_RECIPE } from '../../../../../../../../slices/recipeSlice';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../../../../../../database/firebase-config';
 import {
   getReviews,
   selectReview,
   selectReviewLoading,
-} from "../../../../../../../../slices/reviewSlice";
-import deleteIcon from "./../../../../../../../../assets/icons/deleteIcon.svg";
-import editIcon from "./../../../../../../../../assets/icons/editIcon.svg";
+} from '../../../../../../../../slices/reviewSlice';
+import deleteIcon from './../../../../../../../../assets/icons/deleteIcon.svg';
+import editIcon from './../../../../../../../../assets/icons/editIcon.svg';
+import SignupModal from '../../../../../../../../Authentication/signupModal';
 export default function ReviewForm({ recipe }: any) {
   const user = useAppSelector(selectUser);
-
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const oldReviews = useAppSelector(selectReview);
   const reviewLoading = useAppSelector(selectReviewLoading);
@@ -57,11 +59,15 @@ export default function ReviewForm({ recipe }: any) {
   }
   const [reviews, setReviews] = useState<any>(init() || []);
   function initialState() {
-    return {
-      review_id: user.id,
-      review_user: user,
-      recipe_review: "",
-    };
+    if (user) {
+      return {
+        review_id: user.id,
+        review_user: user,
+        recipe_review: '',
+      };
+    } else {
+      return {};
+    }
   }
   const [newReview, setNewReview] = useState(initialState());
 
@@ -84,45 +90,51 @@ export default function ReviewForm({ recipe }: any) {
   }, [oldReviews]);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const trimmedReview = newReview.recipe_review.trim();
-
-    // Check if the trimmed review is empty or contains only spaces
-    if (trimmedReview === "" || /^\s*$/.test(trimmedReview)) {
-      // Display an error message or handle the validation error in your desired way
-      alert("Review cannot be empty");
-      return;
-    }
-
-    const existingReviewIndex = reviews.findIndex(
-      (review: { review_user: any }) =>
-        review.review_user.id === newReview.review_user.id
-    );
-
-    if (existingReviewIndex > -1) {
-      // Update the existing review
-      const updatedReviews = [...reviews];
-      updatedReviews[existingReviewIndex] = newReview;
-      setReviews(updatedReviews);
+    if (!user) {
+      return setOpen(true);
     } else {
-      // Add the new review
-      setReviews((prev: any) => [...prev, newReview]);
-    }
+      e.preventDefault();
+      const trimmedReview = newReview.recipe_review!.trim();
 
-    setNewReview(initialState());
+      // Check if the trimmed review is empty or contains only spaces
+      if (trimmedReview === '' || /^\s*$/.test(trimmedReview)) {
+        // Display an error message or handle the validation error in your desired way
+        alert('Review cannot be empty');
+        return;
+      }
+
+      const existingReviewIndex = reviews.findIndex(
+        (review: { review_user: any }) =>
+          review.review_user.id === newReview.review_user.id
+      );
+
+      if (existingReviewIndex > -1) {
+        // Update the existing review
+        const updatedReviews = [...reviews];
+        updatedReviews[existingReviewIndex] = newReview;
+        setReviews(updatedReviews);
+      } else {
+        // Add the new review
+        setReviews((prev: any) => [...prev, newReview]);
+      }
+
+      setNewReview(initialState());
+    }
   };
 
   useEffect(() => {
     if (reviews.length > 0) {
-      setDoc(doc(db, "reviews", recipe.id), {
+      setDoc(doc(db, 'reviews', recipe.id), {
         reviews,
       });
+    } else {
+      return;
     }
   }, [reviews]);
 
   const deleteReview = async (docId: string, reviewId: string) => {
     try {
-      const docRef = doc(db, "reviews", docId);
+      const docRef = doc(db, 'reviews', docId);
 
       // Fetch the document data
       const docSnap = await getDoc(docRef);
@@ -143,26 +155,27 @@ export default function ReviewForm({ recipe }: any) {
           setReviews(reviewsData);
           dispatch(getReviews());
 
-          console.log("Review deleted successfully.");
+          console.log('Review deleted successfully.');
         } else {
-          console.log("Review not found.");
+          console.log('Review not found.');
         }
       } else {
-        console.log("Document does not exist.");
+        console.log('Document does not exist.');
       }
     } catch (error) {
-      console.error("Error deleting review:", error);
+      console.error('Error deleting review:', error);
     }
   };
   const DeleteReview = (recipe: any, review: any) => {
     deleteReview(recipe.id, review.review_id);
   };
+
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "hsl(186.38297872340422, 21.86046511627907%, 66%)",
-          fontFamily: "f_regular",
+          colorPrimary: 'hsl(186.38297872340422, 21.86046511627907%, 66%)',
+          fontFamily: 'f_regular',
         },
       }}
     >
@@ -184,7 +197,7 @@ export default function ReviewForm({ recipe }: any) {
                       <p>{review.recipe_review}</p>
                     </div>
                     <div className={style.review_action}>
-                      {review.review_id === user.id ? (
+                      {user && review.review_id === user.id ? (
                         <button
                           className={style.delete_btn}
                           onClick={() => DeleteReview(recipe, review)}
@@ -194,7 +207,7 @@ export default function ReviewForm({ recipe }: any) {
                       ) : (
                         <></>
                       )}
-                      {review.review_id === user.id ? (
+                      {user && review.review_id === user.id ? (
                         <button
                           className={style.delete_btn}
                           onClick={() => {
@@ -229,9 +242,15 @@ export default function ReviewForm({ recipe }: any) {
               placeholder="Enter Your Review"
               rows={4}
             />
-            <Button>Add Review</Button>
+            {user ? (
+              <Button>Add Review</Button>
+            ) : (
+              <Button onClick={() => setOpen(true)}>Add Review</Button>
+            )}
           </div>
         </form>
+
+        <SignupModal open={open} setOpen={setOpen} />
       </div>
     </ConfigProvider>
   );

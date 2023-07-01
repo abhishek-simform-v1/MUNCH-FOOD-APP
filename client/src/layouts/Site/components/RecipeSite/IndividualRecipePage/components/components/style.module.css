@@ -185,6 +185,12 @@
   align-items: center;
   gap: 0.4em;
 }
+.star_rating {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.5em;
+}
 
 @media only screen and (max-width: 1270px) {
   .nutrition_card_container {

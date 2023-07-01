@@ -1,328 +1,226 @@
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { useNavigate } from "react-router-dom";
-import style from "./auth.module.css";
-import { useFormik } from "formik";
+import { useNavigate } from 'react-router-dom';
+import style from './auth.module.css';
+import { useFormik } from 'formik';
 // import { useState } from "react";
-import { int, validationSchema } from "./validation/validationScema";
-import Title from "../utils/Typography/Title";
-import ImageUploading from "react-images-uploading";
-import authImage from "./../assets/signin.jpg";
-import profile from "./../assets/icons/signinprofile.svg";
+import Title from '../utils/Typography/Title';
+import ImageUploading from 'react-images-uploading';
+import authImage from './../assets/signin.jpg';
+import profileIcon from './../assets/icons/signinprofile.svg';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
-} from "firebase/auth";
-import { app, auth, db, imageStore } from "../database/firebase-config";
-import { v4 } from "uuid";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
-import { useAppDispatch } from "../hooks/hooks";
-import { LOG_IN } from "../slices/userSlice";
-import SubTitle from "../utils/Typography/SubTitle";
-import { Form } from "antd";
-import FormItem from "antd/es/form/FormItem";
+} from 'firebase/auth';
+import { app, auth, db, imageStore } from '../database/firebase-config';
+import { v4 } from 'uuid';
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { doc, setDoc } from 'firebase/firestore';
+import { useAppDispatch } from '../hooks/hooks';
+import { LOG_IN } from '../slices/userSlice';
+import SubTitle from '../utils/Typography/SubTitle';
+import { Form, Input } from 'antd';
+import FormItem from 'antd/es/form/FormItem';
+import ProfileUpload from '../layouts/Dashboard/pages/Profile/ProfileUpload';
+import Button from '../utils/buttons/Button';
 type imageType = {
   data_url: string;
   file: File;
 };
 const SignUp = () => {
-  const [images, setImages] = useState<imageType[]>();
-  const maxNumber = 1;
-
-  const onChange = (imageList: any, addUpdateIndex: any) => {
-    // data for submit
-    setImages(imageList);
-  };
+  const [profile, setProfile] = useState<string | null>(null);
+  const [profileUrl, setProfileUrl] = useState<string | null>(null);
+  const [form] = Form.useForm();
+  const [disabled, setDisabled] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleSignUp = () => {
-    if (formik.isSubmitting) {
+  const handleSignUp = (values) => {
+    if (profileUrl === null) {
+      console.log(profileUrl);
+      toast.error('Please Upload User Image', {
+        position: 'top-left',
+        autoClose: 2500,
+        hideProgressBar: false,
+        toastId: 'success1',
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      return;
+    } else {
+      values.user_image = profileUrl;
+      const creating_user = createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.confirm_pwd
+      )
+        .then((cred) => {
+          navigate(-1);
+          return (
+            setDoc(doc(db, 'users', cred.user.uid), {
+              user_name: values.email,
+              user_email: values.confirm_pwd,
+              user_image: profileUrl,
+              user_bg_img: '',
+              Web_site: '',
+              user_bio: '',
+              job_title: '',
+              saved_recipes: [],
+              rated_recipes: [],
+              created_recipes: [],
+            }),
+            dispatch(LOG_IN()),
+            form.resetFields()
+          );
+        })
+        .catch((err) => {});
       toast.promise(
-        () => new Promise((resolve) => setTimeout(resolve, 1000)),
+        creating_user,
         {
-          pending: "Creating User",
+          pending: 'Creating User',
+          success: 'User Created successfully 👌',
+          error: 'User already Exist 🤯',
         },
         {
-          position: "top-center",
-          autoClose: 5000,
+          position: 'top-center',
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         }
       );
     }
-    if (images!.length > 0) {
-      const imageRef = ref(imageStore, `users/userImage${v4()}}`);
-      uploadString(imageRef, images![0].data_url, "data_url")
-        .then(() => {})
-        .then(() =>
-          getDownloadURL(imageRef).then((downloadURL) => {
-            createUserWithEmailAndPassword(
-              auth,
-              formik.values.email,
-              formik.values.confirm_pwd
-            )
-              .then((cred) => {
-                navigate(-1);
-                return (
-                  setDoc(doc(db, "users", cred.user.uid), {
-                    user_name: formik.values.name,
-                    user_email: formik.values.email,
-                    user_image: downloadURL,
-                    user_bg_img: "",
-                    Web_site: "",
-                    user_bio: "",
-                    job_title: "",
-                    saved_recipes: [],
-                    rated_recipes: [],
-                    created_recipes: [],
-                  }),
-                  dispatch(LOG_IN()),
-                  toast.success("User Created", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                  }),
-                  formik.resetForm()
-                );
-              })
-              .catch((err) => {
-                formik.resetForm();
-                return toast.error("User already Exist", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
-              });
-          })
-        )
-        .catch(() => console.log("first"));
-    }
   };
-
-  const formik = useFormik({
-    initialValues: int,
-    validationSchema: validationSchema,
-    onSubmit: handleSignUp,
-  });
-
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <div className={style.container}>
         <div className={style.wrapper}>
           <div className={style.auth_form}>
             <div className={style.formContainer}>
-              <div style={{ alignSelf: "center" }}>
+              <div style={{ alignSelf: 'center' }}>
                 <SubTitle>Sign Up</SubTitle>
               </div>
+              <button
+                className={`btn ${style.back_btn}`}
+                onClick={() => navigate(-1)}
+              >
+                Back
+              </button>
+              <Form
+                layout="vertical"
+                className={style.form}
+                onFinish={handleSignUp}
+              >
+                <Form.Item
+                  name="user_image"
 
-              <Form className={style.form} onFinish={formik.handleSubmit}>
-                <FormItem
-                  name="profile_img"
-                  validateTrigger={["onChange", "onBlur"]}
-                  rules={[{ required: true, message: "Missing Image" }]}
                   // label="Recipe Image"
                 >
-                  <div className="inputFile">
-                    <ImageUploading
-                      multiple
-                      value={images!}
-                      onChange={onChange}
-                      maxNumber={maxNumber}
-                      dataURLKey="data_url"
-                    >
-                      {({
-                        imageList,
-                        onImageUpload,
-                        onImageUpdate,
-                        onImageRemove,
-                        isDragging,
-                        dragProps,
-                      }) => (
-                        // write your building UI
-                        <div className={style.upload__image_wrapper}>
-                          {imageList.length == 0 ? (
-                            <button
-                              onClick={onImageUpload}
-                              className={style.image_drop_area}
-                              {...dragProps}
-                            >
-                              <img
-                                src={profile}
-                                className={style.profile_image}
-                                alt=""
-                              />
-                            </button>
-                          ) : (
-                            <></>
-                          )}
-
-                          {imageList.map((image, index) => (
-                            <div key={index} className="image-item">
-                              <img
-                                src={image["data_url"]}
-                                alt="profile-image"
-                                className={style.profile_image}
-                              />
-                              <div className="image-item__btn-wrapper">
-                                <button onClick={() => onImageUpdate(index)}>
-                                  Update
-                                </button>
-                                <button onClick={() => onImageRemove(index)}>
-                                  Remove
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </ImageUploading>
-                  </div>
-                </FormItem>
-                <FormItem
-                  name="profile_name"
-                  // label="Recipe Image"
+                  <ProfileUpload
+                    setProfile={setProfile}
+                    setProfileUrl={setProfileUrl}
+                    profile={profile}
+                    profileUrl={profileUrl}
+                    form={form}
+                    setDisabled={setDisabled}
+                    current_img={profileIcon}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="user_name"
+                  label="User Name"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'profile name required',
+                    },
+                  ]}
                 >
-                  <div className={style.input_field}>
-                    <label className={style.label} htmlFor="name">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      className={style.input}
-                      name="name"
-                      id="name"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.name}
-                      placeholder="Enter the name"
-                    />
-
-                    {formik.touched.name && formik.errors.name ? (
-                      <span className={style.error}>{formik.errors.name}</span>
-                    ) : null}
-                  </div>
-                </FormItem>
-                <FormItem
-                  name="profile_email"
-                  // label="Recipe Image"
+                  <Input
+                    type="text"
+                    className={style.input}
+                    placeholder="Enter the name"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="email"
+                  label="E-mail"
+                  rules={[
+                    {
+                      type: 'email',
+                      message: 'The input is not valid E-mail!',
+                    },
+                    {
+                      required: true,
+                      message: 'Please input your E-mail!',
+                    },
+                  ]}
                 >
-                  <div className={style.input_field}>
-                    <label className={style.label} htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      className={style.input}
-                      name="email"
-                      id="email"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.email}
-                      placeholder="Enter the email id"
-                    />
+                  <Input className={style.input} placeholder="Enter Email" />
+                </Form.Item>
 
-                    {formik.touched.email && formik.errors.email ? (
-                      <span className={style.error}>{formik.errors.email}</span>
-                    ) : null}
-                  </div>
-                </FormItem>
-
-                <FormItem
-                  name="profile_name"
-                  // label="Recipe Image"
+                <Form.Item
+                  name="password"
+                  label="Password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!',
+                    },
+                  ]}
+                  hasFeedback
                 >
-                  <div className={style.input_field}>
-                    <label className={style.label} htmlFor="password">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className={style.input}
-                      name="password"
-                      id="password"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.password}
-                      placeholder="Enter the password"
-                    />
-                    {formik.touched.password && formik.errors.password ? (
-                      <span className={style.error}>
-                        {formik.errors.password}
-                      </span>
-                    ) : null}
-                  </div>
-                </FormItem>
-                <FormItem
-                  name="profile_name"
-                  // label="Recipe Image"
-                >
-                  <div className={style.input_field}>
-                    <label className={style.label} htmlFor="confirm_pwd">
-                      Confirm Password
-                    </label>
-                    <input
-                      type="password"
-                      className={style.input}
-                      name="confirm_pwd"
-                      id="confirm_pwd"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.confirm_pwd}
-                      placeholder="Enter the confirmed Password"
-                    />
+                  <Input.Password className={style.input} placeholder="*****" />
+                </Form.Item>
 
-                    {formik.touched.confirm_pwd && formik.errors.confirm_pwd ? (
-                      <span className={style.error}>
-                        {formik.errors.confirm_pwd}
-                      </span>
-                    ) : null}
-                  </div>
-                </FormItem>
-                <div className={style.registerBtn}>
-                  <button
-                    disabled={formik.isSubmitting}
-                    type="submit"
-                    className={`btn ${style.submitBtn}`}
-                  >
-                    Sign Up
-                  </button>
-                </div>
+                <Form.Item
+                  name="confirm_pwd"
+                  label="Confirm Password"
+                  dependencies={['password']}
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please confirm your password!',
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue('password') === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            'The new password that you entered do not match!'
+                          )
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password className={style.input} placeholder="*****" />
+                </Form.Item>
+                <button
+                  type="submit"
+                  disabled={disabled}
+                  className={`btn ${style.submitBtn}`}
+                >
+                  Sign Up
+                </button>
               </Form>
               <h4>
                 Already have an account ?
                 <span
                   className={style.routeLink}
-                  onClick={() => navigate("/signin")}
+                  onClick={() => navigate('/signin')}
                 >
                   &nbsp; Login
                 </span>

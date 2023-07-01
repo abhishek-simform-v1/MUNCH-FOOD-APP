@@ -63,7 +63,7 @@ const ImageUpload = ({
         },
         {
           position: 'top-center',
-          autoClose: 500,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -77,7 +77,7 @@ const ImageUpload = ({
         'Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.',
         {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -99,7 +99,6 @@ const ImageUpload = ({
         rules={[{ required: true, message: 'Missing recipe image' }]}
       >
         <div className={style.image_container}>
-          <ToastContainer />
           <img
             src={imageUrl ? imageUrl : current_img ? current_img : upload}
             alt=""

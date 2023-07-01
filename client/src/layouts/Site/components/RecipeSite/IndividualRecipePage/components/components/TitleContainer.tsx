@@ -20,6 +20,7 @@ import {
 } from '../../../../../../../slices/userSlice';
 import ButtonOutLine from '../../../../../../../utils/buttons/ButtonOutLine';
 import { ToastContainer, toast } from 'react-toastify';
+import SignupModal from '../../../../../../../Authentication/signupModal';
 
 type props = {
   recipe: RecipeInterface;
@@ -29,7 +30,7 @@ const TitleContainer = ({ recipe }: props) => {
   const user = useAppSelector(selectUser);
 
   function isBookMarked() {
-    if (user.saved_recipes.includes(recipe.id)) {
+    if (user && user.saved_recipes.includes(recipe.id)) {
       return true;
     } else {
       return false;
@@ -39,6 +40,7 @@ const TitleContainer = ({ recipe }: props) => {
   const [bookmarked, setBookMarked] = useState(isBookMarked());
   const [sharedLink, setSharedLink] = useState('');
   const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(false);
 
   function handlebookMarkClicked() {
     let is_saved;
@@ -63,49 +65,34 @@ const TitleContainer = ({ recipe }: props) => {
   async function shareLinkFunction() {
     const currentUrl = window.location.href;
 
-    if (navigator.share) {
-      // Web Share API is supported
-      const shareData = {
-        title: 'MDN',
-        text: 'Learn web development on MDN!',
-        url: currentUrl,
-      };
-
-      try {
-        await navigator.share(shareData);
-      } catch (err) {
-        toast.success('Link Copied To Clip Board', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }),
-          navigator.clipboard.writeText(sharedLink);
-
-        console.log(err);
-      }
-    } else {
-      toast.success('Link Copied To Clip Board', {
+    try {
+      await navigator.clipboard.writeText(currentUrl);
+      toast.success('Link Copied To Clipboard', {
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: 'light',
-      }),
-        navigator.clipboard.writeText(sharedLink);
+      });
+    } catch (error) {
+      toast.error('Failed to Copy Link', {
+        position: 'top-right',
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   }
+
   return (
     <div className={style.title_container}>
-      <ToastContainer />
-
       <Title>{recipe.recipe_name}</Title>
 
       <div
@@ -122,17 +109,28 @@ const TitleContainer = ({ recipe }: props) => {
           <ButtonOutLine onClick={shareLinkFunction}>
             <img className={style.share_icon} src={share} alt="share" />
           </ButtonOutLine>
-
-          {bookmarked ? (
-            <ButtonOutLine onClick={handlebookMarkClicked}>
-              <img
-                className={style.book_mark_icon}
-                src={bookMarkFill}
-                alt="Bookmarked"
-              />
-            </ButtonOutLine>
+          {user ? (
+            <>
+              {bookmarked ? (
+                <ButtonOutLine onClick={handlebookMarkClicked}>
+                  <img
+                    className={style.book_mark_icon}
+                    src={bookMarkFill}
+                    alt="Bookmarked"
+                  />
+                </ButtonOutLine>
+              ) : (
+                <ButtonOutLine onClick={handlebookMarkClicked}>
+                  <img
+                    className={style.book_mark_icon}
+                    src={bookMarkStroke}
+                    alt="Not Bookmarked"
+                  />
+                </ButtonOutLine>
+              )}
+            </>
           ) : (
-            <ButtonOutLine onClick={handlebookMarkClicked}>
+            <ButtonOutLine onClick={() => setOpen(true)}>
               <img
                 className={style.book_mark_icon}
                 src={bookMarkStroke}
@@ -142,6 +140,7 @@ const TitleContainer = ({ recipe }: props) => {
           )}
         </div>
       </div>
+      <SignupModal open={open} setOpen={setOpen} />
 
       <div className={style.pill_container}>
         <Pill>{recipe.category}</Pill>

@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { Rating } from "react-simple-star-rating";
-import likeIcon from "./../../../../../../../assets/icons/likeIcon.svg";
-import style from "./style.module.css";
+import { useEffect, useState } from 'react';
+import { Rating } from 'react-simple-star-rating';
+import likeIcon from './../../../../../../../assets/icons/likeIcon.svg';
+import style from './style.module.css';
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../../../../hooks/hooks";
+} from '../../../../../../../hooks/hooks';
 import {
+  getRatings,
   selectRatingLoading,
   selectRatings,
-} from "../../../../../../../slices/ratingSlice";
-import { allRatingType, singleRate } from "./ReviewForm/RatingComponent";
-import Paragraph from "../../../../../../../utils/Typography/Paragraph";
+} from '../../../../../../../slices/ratingSlice';
+import { allRatingType, singleRate } from './ReviewForm/RatingComponent';
+import Paragraph from '../../../../../../../utils/Typography/Paragraph';
 
 export function RatingContainer({ recipe, className }: any) {
+  const dispatch = useAppDispatch();
   const oldRating = useAppSelector(selectRatings);
-  console.log(className);
+  console.log(oldRating);
   const ratingLoading = useAppSelector(selectRatingLoading);
   function init(): number | undefined {
     if (ratingLoading) {
@@ -44,6 +46,9 @@ export function RatingContainer({ recipe, className }: any) {
       }
     }
   }
+  useEffect(() => {
+    dispatch(getRatings());
+  }, []);
   return (
     <div className={style.rating_component}>
       <Rating

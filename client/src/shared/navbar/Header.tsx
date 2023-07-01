@@ -99,7 +99,7 @@ const Header = () => {
                 <img src={user.user_image} className={'profile_img'} />
               </NavLink>
             ) : (
-              <img src={Profile} className={'profile_img'} />
+              <></>
             )}
           </div>
 

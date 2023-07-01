@@ -5,6 +5,7 @@ import UserDataService from '../services/user.services';
 import { auth } from '../database/firebase-config';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const DELETE_USER = createAsyncThunk(
   'recipe/DELETE_USER',
@@ -80,10 +81,22 @@ export const UserSlice = createSlice({
     },
     LOG_OUT: (state) => {
       signOut(auth)
-        .then(() => { })
+        .then(() =>
+          toast.error('Logged Out', {
+            position: 'top-right',
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          })
+        )
         .catch((error) => {
           // An error happened.
         });
+
       state.current_user = null;
       state.loading = false;
       state.auth = false;
@@ -99,8 +112,9 @@ export const UserSlice = createSlice({
       })
       .addCase(getUser.pending, (state) => {
         state.loading = true;
-      }).addCase(getUsers.fulfilled, (state, action) => {
-        state.all_users = action.payload
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.all_users = action.payload;
       });
   },
 });

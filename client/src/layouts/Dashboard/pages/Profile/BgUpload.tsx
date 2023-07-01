@@ -1,15 +1,15 @@
 // BgUpload.jsx
-import { useState } from "react";
-import { Form } from "antd";
-import style from "./style.module.css";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { v4 } from "uuid";
-import { auth, db, imageStore } from "../../../../database/firebase-config";
-import { ToastContainer, toast } from "react-toastify";
-import { doc, setDoc } from "firebase/firestore";
-import { useAppSelector } from "../../../../hooks/hooks";
-import { selectUser } from "../../../../slices/userSlice";
-import uploadIcon from "./../../../../assets/icons/upload.svg";
+import { useState } from 'react';
+import { Form } from 'antd';
+import style from './style.module.css';
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { auth, db, imageStore } from '../../../../database/firebase-config';
+import { ToastContainer, toast } from 'react-toastify';
+import { doc, setDoc } from 'firebase/firestore';
+import { useAppSelector } from '../../../../hooks/hooks';
+import { selectUser } from '../../../../slices/userSlice';
+import uploadIcon from './../../../../assets/icons/upload.svg';
 
 const BgUpload = ({
   setProfileBg,
@@ -34,7 +34,7 @@ const BgUpload = ({
 
   const onUpload = async (e) => {
     const file = e.target.files[0];
-    const allowedFileTypes = ["image/jpeg", "image/png", "image/jpg"];
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     const allowedFileSize = 3 * 1024 * 1024; // 3MB
     if (
       file &&
@@ -43,13 +43,13 @@ const BgUpload = ({
     ) {
       const base64 = await convertToBase64(file);
       const imageRef = ref(imageStore, `users/userImage${v4()}`);
-      uploadString(imageRef, base64, "data_url")
+      const uploading_image = uploadString(imageRef, base64, 'data_url')
         .then(() =>
           getDownloadURL(imageRef).then((downloadURL) => {
             const user = auth.currentUser;
             if (user) {
               setDoc(
-                doc(db, "users", user.uid),
+                doc(db, 'users', user.uid),
                 {
                   user_bg_img: downloadURL,
                 },
@@ -58,45 +58,41 @@ const BgUpload = ({
                 .then(() => {
                   setProfileBgUrl(downloadURL);
                   setProfileBg(downloadURL);
-                  toast.success("Profile image updated", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                  });
                 })
-                .catch(() => {
-                  toast.error("Failed to update profile image", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                  });
-                });
+                .catch(() => {});
             }
           })
         )
-        .catch(() => console.log("first"));
-    } else {
-      toast.error(
-        "Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.",
+        .catch(() => console.log('first'));
+      toast.promise(
+        uploading_image,
         {
-          position: "top-right",
-          autoClose: 5000,
+          pending: 'Uploading Image',
+          success: 'Image Uploaded successfully 👌',
+        },
+        {
+          position: 'top-center',
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
+        }
+      );
+    } else {
+      toast.error(
+        'Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.',
+        {
+          position: 'top-right',
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
         }
       );
     }
@@ -106,7 +102,6 @@ const BgUpload = ({
     <div>
       <Form.Item name="user_bg_image" className={style.user_bg_image}>
         <div className={style.profile_bg_image_wrapper}>
-          <ToastContainer />
           {profileBg || current_img ? (
             <img
               className={style.profile_bg_image}

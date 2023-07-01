@@ -6,7 +6,7 @@ import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../database/firebase-config';
 import { allRatingType } from '../layouts/Site/components/RecipeSite/IndividualRecipePage/components/components/ReviewForm/RatingComponent';
 
-export const getRatings = createAsyncThunk('review/GET_RATINGS', async () => {
+export const getRatings = createAsyncThunk('rating/GET_RATINGS', async () => {
   try {
     const data = await RatingDataService.getAllRatings();
     const allRatings = data.docs.map((doc) => ({
@@ -19,18 +19,21 @@ export const getRatings = createAsyncThunk('review/GET_RATINGS', async () => {
     return [];
   }
 });
-export const setNewRating = createAsyncThunk('rating/SET_RATINGS', async (newRating: allRatingType) => {
-  try {
-    setDoc(doc(db, 'ratings', newRating.id), {
-      id: newRating.id,
-      allRatings: newRating.allRating
-    });
-  } catch (error) {
-    console.log(error)
-    // Handle error
-    return [];
+export const setNewRating = createAsyncThunk(
+  'rating/SET_RATINGS',
+  async (newRating: allRatingType) => {
+    try {
+      setDoc(doc(db, 'ratings', newRating.id), {
+        id: newRating.id,
+        allRatings: newRating.allRating,
+      });
+    } catch (error) {
+      console.log(error);
+      // Handle error
+      return [];
+    }
   }
-});
+);
 
 const initialState = {
   ratings: <any>[],
@@ -38,7 +41,7 @@ const initialState = {
 };
 
 export const RatingSlice = createSlice({
-  name: 'review',
+  name: 'rating',
   initialState,
   reducers: {
     UPDATE_RATINGS: (state, action) => {
@@ -61,9 +64,10 @@ export const RatingSlice = createSlice({
       })
       .addCase(getRatings.rejected, (state, action) => {
         state.loading = false;
-      }).addCase(setNewRating.fulfilled, (state, action: any) => {
-        getRatings()
       })
+      .addCase(setNewRating.fulfilled, (state, action: any) => {
+        getRatings();
+      });
   },
 });
 
