@@ -26,7 +26,7 @@ import ReviewForm from './components/ReviewForm/ReviewForm';
 import { selectUser } from '../../../../../../slices/userSlice';
 import { Rating } from 'react-simple-star-rating';
 import { useState } from 'react';
-import SignupModal from '../../../../../../Authentication/signupModal';
+import SignupModal from '../../../../../../Authentication/SignupModal';
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();

@@ -36,7 +36,7 @@ import {
 } from '../../../../../../../../slices/reviewSlice';
 import deleteIcon from './../../../../../../../../assets/icons/deleteIcon.svg';
 import editIcon from './../../../../../../../../assets/icons/editIcon.svg';
-import SignupModal from '../../../../../../../../Authentication/signupModal';
+import SignupModal from '../../../../../../../../Authentication/SignupModal';
 export default function ReviewForm({ recipe }: any) {
   const user = useAppSelector(selectUser);
   const [open, setOpen] = useState(false);
