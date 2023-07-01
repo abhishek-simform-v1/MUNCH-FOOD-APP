@@ -20,7 +20,6 @@ import {
 } from '../../../../../../../slices/userSlice';
 import ButtonOutLine from '../../../../../../../utils/buttons/ButtonOutLine';
 import { ToastContainer, toast } from 'react-toastify';
-import SignupModal from '../../../../../../../Authentication/signupModal';
 
 type props = {
   recipe: RecipeInterface;
