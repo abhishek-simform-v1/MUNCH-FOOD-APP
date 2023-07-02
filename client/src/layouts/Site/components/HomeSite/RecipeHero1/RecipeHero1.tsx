@@ -4,7 +4,7 @@ import Tag from '../../../../../utils/Typography/Tag';
 import Title from '../../../../../utils/Typography/Title';
 import Button from '../../../../../utils/buttons/Button';
 import MainContainer from '../../../../../utils/containers/MainContainer';
-import dish from './../../../../../assets/dish_02.jpg';
+import dish from './../../../../../assets/hero2.svg';
 import style from './RecipeHero1.module.css';
 const RecipeHero1 = () => {
   return (

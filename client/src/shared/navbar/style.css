@@ -6,14 +6,25 @@
   font-family: f_regular;
   cursor: pointer;
   color: var(--logo_color);
-
 }
+.menu {
+  cursor: pointer;
+  z-index: 1;
+}
+.open {
+  transform: translateX(0%);
 
+  transition: all 0.3s;
+}
+.close {
+  transition: all 0.3s;
+
+  transform: translateX(110%);
+}
 .inactive {
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--text-gray-color);
-
 
   /* color: ({ active }) => active ? #e6007e : var(--text-gray-color); */
   font-family: f_regular;
@@ -21,12 +32,20 @@
   transition: 0.3s all;
 }
 
-.profile_img_container {
-  width: 32px;
+.profile_img_container,
+.link_icons {
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  display: flex;
 }
 
 .profile_img {
   width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border: 2px solid var(--accent_lite);
+  border-radius: var(--lg_border_radius);
 }
 
 .inactive:hover {
@@ -35,7 +54,6 @@
 
 .auth_icon {
   cursor: pointer;
-
 }
 
 .auth_icon:hover {

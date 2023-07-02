@@ -46,21 +46,20 @@ export default function RecipeForm() {
         return (ing.ingredient_operation = '');
       }
     });
-    console.log(values);
     if (current_recipe) {
       const update_recipe = {
         id: current_recipe.id,
         updated_recipe: values,
       };
+
       dispatch(UPDATE_RECIPE(update_recipe));
       dispatch(getRecipes());
-      navigate('/recipes', { replace: true });
+      // navigate('/myrecipes', { replace: true });
     } else {
       dispatch(CREATE_RECIPE(values));
       dispatch(getRecipes());
     }
     form.resetFields();
-    console.log(values);
     setImages(null);
     setImageUrl(null);
     setNext(false);

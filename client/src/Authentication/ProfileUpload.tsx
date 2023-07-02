@@ -160,15 +160,15 @@
 // export default ProfileUpload;
 import { useState } from 'react';
 import { Form } from 'antd';
-import style from './style.module.css';
+import style from './auth.module.css';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { v4 } from 'uuid';
-import { auth, db, imageStore } from '../../../../database/firebase-config';
+import { auth, db, imageStore } from '../database/firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import { doc, setDoc } from 'firebase/firestore';
-import { useAppSelector } from '../../../../hooks/hooks';
-import { getUser, selectUser } from '../../../../slices/userSlice';
-import Paragraph from '../../../../utils/Typography/Paragraph';
+import { useAppSelector } from '../hooks/hooks';
+import { getUser, selectUser } from '../slices/userSlice';
+import Paragraph from '../utils/Typography/Paragraph';
 
 const ProfileUpload = ({
   setProfile,

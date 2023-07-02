@@ -24,7 +24,7 @@ import { LOG_IN } from '../slices/userSlice';
 import SubTitle from '../utils/Typography/SubTitle';
 import { Form, Input } from 'antd';
 import FormItem from 'antd/es/form/FormItem';
-import ProfileUpload from '../layouts/Dashboard/pages/Profile/ProfileUpload';
+import ProfileUpload from './ProfileUpload';
 import Button from '../utils/buttons/Button';
 type imageType = {
   data_url: string;

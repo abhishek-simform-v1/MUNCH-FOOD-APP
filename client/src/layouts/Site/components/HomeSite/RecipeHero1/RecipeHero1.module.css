@@ -4,10 +4,12 @@
 
   align-items: center;
 }
-.img_container img {
+.img_container
+ img {
+  height
+:100%;
   width: 100%;
   /* filter: hue-rotate(300deg); */
-  filter: sepia(40%);
 }
 .img_container {
   display: flex;

@@ -14,7 +14,7 @@ import {
 } from '../../../../slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-import ProfileUpload from './ProfileUpload';
+import ProfileUpload from '../../../../Authentication/ProfileUpload';
 import BgUpload from './BgUpload';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -57,7 +57,6 @@ export default function Profile() {
       job_title: values.job_title,
       user_bio: values.user_bio,
     };
-    console.log(updatedUser);
     toast.success('profile updated', {
       position: 'top-right',
       autoClose: 2500,
@@ -96,14 +95,7 @@ export default function Profile() {
               form={form}
               current_img={user?.user_bg_img}
             />
-            <ProfileUpload
-              setProfile={setProfile}
-              setProfileUrl={setProfileUrl}
-              profile={profile}
-              profileUrl={profileUrl}
-              form={form}
-              current_img={user?.user_image}
-            />
+            <img src={user?.user_image} className={style.profile_image} />
             <Checkbox
               checked={componentDisabled}
               onChange={(e) => setComponentDisabled(e.target.checked)}

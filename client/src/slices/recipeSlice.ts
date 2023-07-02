@@ -2,13 +2,23 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RecipeInterface } from './InitialData';
 import RecipeDataService from '../services/recipe.services';
+import { toast } from 'react-toastify';
 
 export const CREATE_RECIPE = createAsyncThunk(
   'recipe/CREATE_RECIPE',
   async (newRecipe: RecipeInterface) => {
     try {
       await RecipeDataService.addRecipes(newRecipe);
-      alert('New recipe added');
+      toast.success('New Recipe Created', {
+        position: 'top-right',
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     } catch (error) {
       // Handle error
     }
@@ -19,7 +29,16 @@ export const DELETE_RECIPE = createAsyncThunk(
   async (id: string) => {
     try {
       await RecipeDataService.delete(id);
-      alert('Recipe Deleted');
+      toast.error('recipe deleted', {
+        position: 'top-right',
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     } catch (error) {
       // Handle error
     }
@@ -58,12 +77,23 @@ export const RecipeSlice = createSlice({
         updated_recipe.id,
         updated_recipe.updated_recipe
       );
+      state.current_recipe = null;
+      toast.success('Recipe Updated Success fully', {
+        position: 'top-right',
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     },
     ADD_FILTERED_RECIPE: (state, action) => {
-      state.filtered_recipe = action.payload
+      state.filtered_recipe = action.payload;
     },
     ADD_USER_RECIPE: (state, action) => {
-      state.user_recipes = action.payload
+      state.user_recipes = action.payload;
     },
     ADD_CURRENT_RECIPE: (state, action) => {
       state.current_recipe = action.payload;
@@ -85,9 +115,15 @@ export const RecipeSlice = createSlice({
 });
 
 export default RecipeSlice.reducer;
-export const { ADD_CURRENT_RECIPE, UPDATE_RECIPE, ADD_FILTERED_RECIPE, ADD_USER_RECIPE } = RecipeSlice.actions;
+export const {
+  ADD_CURRENT_RECIPE,
+  UPDATE_RECIPE,
+  ADD_FILTERED_RECIPE,
+  ADD_USER_RECIPE,
+} = RecipeSlice.actions;
 export const selectRecipes = (state: any) => state.recipe.recipes;
-export const selectFilteredRecipes = (state: any) => state.recipe.filtered_recipe;
+export const selectFilteredRecipes = (state: any) =>
+  state.recipe.filtered_recipe;
 export const selectUserRecipes = (state: any) => state.recipe.user_recipes;
 export const selectCurrentRecipe = (state: any) => state.recipe.current_recipe;
 export const selectLoading = (state: any) => state.recipe.loading;

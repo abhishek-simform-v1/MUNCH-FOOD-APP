@@ -17,7 +17,6 @@ import Paragraph from '../../../../../../../utils/Typography/Paragraph';
 export function RatingContainer({ recipe, className }: any) {
   const dispatch = useAppDispatch();
   const oldRating = useAppSelector(selectRatings);
-  console.log(oldRating);
   const ratingLoading = useAppSelector(selectRatingLoading);
   function init(): number | undefined {
     if (ratingLoading) {
