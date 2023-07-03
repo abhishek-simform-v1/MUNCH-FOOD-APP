@@ -1,23 +1,27 @@
 import firebase from "firebase/compat/app"
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth'
-import { getStorage } from 'firebase/storage'
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyA0xil3o9rm23A5sKEDCAFqzYR7T0XYqKs',
-  authDomain: 'munch-food-app.firebaseapp.com',
-  projectId: 'munch-food-app',
-  storageBucket: 'munch-food-app.appspot.com',
-  messagingSenderId: '395835089502',
-  appId: '1:395835089502:web:ccac531f15db8ea9ce4acf',
-  measurementId: 'G-NETY7ZYE73',
+  apiKey: "AIzaSyA9W8M8-MdOsNtjT5zlEIT_vB6TLPydXW0",
+  authDomain: "react-auth-a0216.firebaseapp.com",
+  projectId: "react-auth-a0216",
+  storageBucket: "react-auth-a0216.appspot.com",
+  messagingSenderId: "92825612211",
+  appId: "1:92825612211:web:4468c8958354f5d7f2e5c6",
+  measurementId: "G-H128ENQQ82"
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-firebase.initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 export const imageStore = getStorage(app)
 export const db = getFirestore(app);

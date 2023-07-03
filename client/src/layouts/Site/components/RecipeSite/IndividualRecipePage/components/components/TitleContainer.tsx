@@ -1,26 +1,26 @@
-import { RecipeInterface } from '../../../../../../../slices/InitialData';
-import Paragraph from '../../../../../../../utils/Typography/Paragraph';
-import Tag from '../../../../../../../utils/Typography/Tag';
-import Title from '../../../../../../../utils/Typography/Title';
-import Pill from '../../../../../../../utils/buttons/Pill';
-import { RatingContainer } from './RatingContainer';
-import style from './style.module.css';
-import bookMarkStroke from './../../../../../../../assets/icons/bookMarkStroke.svg';
-import share from './../../../../../../../assets/icons/share.svg';
-import bookMarkFill from './../../../../../../../assets/icons/bookMarkFill.svg';
-import { useState } from 'react';
+import { RecipeInterface } from "../../../../../../../slices/InitialData";
+import Paragraph from "../../../../../../../utils/Typography/Paragraph";
+import Tag from "../../../../../../../utils/Typography/Tag";
+import Title from "../../../../../../../utils/Typography/Title";
+import Pill from "../../../../../../../utils/buttons/Pill";
+import { RatingContainer } from "./RatingContainer";
+import style from "./style.module.css";
+import bookMarkStroke from "./../../../../../../../assets/icons/bookMarkStroke.svg";
+import share from "./../../../../../../../assets/icons/share.svg";
+import bookMarkFill from "./../../../../../../../assets/icons/bookMarkFill.svg";
+import { useState } from "react";
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../../../../../hooks/hooks';
+} from "../../../../../../../hooks/hooks";
 import {
   UPDATE_USER,
   getUser,
   selectUser,
-} from '../../../../../../../slices/userSlice';
-import ButtonOutLine from '../../../../../../../utils/buttons/ButtonOutLine';
-import { ToastContainer, toast } from 'react-toastify';
-import SignupModal from '../../../../../../../Authentication/SignupModal';
+} from "../../../../../../../slices/userSlice";
+import ButtonOutLine from "../../../../../../../utils/buttons/ButtonOutLine";
+import { ToastContainer, toast } from "react-toastify";
+import SignupModal from "../../../../../../../Authentication/SignupModal";
 
 type props = {
   recipe: RecipeInterface;
@@ -38,7 +38,7 @@ const TitleContainer = ({ recipe }: props) => {
   }
 
   const [bookmarked, setBookMarked] = useState(isBookMarked());
-  const [sharedLink, setSharedLink] = useState('');
+  const [sharedLink, setSharedLink] = useState("");
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
 
@@ -59,7 +59,6 @@ const TitleContainer = ({ recipe }: props) => {
       saved_recipes: is_saved,
     };
     dispatch(UPDATE_USER(updatedUser));
-    dispatch(getUser());
   }
 
   async function shareLinkFunction() {
@@ -67,26 +66,26 @@ const TitleContainer = ({ recipe }: props) => {
 
     try {
       await navigator.clipboard.writeText(currentUrl);
-      toast.success('Link Copied To Clipboard', {
-        position: 'top-right',
+      toast.success("Link Copied To Clipboard", {
+        position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: "light",
       });
     } catch (error) {
-      toast.error('Failed to Copy Link', {
-        position: 'top-right',
+      toast.error("Failed to Copy Link", {
+        position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: "light",
       });
     }
   }
@@ -97,15 +96,15 @@ const TitleContainer = ({ recipe }: props) => {
 
       <div
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <div style={{ width: '100%' }}>
+        <div style={{ width: "100%" }}>
           <Tag>{recipe.recipe_tagline}</Tag>
         </div>
-        <div style={{ display: 'flex', gap: '1em' }}>
+        <div style={{ display: "flex", gap: "1em" }}>
           <ButtonOutLine onClick={shareLinkFunction}>
             <img className={style.share_icon} src={share} alt="share" />
           </ButtonOutLine>
@@ -148,7 +147,7 @@ const TitleContainer = ({ recipe }: props) => {
       <RatingContainer recipe={recipe} />
       <div className={style.cook_time_container}>
         <Paragraph>
-          Total{' '}
+          Total{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.chill_time +
               recipe.cooking_time.cook_time +
@@ -157,19 +156,19 @@ const TitleContainer = ({ recipe }: props) => {
           </span>
         </Paragraph>
         <Paragraph>
-          Prep{' '}
+          Prep{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.preperation_time}m
           </span>
         </Paragraph>
         <Paragraph>
-          Chill{' '}
+          Chill{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.chill_time}m
           </span>
         </Paragraph>
         <Paragraph>
-          Cook{' '}
+          Cook{" "}
           <span style={{ fontWeight: 900 }}>
             {recipe.cooking_time.cook_time}m
           </span>

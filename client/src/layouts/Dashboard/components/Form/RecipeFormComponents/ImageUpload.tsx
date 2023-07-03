@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import upload from './../../../../../assets/Image upload.gif';
-import style from './../../ImageStyle.module.css';
-import { Form } from 'antd';
-import { imageStore } from '../../../../../database/firebase-config';
-import { getDownloadURL, ref, uploadString } from 'firebase/storage';
-import { v4 } from 'uuid';
-import { ToastContainer, toast } from 'react-toastify';
+import { useState } from "react";
+import upload from "./../../../../../assets/Image upload.gif";
+import style from "./../../ImageStyle.module.css";
+import { Form } from "antd";
+import { imageStore } from "../../../../../database/firebase-config";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { v4 } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
 const ImageUpload = ({
   setImages,
   images,
@@ -28,7 +28,7 @@ const ImageUpload = ({
   }
   const onUpload = async (e: any) => {
     const file = e.target.files[0];
-    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const allowedFileTypes = ["image/jpeg", "image/png", "image/jpg"];
     const allowedFileSize = 3 * 1024 * 1024; // 3MB
     if (
       file &&
@@ -38,17 +38,16 @@ const ImageUpload = ({
       const base64: any = await convertToBase64(e.target.files[0]);
       setImages(base64);
       const imageRef = ref(imageStore, `images/recipeImage${v4()}}`);
-
       const uploadImage = () =>
-        uploadString(imageRef, base64, 'data_url')
+        uploadString(imageRef, base64, "data_url")
           .then(() =>
             getDownloadURL(imageRef).then((downloadURL) => {
               setImageUrl(downloadURL);
               form.setFields([
                 {
-                  name: 'recipe_image',
+                  name: "recipe_image",
                   value: downloadURL,
-                  errors: [''],
+                  errors: [""],
                 },
               ]);
             })
@@ -57,33 +56,33 @@ const ImageUpload = ({
       toast.promise(
         uploadImage,
         {
-          pending: 'image is uploading',
-          success: 'image Uploaded resolved 👌',
-          error: 'can not upload image 🤯',
+          pending: "image is uploading",
+          success: "image Uploaded resolved 👌",
+          error: "can not upload image 🤯",
         },
         {
-          position: 'top-center',
+          position: "top-center",
           autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: "light",
         }
       );
     } else {
       toast.error(
-        'Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.',
+        "Invalid file. Please select a JPG, PNG, or JPEG file up to 3MB.",
         {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: "light",
         }
       );
     }
@@ -95,8 +94,8 @@ const ImageUpload = ({
       <Form.Item
         name="recipe_image"
         label="Recipe Image"
-        validateTrigger={['onChange', 'onBlur']}
-        rules={[{ required: true, message: 'Missing recipe image' }]}
+        validateTrigger={["onChange", "onBlur"]}
+        rules={[{ required: true, message: "Missing recipe image" }]}
       >
         <div className={style.image_container}>
           <img
@@ -112,7 +111,7 @@ const ImageUpload = ({
             className={style.inputfile}
           />
           <label htmlFor="file">
-            {images!?.length > 0 ? 'Update Image' : 'Upload Image'}
+            {images!?.length > 0 ? "Update Image" : "Upload Image"}
           </label>
         </div>
       </Form.Item>

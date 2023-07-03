@@ -1,14 +1,14 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
-import useWindowSize from '../../../../../../hooks/useWindowSize';
-import ImageContainer from './components/ImageContainer';
-import IngredientsContainer from './components/IngredientsContainer';
-import InstructionContainer from './components/InstructionContainer';
-import NutritionContainer from './components/NutritionContainer';
-import TitleContainer from './components/TitleContainer';
-import style from './style.module.css';
-import { Button } from 'antd';
-import ButtonOutLine from '../../../../../../utils/buttons/ButtonOutLine';
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../../../hooks/hooks";
+import useWindowSize from "../../../../../../hooks/useWindowSize";
+import ImageContainer from "./components/ImageContainer";
+import IngredientsContainer from "./components/IngredientsContainer";
+import InstructionContainer from "./components/InstructionContainer";
+import NutritionContainer from "./components/NutritionContainer";
+import TitleContainer from "./components/TitleContainer";
+import style from "./style.module.css";
+import { Button } from "antd";
+import ButtonOutLine from "../../../../../../utils/buttons/ButtonOutLine";
 import {
   ADD_CURRENT_RECIPE,
   DELETE_RECIPE,
@@ -16,17 +16,17 @@ import {
   getRecipes,
   selectLoading,
   selectRecipes,
-} from '../../../../../../slices/recipeSlice';
-import Loader from '../../../../../../utils/loader/Loader';
-import { selectReview } from '../../../../../../slices/reviewSlice';
-import goBack from './../../../../../../assets/icons/goBack.svg';
-import Paragraph from '../../../../../../utils/Typography/Paragraph';
-import RatingComponent from './components/ReviewForm/RatingComponent';
-import ReviewForm from './components/ReviewForm/ReviewForm';
-import { selectUser } from '../../../../../../slices/userSlice';
-import { Rating } from 'react-simple-star-rating';
-import { useState } from 'react';
-import SignupModal from '../../../../../../Authentication/SignupModal';
+} from "../../../../../../slices/recipeSlice";
+import { selectReview } from "../../../../../../slices/reviewSlice";
+import goBack from "./../../../../../../assets/icons/goBack.svg";
+import Paragraph from "../../../../../../utils/Typography/Paragraph";
+import RatingComponent from "./components/ReviewForm/RatingComponent";
+import ReviewForm from "./components/ReviewForm/ReviewForm";
+import { selectUser } from "../../../../../../slices/userSlice";
+import { Rating } from "react-simple-star-rating";
+import { useState } from "react";
+import SignupModal from "../../../../../../Authentication/SignupModal";
+import Loading1 from "../../../../../../Loaders/Loading1";
 
 const RecipeUiCard = () => {
   const windowSize = useWindowSize();
@@ -90,7 +90,7 @@ const RecipeUiCard = () => {
               onClick={() => {
                 dispatch(ADD_CURRENT_RECIPE(recipe));
 
-                navigate('/createrecipe');
+                navigate("/createrecipe");
               }}
             >
               Update
@@ -107,14 +107,14 @@ const RecipeUiCard = () => {
                 dispatch(getRecipes());
               }}
             >
-              Delete{' '}
+              Delete{" "}
             </Button>
           ) : (
             <></>
           )}
         </>
       ) : (
-        <Loader />
+        <Loading1 />
       )}
     </>
   );
