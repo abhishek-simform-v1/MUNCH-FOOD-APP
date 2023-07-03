@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { useNavigate } from 'react-router-dom';
-import style from './auth.module.css';
-import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
+import style from "./auth.module.css";
+import { useFormik } from "formik";
 // import { useState } from "react";
-import Title from '../utils/Typography/Title';
-import ImageUploading from 'react-images-uploading';
-import authImage from './../assets/signin.jpg';
-import profileIcon from './../assets/icons/signinprofile.svg';
+import Title from "../utils/Typography/Title";
+import ImageUploading from "react-images-uploading";
+import authImage from "./../assets/signin.jpg";
+import profileIcon from "./../assets/icons/signinprofile.svg";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
-} from 'firebase/auth';
-import { app, auth, db, imageStore } from '../database/firebase-config';
-import { v4 } from 'uuid';
-import { getDownloadURL, ref, uploadString } from 'firebase/storage';
-import { doc, setDoc } from 'firebase/firestore';
-import { useAppDispatch } from '../hooks/hooks';
-import { LOG_IN } from '../slices/userSlice';
-import SubTitle from '../utils/Typography/SubTitle';
-import { Form, Input } from 'antd';
-import FormItem from 'antd/es/form/FormItem';
-import ProfileUpload from './ProfileUpload';
-import Button from '../utils/buttons/Button';
+} from "firebase/auth";
+import { app, auth, db, imageStore } from "../database/firebase-config";
+import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { useAppDispatch } from "../hooks/hooks";
+import { LOG_IN } from "../slices/userSlice";
+import SubTitle from "../utils/Typography/SubTitle";
+import { Form, Input } from "antd";
+import FormItem from "antd/es/form/FormItem";
+import ProfileUpload from "./ProfileUpload";
+import Button from "../utils/buttons/Button";
 type imageType = {
   data_url: string;
   file: File;
@@ -40,16 +40,16 @@ const SignUp = () => {
   const handleSignUp = (values) => {
     if (profileUrl === null) {
       console.log(profileUrl);
-      toast.error('Please Upload User Image', {
-        position: 'top-left',
+      toast.error("Please Upload User Image", {
+        position: "top-left",
         autoClose: 2500,
         hideProgressBar: false,
-        toastId: 'success1',
+        toastId: "success1",
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: "light",
       });
 
       return;
@@ -63,14 +63,14 @@ const SignUp = () => {
         .then((cred) => {
           navigate(-1);
           return (
-            setDoc(doc(db, 'users', cred.user.uid), {
+            setDoc(doc(db, "users", cred.user.uid), {
               user_name: values.email,
               user_email: values.confirm_pwd,
               user_image: profileUrl,
-              user_bg_img: '',
-              Web_site: '',
-              user_bio: '',
-              job_title: '',
+              user_bg_img: "",
+              Web_site: "",
+              user_bio: "",
+              job_title: "",
               saved_recipes: [],
               rated_recipes: [],
               created_recipes: [],
@@ -83,19 +83,19 @@ const SignUp = () => {
       toast.promise(
         creating_user,
         {
-          pending: 'Creating User',
-          success: 'User Created successfully 👌',
-          error: 'User already Exist 🤯',
+          pending: "Creating User",
+          success: "User Created successfully 👌",
+          error: "User already Exist 🤯",
         },
         {
-          position: 'top-center',
+          position: "top-center",
           autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: "light",
         }
       );
     }
@@ -106,12 +106,12 @@ const SignUp = () => {
         <div className={style.wrapper}>
           <div className={style.auth_form}>
             <div className={style.formContainer}>
-              <div style={{ alignSelf: 'center' }}>
+              <div style={{ alignSelf: "center" }}>
                 <SubTitle>Sign Up</SubTitle>
               </div>
               <button
                 className={`btn ${style.back_btn}`}
-                onClick={() => navigate(-1)}
+                onClick={() => navigate("/", { replace: true })}
               >
                 Back
               </button>
@@ -141,7 +141,7 @@ const SignUp = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'profile name required',
+                      message: "profile name required",
                     },
                   ]}
                 >
@@ -156,12 +156,12 @@ const SignUp = () => {
                   label="E-mail"
                   rules={[
                     {
-                      type: 'email',
-                      message: 'The input is not valid E-mail!',
+                      type: "email",
+                      message: "The input is not valid E-mail!",
                     },
                     {
                       required: true,
-                      message: 'Please input your E-mail!',
+                      message: "Please input your E-mail!",
                     },
                   ]}
                 >
@@ -174,7 +174,7 @@ const SignUp = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your password!',
+                      message: "Please input your password!",
                     },
                   ]}
                   hasFeedback
@@ -185,21 +185,21 @@ const SignUp = () => {
                 <Form.Item
                   name="confirm_pwd"
                   label="Confirm Password"
-                  dependencies={['password']}
+                  dependencies={["password"]}
                   hasFeedback
                   rules={[
                     {
                       required: true,
-                      message: 'Please confirm your password!',
+                      message: "Please confirm your password!",
                     },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
-                        if (!value || getFieldValue('password') === value) {
+                        if (!value || getFieldValue("password") === value) {
                           return Promise.resolve();
                         }
                         return Promise.reject(
                           new Error(
-                            'The new password that you entered do not match!'
+                            "The new password that you entered do not match!"
                           )
                         );
                       },
@@ -220,7 +220,7 @@ const SignUp = () => {
                 Already have an account ?
                 <span
                   className={style.routeLink}
-                  onClick={() => navigate('/signin')}
+                  onClick={() => navigate("/signin")}
                 >
                   &nbsp; Login
                 </span>

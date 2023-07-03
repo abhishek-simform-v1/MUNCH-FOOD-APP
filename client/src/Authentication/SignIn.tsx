@@ -1,26 +1,26 @@
 // import React from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
-import style from './auth.module.css';
-import { useFormik } from 'formik';
-import authImage from './../assets/signin.jpg';
+import { Navigate, useNavigate } from "react-router-dom";
+import style from "./auth.module.css";
+import { useFormik } from "formik";
+import authImage from "./../assets/signin.jpg";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
-import { useAppDispatch } from '../hooks/hooks';
-import Title from '../utils/Typography/Title';
+import { useAppDispatch } from "../hooks/hooks";
+import Title from "../utils/Typography/Title";
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-} from 'firebase/auth';
-import { auth } from '../database/firebase-config';
-import { LOG_IN, getUser } from '../slices/userSlice';
-import SubTitle from '../utils/Typography/SubTitle';
-import { getRecipes } from '../slices/recipeSlice';
-import { int, loginValidateSchema } from './validation/validationSchema';
-import { ConfigProvider, Form, Input, Modal } from 'antd';
-import { useState } from 'react';
-import Button from '../utils/buttons/Button';
-import Password from 'antd/es/input/Password';
+} from "firebase/auth";
+import { auth } from "../database/firebase-config";
+import { LOG_IN, getUser } from "../slices/userSlice";
+import SubTitle from "../utils/Typography/SubTitle";
+import { getRecipes } from "../slices/recipeSlice";
+import { int, loginValidateSchema } from "./validation/validationSchema";
+import { ConfigProvider, Form, Input, Modal } from "antd";
+import { useState } from "react";
+import Button from "../utils/buttons/Button";
+import Password from "antd/es/input/Password";
 const SignIn = () => {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
@@ -30,12 +30,12 @@ const SignIn = () => {
     return new Promise((resolve, reject) => {
       sendPasswordResetEmail(auth, value.email)
         .then(() => {
-          toast.success('Password Reset Link is sent to your email address');
+          toast.success("Password Reset Link is sent to your email address");
           setOpen(false);
         })
         .catch((error) => {
           reject(error);
-          toast.error('User Not Found');
+          toast.error("User Not Found");
         });
     });
   };
@@ -46,26 +46,26 @@ const SignIn = () => {
       await dispatch(getUser());
       await dispatch(getRecipes());
       dispatch(LOG_IN());
-      toast.success('User Authenticated successfully 👌', {
-        position: 'top-center',
+      toast.success("User Authenticated successfully 👌", {
+        position: "top-center",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: "light",
       });
     } catch (error) {
-      toast.error('User Does Not Exist 🤯', {
-        position: 'top-center',
+      toast.error("User Does Not Exist 🤯", {
+        position: "top-center",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: "light",
       });
     }
   };
@@ -77,19 +77,19 @@ const SignIn = () => {
           <div className={style.formContainer}>
             <button
               className={`btn ${style.back_btn}`}
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/", { replace: true })}
             >
               Back
             </button>
-            <div style={{ alignSelf: 'center' }}>
+            <div style={{ alignSelf: "center" }}>
               <SubTitle>Sign In</SubTitle>
             </div>
             <ConfigProvider
               theme={{
                 token: {
                   colorPrimary:
-                    'hsl(186.38297872340422, 21.86046511627907%, 66%)',
-                  fontFamily: 'f_regular',
+                    "hsl(186.38297872340422, 21.86046511627907%, 66%)",
+                  fontFamily: "f_regular",
                 },
               }}
             >
@@ -103,12 +103,12 @@ const SignIn = () => {
                   label="E-mail"
                   rules={[
                     {
-                      type: 'email',
-                      message: 'The input is not valid E-mail!',
+                      type: "email",
+                      message: "The input is not valid E-mail!",
                     },
                     {
                       required: true,
-                      message: 'Please input your E-mail!',
+                      message: "Please input your E-mail!",
                     },
                   ]}
                 >
@@ -121,7 +121,7 @@ const SignIn = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your password!',
+                      message: "Please input your password!",
                     },
                   ]}
                   hasFeedback
@@ -146,7 +146,7 @@ const SignIn = () => {
                 Don't have an account ?
                 <span
                   className={style.routeLink}
-                  onClick={() => navigate('/signup')}
+                  onClick={() => navigate("/signup")}
                 >
                   &nbsp;Register
                 </span>
@@ -169,12 +169,12 @@ const SignIn = () => {
                     label="E-mail"
                     rules={[
                       {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
+                        type: "email",
+                        message: "The input is not valid E-mail!",
                       },
                       {
                         required: true,
-                        message: 'Please input your E-mail!',
+                        message: "Please input your E-mail!",
                       },
                     ]}
                   >
