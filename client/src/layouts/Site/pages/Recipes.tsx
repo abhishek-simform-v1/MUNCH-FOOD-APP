@@ -15,6 +15,8 @@ import {
 } from "../../../slices/recipeSlice";
 import Filter from "../components/RecipeSite/Filter/Filter";
 import BigRecipeCard from "../components/RecipeSite/BigRecipeCard/BigRecipeCard";
+import Loading1 from "../../../Loaders/Loading1";
+import Loading from "../../../Loaders/Loading";
 const Recipes = () => {
   const dispatch = useAppDispatch();
 
@@ -31,7 +33,7 @@ const Recipes = () => {
       }}
     >
       {loading ? (
-        <h1>loading</h1>
+        <Loading />
       ) : (
         <>
           <Header />

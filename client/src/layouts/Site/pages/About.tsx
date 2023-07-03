@@ -1,18 +1,18 @@
-import Header from '../../../shared/navbar/Header';
-import Paragraph from '../../../utils/Typography/Paragraph';
-import SubTitleH2 from '../../../utils/Typography/SubTitleH2';
-import MainContainer from '../../../utils/containers/MainContainer';
-import style from './../style/About.module.css';
+import Header from "../../../shared/navbar/Header";
+import Paragraph from "../../../utils/Typography/Paragraph";
+import SubTitleH2 from "../../../utils/Typography/SubTitleH2";
+import MainContainer from "../../../utils/containers/MainContainer";
+import style from "./../style/About.module.css";
 const About = () => {
   return (
     <div
       style={{
-        marginTop: '120px',
+        marginTop: "120px",
       }}
     >
       <Header />
       <MainContainer>
-        <div className={style.introduction}>
+        <div>
           <SubTitleH2>Project Introduction</SubTitleH2>
           <div>
             <Paragraph>
